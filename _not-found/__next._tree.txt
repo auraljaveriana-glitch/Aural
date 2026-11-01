@@ -1,0 +1,8 @@
+:HL["/_next/static/chunks/3xy8mw3ujn7q7.css","style"]
+:HL["/img/footer/logo-aural-blanco.svg","image"]
+:HL["/img/footer/facebook.svg","image"]
+:HL["/img/footer/instagram.svg","image"]
+:HL["/img/footer/youtube.svg","image"]
+2:[["children",{"s":"__PAGE__","h":160}]]
+1:[["children",{"s":"/_not-found","h":96,"c":"$Q2"}]]
+0:{"b":"sXSCXmTarz3HtmDdLfp0f","t":{"t":{"s":"","h":80,"c":"$Q1"}}}
