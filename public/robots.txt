@@ -1,0 +1,4 @@
+# Sitio en revisión: no indexar todavía.
+# QUITAR antes del lanzamiento en auralcolombia.com
+User-agent: *
+Disallow: /
