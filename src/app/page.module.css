@@ -1,5 +1,4 @@
-/* Fondo del hero (INICIO PAG v2): de gris muy claro a la izquierda a azul suave a la derecha,
-   con un brillo azul más intenso abajo a la derecha. Sube detrás del menú (133 px) y llega
+/* Fondo del hero (INICIO PAG v2): foto de fondo de Figma, con un brillo azul más intenso abajo a la derecha. Sube detrás del menú (133 px) y llega
    hasta debajo de las esquinas redondeadas de "Tu camino…" (y973). */
 .arriba {
   position: relative;
@@ -9,8 +8,8 @@
   background:
     radial-gradient(ellipse 34% 30% at 100% 100%, rgba(70, 100, 140, 0.55), rgba(70, 100, 140, 0) 100%) 0 0 /
       100% calc(973 * var(--px)) no-repeat,
-    linear-gradient(90deg, #fbfbfb 0%, #f2f1f1 22%, #eceaea 40%, #e5e6e9 50%, #d6dde6 60%, #c2cfe0 78%, #b2c5dd 90%, #a9bfdb 100%)
-      0 0 / 100% calc(973 * var(--px)) no-repeat;
+    /* "Rectangle 201" de Figma (al 43 % sobre blanco, ya mezclado en la imagen): 1920 × 1044 */
+    url("/img/fondo-hero.jpg") 0 0 / 100% calc(1044 * var(--px)) no-repeat;
 }
 
 /* ondas muy tenues detrás del texto del hero */

@@ -10,7 +10,7 @@
 /* v2 (nov-2026): etiqueta azul y 81 px más de aire arriba */
 .seccion {
   padding-top: calc(172 * var(--px));
-  padding-bottom: calc(188 * var(--px));
+  padding-bottom: calc(231 * var(--px));
 }
 
 .etiqueta {

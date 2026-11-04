@@ -8,7 +8,7 @@
   position: relative;
   overflow-x: clip;
   padding-top: calc(96 * var(--px));
-  padding-bottom: calc(150 * var(--px));
+  padding-bottom: calc(154 * var(--px));
 }
 
 /* ondas grises detrás de las tarjetas: "ONDAS 5%" de Figma a 2383 px (x-11, +261), al 35 % */

@@ -31,8 +31,8 @@ export const soluciones: Solucion[] = [
     titulo: "Intracanal",
     sigla: "(ITC/CIC)",
     // diseño v2 (nov-2026): par de audífonos color piel, la misma foto del hero de su página
-    foto: "/img/audifonos/intracanal/intracanal-1.webp",
-    img: { left: 365, top: 73, width: 376 },
+    foto: "/img/soluciones/intracanal-v2.webp",
+    img: { left: 362, top: 71, width: 382 },
   },
   {
     slug: "recargables",

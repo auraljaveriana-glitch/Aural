@@ -1,25 +1,31 @@
-/* Medidas de "INICIO PAG" @1920 (y relativas a la línea superior, que está en y3279)
-   líneas divisorias: x158–1753, 2 px, #818ea0, arriba y abajo de la sección
-   tarjetas: 340 × 298, radio 32, x1028 y x1423 (separación 56), filas separadas 50,
-   primera fila a 107 px de la línea
-   "Nuestros servicios": x184, mayúsculas de 16 px, dorado, muy espaciado
-   título: x184, 3 líneas cada 56 px */
+/* "Nuestros servicios" — INICIO PAG v2 @1920 (y relativas a la línea superior, y3279)
+   líneas divisorias: x158–1753, 2 px, #818ea0; la sección mide 1005 (de y3279 a y4284)
+   "Nuestros servicios": x184, mayúsculas de 16 px, azul #376aab, en y3648
+   título: x184, 3 líneas cada 56 px desde y3733
+   diagrama: caja de 784 × 728 en x970, y3417 (+138); círculo azul #000942 del tamaño de la caja
+   círculos blancos #f7f7f7 de 238 px con anillo dorado #edc152 de 276 px
+   foto del servicio activo: círculo de 476 px; encima un círculo azul translúcido de 238 px */
 
 .seccion {
+  --u: var(--px);
+  position: relative;
   display: grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: 1fr;
   align-items: start;
+  height: calc(1005 * var(--px));
   margin-inline: calc(158 * var(--px)) calc(167 * var(--px));
-  padding-block: calc(105 * var(--px)) calc(98 * var(--px));
   border-top: 2px solid #818ea0;
   border-bottom: 2px solid #818ea0;
 }
 
 .izquierda {
+  position: relative;
+  z-index: 2;
   display: flex;
   flex-direction: column;
+  width: calc(640 * var(--px));
   padding-left: calc(23 * var(--px));
-  padding-top: calc(155 * var(--px));
+  padding-top: calc(363 * var(--px));
 }
 
 .etiqueta {
@@ -28,12 +34,12 @@
   line-height: 1;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: var(--dorado);
+  color: #376aab;
 }
 
 .titulo {
   margin-top: calc(56 * var(--px));
-  max-width: none;
+  min-height: calc(168 * var(--px));
   letter-spacing: 0.045em;
   padding-left: calc(3 * var(--px));
   font-size: calc(44 * var(--px));
@@ -63,61 +69,176 @@
   width: 100%;
 }
 
-.grilla {
-  list-style: none;
-  padding: 0;
-  margin-right: calc(-10 * var(--px));
-  display: grid;
-  grid-template-columns: repeat(2, calc(340 * var(--px)));
-  gap: calc(50 * var(--px)) calc(56 * var(--px));
+/* ---------- diagrama ---------- */
+.diagrama {
+  position: absolute;
+  left: calc(812 * var(--px));
+  top: calc(136 * var(--px));
+  width: calc(784 * var(--u));
+  height: calc(728 * var(--u));
 }
 
-.tarjeta {
-  position: relative;
-  aspect-ratio: 340 / 298;
-  border-radius: calc(32 * var(--px));
-  background: var(--navy);
-  color: var(--blanco);
-  container-type: inline-size;
+.brillo {
+  position: absolute;
+  left: calc(-340 * var(--u));
+  top: calc(330 * var(--u));
+  width: calc(840 * var(--u));
+  height: calc(640 * var(--u));
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(165, 188, 220, 0.55), rgba(165, 188, 220, 0));
+  pointer-events: none;
+}
+
+.disco {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: #000942;
+  transition: opacity 0.25s ease;
+}
+
+.conActivo .disco {
+  opacity: 0;
+}
+
+.nodos {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nodo {
+  position: absolute;
+  left: calc(var(--x) * var(--u));
+  top: calc(var(--y) * var(--u));
+  width: 0;
+  height: 0;
+}
+
+.nodo button {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: calc(238 * var(--u));
+  height: calc(238 * var(--u));
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  font-family: var(--font-titulos);
+}
+
+.circulo {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: 50%;
+  color: var(--navy);
+}
+
+/* círculo blanco con anillo dorado */
+.blanco .circulo {
+  background: #f7f7f7;
+}
+
+.blanco .circulo::before {
+  content: "";
+  position: absolute;
+  inset: calc(-19.25 * var(--u));
+  border: calc(1.5 * var(--u)) solid #edc152;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.blanco {
+  z-index: 2;
 }
 
 .icono {
   position: absolute;
-  object-fit: contain;
+  left: calc(50% + var(--il) * var(--u));
+  top: calc(50% + var(--it) * var(--u));
+  width: calc(var(--iw) * var(--u));
+  height: calc(var(--ih) * var(--u));
+  background: #3f72b0;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
 }
 
 .nombre {
   position: absolute;
   left: 0;
   right: 0;
-  top: calc(196 / 340 * 100cqi);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-size: calc(22.5 / 340 * 100cqi);
-  line-height: calc(25 / 340 * 100cqi);
+  top: calc(50% + 40.5 * var(--u));
+  font-size: max(10px, calc(18 * var(--u)));
+  line-height: max(10px, calc(17 * var(--u)));
   font-weight: 400;
   text-align: center;
 }
 
-.nombre b {
-  font-weight: 600;
+/* "Entrenamiento auditivo" suelto sobre el círculo azul (estado inicial) */
+.suelto .circulo {
+  color: var(--blanco);
 }
 
-.nombre > span:last-child {
-  letter-spacing: 0.035em;
+.suelto .icono {
+  top: calc(50% - 58.25 * var(--u));
+  background: var(--blanco);
+}
+
+.suelto .nombre {
+  top: calc(50% + 43 * var(--u));
+  line-height: max(12px, calc(23 * var(--u)));
+}
+
+/* servicio activo: foto grande + círculo azul translúcido con ícono y nombre en blanco */
+.activo {
+  z-index: 1;
+}
+
+.foto {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: calc(476 * var(--u));
+  height: calc(476 * var(--u));
+  border-radius: 50%;
+  overflow: hidden;
+  background: #cfd6e0;
+  transform: translate(-50%, -50%);
+}
+
+.foto img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.activo .circulo {
+  background: rgba(4, 22, 66, 0.72);
+  color: var(--blanco);
+}
+
+.activo .icono {
+  background: var(--blanco);
 }
 
 /* ===== Tablet y celular ===== */
 @media (max-width: 1023px) {
   .seccion {
-    grid-template-columns: 1fr;
+    --u: min(calc((100vw - 64px) / 784), 0.6px);
+    height: auto;
     gap: 36px;
     margin-inline: max(20px, env(safe-area-inset-left, 0px)) max(20px, env(safe-area-inset-right, 0px));
     padding-block: 56px;
   }
 
   .izquierda {
+    width: auto;
     padding: 0;
   }
 
@@ -131,27 +252,20 @@
 
   .titulo {
     margin-top: 20px;
+    min-height: 0;
     max-width: 15em;
     font-size: clamp(26px, 5.6vw, 36px);
     line-height: 1.27;
   }
 
   .flecha {
-    display: none; /* en celular la sección no necesita la flecha decorativa */
+    display: none;
   }
 
-  .tarjeta {
-    border-radius: 20px;
-  }
-
-  .grilla {
-    margin: 0;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 14px;
-  }
-
-  .nombre {
-    font-size: max(14px, calc(22.5 / 340 * 100cqi));
-    line-height: 1.15;
+  .diagrama {
+    position: relative;
+    left: auto;
+    top: auto;
+    margin: 30px auto 50px;
   }
 }

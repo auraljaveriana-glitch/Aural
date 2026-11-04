@@ -8,7 +8,7 @@
   background: var(--navy);
   color: var(--blanco);
   font-family: var(--font-ui);
-  padding: calc(271 * var(--px)) calc(240 * var(--px)) calc(273 * var(--px));
+  padding: calc(276 * var(--px)) calc(240 * var(--px)) calc(202 * var(--px));
 }
 
 .arriba {
