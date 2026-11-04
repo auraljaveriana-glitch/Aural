@@ -1,0 +1,157 @@
+/* Medidas de "INICIO PAG" @1920 (y relativas a la línea superior, que está en y3279)
+   líneas divisorias: x158–1753, 2 px, #818ea0, arriba y abajo de la sección
+   tarjetas: 340 × 298, radio 32, x1028 y x1423 (separación 56), filas separadas 50,
+   primera fila a 107 px de la línea
+   "Nuestros servicios": x184, mayúsculas de 16 px, dorado, muy espaciado
+   título: x184, 3 líneas cada 56 px */
+
+.seccion {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: start;
+  margin-inline: calc(158 * var(--px)) calc(167 * var(--px));
+  padding-block: calc(105 * var(--px)) calc(98 * var(--px));
+  border-top: 2px solid #818ea0;
+  border-bottom: 2px solid #818ea0;
+}
+
+.izquierda {
+  display: flex;
+  flex-direction: column;
+  padding-left: calc(23 * var(--px));
+  padding-top: calc(155 * var(--px));
+}
+
+.etiqueta {
+  font-size: calc(22.5 * var(--px));
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--dorado);
+}
+
+.titulo {
+  margin-top: calc(56 * var(--px));
+  max-width: none;
+  letter-spacing: 0.045em;
+  padding-left: calc(3 * var(--px));
+  font-size: calc(44 * var(--px));
+  line-height: calc(56 * var(--px));
+  font-weight: 300;
+}
+
+.titulo b {
+  font-weight: 700;
+}
+
+/* saltos de línea como en Figma (solo en escritorio) */
+.linea {
+  display: block;
+}
+
+.flecha {
+  align-self: flex-start;
+  margin-top: calc(39 * var(--px));
+  margin-left: calc(501 * var(--px));
+  width: calc(52 * var(--px));
+  color: #70706f;
+}
+
+.flecha svg {
+  display: block;
+  width: 100%;
+}
+
+.grilla {
+  list-style: none;
+  padding: 0;
+  margin-right: calc(-10 * var(--px));
+  display: grid;
+  grid-template-columns: repeat(2, calc(340 * var(--px)));
+  gap: calc(50 * var(--px)) calc(56 * var(--px));
+}
+
+.tarjeta {
+  position: relative;
+  aspect-ratio: 340 / 298;
+  border-radius: calc(32 * var(--px));
+  background: var(--navy);
+  color: var(--blanco);
+  container-type: inline-size;
+}
+
+.icono {
+  position: absolute;
+  object-fit: contain;
+}
+
+.nombre {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(196 / 340 * 100cqi);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: calc(22.5 / 340 * 100cqi);
+  line-height: calc(25 / 340 * 100cqi);
+  font-weight: 400;
+  text-align: center;
+}
+
+.nombre b {
+  font-weight: 600;
+}
+
+.nombre > span:last-child {
+  letter-spacing: 0.035em;
+}
+
+/* ===== Tablet y celular ===== */
+@media (max-width: 1023px) {
+  .seccion {
+    grid-template-columns: 1fr;
+    gap: 36px;
+    margin-inline: max(20px, env(safe-area-inset-left, 0px)) max(20px, env(safe-area-inset-right, 0px));
+    padding-block: 56px;
+  }
+
+  .izquierda {
+    padding: 0;
+  }
+
+  .etiqueta {
+    font-size: 14px;
+  }
+
+  .linea {
+    display: inline;
+  }
+
+  .titulo {
+    margin-top: 20px;
+    max-width: 15em;
+    font-size: clamp(26px, 5.6vw, 36px);
+    line-height: 1.27;
+  }
+
+  .flecha {
+    display: none; /* en celular la sección no necesita la flecha decorativa */
+  }
+
+  .tarjeta {
+    border-radius: 20px;
+  }
+
+  .grilla {
+    margin: 0;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  .nombre {
+    font-size: max(14px, calc(22.5 / 340 * 100cqi));
+    line-height: 1.15;
+  }
+}

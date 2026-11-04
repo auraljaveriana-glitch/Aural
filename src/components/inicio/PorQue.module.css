@@ -1,0 +1,201 @@
+/* Medidas de "INICIO PAG" @1920 (y desde la línea divisoria de arriba, y4130)
+   "Por qué elegir Aural": centrado, mayúsculas de 16 px, dorado, cap en +95
+   título: 2 líneas centradas, interlínea 50
+   lista: carril gris #f0f0f0 de 5 px en x68 (y4501–5098); barra azul de 10 px
+     en x66 que cubre la opción abierta
+   opción abierta: título azul en negrita x149; texto gris #706f6f x150, interlínea 38
+   opciones cerradas: gris #706f6f; flecha a la derecha en x772
+   foto: x903–1888 × y4476–5102 (986 × 627, esquinas redondeadas en la imagen) */
+
+.seccion {
+  padding-top: calc(91 * var(--px));
+  padding-bottom: calc(188 * var(--px));
+}
+
+.etiqueta {
+  font-size: calc(22.5 * var(--px));
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: 0.3em;
+  text-align: center;
+  text-transform: uppercase;
+  color: var(--dorado);
+}
+
+.titulo {
+  margin: calc(14 * var(--px)) auto 0;
+  max-width: calc(1000 * var(--px));
+  font-size: calc(46 * var(--px));
+  line-height: calc(50 * var(--px));
+  font-weight: 300;
+  text-align: center;
+  letter-spacing: 0.02em;
+}
+
+.titulo b {
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+.cuerpo {
+  display: grid;
+  grid-template-columns: calc(837 * var(--px)) calc(986 * var(--px));
+  align-items: start;
+  margin-top: calc(116 * var(--px));
+  padding-left: calc(66 * var(--px));
+}
+
+.lista {
+  list-style: none;
+  padding: 0;
+  margin-top: calc(25 * var(--px));
+  position: relative;
+  /* carril gris */
+  background: linear-gradient(#f0f0f0, #f0f0f0) no-repeat calc(2 * var(--px)) 0 / calc(5 * var(--px)) 100%;
+  min-height: calc(597 * var(--px));
+  width: calc(723 * var(--px));
+}
+
+.item {
+  position: relative;
+  padding: calc(4 * var(--px)) 0 calc(4 * var(--px)) calc(83 * var(--px));
+}
+
+.item + .item {
+  margin-top: calc(48 * var(--px));
+}
+
+.activa + .item {
+  margin-top: calc(87 * var(--px));
+}
+
+/* barra azul sobre el carril, a la altura de la opción abierta */
+.activa::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: calc(4 * var(--px));
+  bottom: calc(-19 * var(--px));
+  width: calc(10 * var(--px));
+  border-radius: 999px;
+  background: var(--navy);
+}
+
+.item h3 {
+  margin: 0;
+  font: inherit;
+}
+
+.boton {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 44px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  font-family: var(--font-titulos);
+  font-size: calc(31 * var(--px));
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-align: left;
+  text-transform: uppercase;
+  color: #706f6f;
+}
+
+.activa .boton {
+  font-weight: 700;
+  color: var(--navy);
+}
+
+.chevron {
+  width: calc(12 * var(--px));
+  height: calc(22 * var(--px));
+  flex-shrink: 0;
+  margin-right: calc(4 * var(--px));
+  color: var(--navy);
+}
+
+.activa .chevron {
+  transform: rotate(90deg);
+}
+
+.texto {
+  margin-top: calc(37 * var(--px));
+  max-width: calc(650 * var(--px));
+  font-size: calc(30 * var(--px));
+  letter-spacing: -0.012em;
+  line-height: calc(38 * var(--px));
+  color: #706f6f;
+}
+
+.foto {
+  width: 100%;
+  height: auto;
+}
+
+/* ===== Tablet y celular ===== */
+@media (max-width: 1023px) {
+  .seccion {
+    padding: 64px max(20px, env(safe-area-inset-right, 0px)) 64px max(20px, env(safe-area-inset-left, 0px));
+  }
+
+  .etiqueta {
+    font-size: 14px;
+  }
+
+  .titulo {
+    margin-top: 14px;
+    max-width: 18em;
+    font-size: clamp(24px, 5.2vw, 34px);
+    line-height: 1.2;
+  }
+
+  .cuerpo {
+    grid-template-columns: 1fr;
+    gap: 36px;
+    margin-top: 36px;
+    padding-left: 0;
+  }
+
+  .lista {
+    width: auto;
+    min-height: 0;
+    margin-top: 0;
+    background-position: 2px 0;
+    background-size: 4px 100%;
+  }
+
+  .item {
+    padding-left: 28px;
+  }
+
+  .item + .item,
+  .activa + .item {
+    margin-top: 14px;
+  }
+
+  .activa::before {
+    width: 8px;
+    bottom: -6px;
+  }
+
+  .boton {
+    font-size: 17px;
+    gap: 16px;
+  }
+
+  .chevron {
+    width: 9px;
+    height: 16px;
+  }
+
+  .texto {
+    margin-top: 8px;
+    max-width: none;
+    font-size: 16px;
+    line-height: 1.4;
+  }
+}

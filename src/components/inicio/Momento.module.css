@@ -1,0 +1,180 @@
+/* "No te pierdas ni un solo momento importante" — INICIO PAG @1920
+   tarjeta: 1920 × 942 en y7667, esquinas de 36 px (arriba sobre #ececec, abajo sobre el footer)
+   foto + degradado azul encima (capa "Rectangle 143": de 15 % arriba a 87 % abajo)
+   título: 2 líneas, mayúscula de 46 px, cada 73 px, cap en +120
+   texto: 3 líneas centradas cada 40.5 px desde +497
+   botón: 353 × 92 en x777, +671; texto ligero
+   garantías: en +837, separadores de 1 px x24 en x752 y x1152 */
+
+.seccion {
+  background: linear-gradient(#ececec 50%, var(--navy) 50%);
+}
+
+.tarjeta {
+  position: relative;
+  min-height: calc(942 * var(--px));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: calc(107 * var(--px));
+  border-radius: calc(36 * var(--px));
+  overflow: hidden;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(8, 62, 140, 0.16) 0%,
+      rgba(7, 48, 104, 0.4) 30%,
+      rgba(5, 38, 84, 0.56) 50%,
+      rgba(4, 28, 62, 0.72) 70%,
+      rgba(3, 22, 48, 0.87) 100%
+    ),
+    url("/img/cta-momento.jpg") center / cover no-repeat;
+  color: var(--blanco);
+  text-align: center;
+}
+
+.titulo {
+  font-size: calc(66 * var(--px));
+  line-height: calc(73 * var(--px));
+  text-transform: uppercase;
+  transform: translateX(calc(6 * var(--px)));
+}
+
+.linea1,
+.linea2 {
+  display: block;
+}
+
+.linea1 {
+  font-weight: 500;
+  letter-spacing: -0.016em;
+}
+
+.linea2 {
+  font-weight: 700;
+  letter-spacing: -0.031em;
+}
+
+.texto {
+  max-width: none;
+  margin-top: calc(236 * var(--px));
+  font-size: calc(29.5 * var(--px));
+  line-height: calc(40.5 * var(--px));
+  letter-spacing: 0.02em;
+  font-weight: 400;
+  transform: translateX(calc(4 * var(--px)));
+}
+
+/* cortes de línea de Figma; en celular el texto fluye */
+.corte {
+  display: inline;
+}
+
+.texto b {
+  font-weight: 600;
+}
+
+.boton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(353 * var(--px));
+  height: calc(92 * var(--px));
+  margin-top: calc(61 * var(--px));
+  border: calc(1.5 * var(--px)) solid rgba(255, 255, 255, 0.85);
+  border-radius: 999px;
+  font-size: calc(25 * var(--px));
+  font-weight: 300;
+  transform: translateX(calc(-7 * var(--px)));
+}
+
+.garantias {
+  list-style: none;
+  padding: 0;
+  margin-top: calc(74 * var(--px));
+  display: flex;
+  align-items: center;
+  font-size: calc(22 * var(--px));
+  font-weight: 300;
+  line-height: 1;
+  text-transform: uppercase;
+  transform: translateX(calc(44 * var(--px)));
+}
+
+.garantias li {
+  display: flex;
+  align-items: center;
+}
+
+/* separador vertical entre garantías */
+.garantias li + li::before {
+  content: "";
+  width: 1px;
+  height: calc(24 * var(--px));
+  margin: 0 calc(96 * var(--px));
+  background: rgba(255, 255, 255, 0.85);
+}
+
+.garantias li:nth-child(2)::before {
+  margin-left: calc(123 * var(--px));
+  margin-right: calc(98 * var(--px));
+}
+
+/* ===== Tablet y celular ===== */
+@media (max-width: 1023px) {
+  .seccion {
+    padding: 0 12px;
+  }
+
+  .tarjeta {
+    min-height: 0;
+    padding: 56px 24px 40px;
+    border-radius: 24px;
+    background-position: 30% center, 30% center;
+  }
+
+  .titulo {
+    font-size: clamp(26px, 6.6vw, 40px);
+    line-height: 1.15;
+    text-wrap: balance;
+    transform: none;
+  }
+
+  .texto {
+    max-width: 30em;
+    margin-top: clamp(120px, 38vw, 220px);
+    font-size: 16px;
+    line-height: 1.5;
+    transform: none;
+  }
+
+  .corte {
+    display: none;
+  }
+
+  .boton {
+    width: auto;
+    min-width: 220px;
+    height: 52px;
+    margin-top: 28px;
+    padding: 0 28px;
+    border-width: 1.5px;
+    font-size: 16px;
+    transform: none;
+  }
+
+  .garantias {
+    margin-top: 32px;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    transform: none;
+  }
+
+  /* en celular van una debajo de otra, sin separadores */
+  .garantias li + li::before,
+  .garantias li:nth-child(2)::before {
+    display: none;
+  }
+}

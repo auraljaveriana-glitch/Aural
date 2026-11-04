@@ -1,0 +1,207 @@
+/* Medidas de "INICIO PAG" @1920
+   título: 2 líneas centradas, mayúsculas de 33 px, interlínea 58 px
+   tarjetas: 784 × 377, columnas en x147 y x973 (separación 42), filas separadas 37
+   fondo: degradado de #d8d8d8 (arriba izquierda) a #f6f6f6 (abajo derecha), sin radio
+   Dentro de la tarjeta se usa cqi (1cqi = 1 % del ancho de la tarjeta). */
+
+.seccion {
+  position: relative;
+  overflow-x: clip;
+  padding-top: calc(96 * var(--px));
+  padding-bottom: calc(150 * var(--px));
+}
+
+/* ondas grises detrás de las tarjetas: "ONDAS 5%" de Figma a 2383 px (x-11, +261), al 35 % */
+.ondas {
+  position: absolute;
+  left: calc(-11 * var(--px));
+  top: calc(261 * var(--px));
+  width: calc(2383 * var(--px));
+  aspect-ratio: 2636 / 1143;
+  background: url("/img/ondas.png") center / 100% 100% no-repeat;
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+.titulo,
+.grilla {
+  position: relative;
+}
+
+.titulo {
+  max-width: calc(1100 * var(--px));
+  margin-inline: auto;
+  font-size: calc(47 * var(--px));
+  line-height: calc(58 * var(--px));
+  font-weight: 700;
+  text-align: center;
+  text-transform: uppercase;
+  transform: translateX(calc(14 * var(--px)));
+}
+
+.ligero {
+  font-weight: 300;
+  letter-spacing: 0.035em;
+}
+
+.grilla {
+  list-style: none;
+  padding: 0;
+  margin: calc(135 * var(--px)) 0 0 calc(147 * var(--px));
+  width: calc(1610 * var(--px));
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: calc(37 * var(--px)) calc(42 * var(--px));
+}
+
+.tarjeta {
+  position: relative;
+  display: block;
+  aspect-ratio: 784 / 377;
+  max-width: 100%;
+  overflow: hidden;
+  container-type: inline-size;
+  background: linear-gradient(156deg, #d8d8d8 0%, #f6f6f6 100%);
+  color: var(--navy);
+}
+
+.foto {
+  position: absolute;
+  height: auto;
+  max-width: none;
+  pointer-events: none;
+}
+
+.texto {
+  position: absolute;
+  z-index: 1;
+  left: calc(45 / 784 * 100cqi);
+  top: calc(var(--arriba, 105) / 784 * 100cqi);
+  display: flex;
+  flex-direction: column;
+}
+
+/* título en dos líneas: el bloque sube 24 px (como en Figma) */
+.dosLineas {
+  --arriba: 82;
+}
+
+.etiqueta {
+  font-size: calc(19.5 / 784 * 100cqi);
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.nombre {
+  margin-top: calc(23 / 784 * 100cqi);
+  margin-left: calc(-4 / 784 * 100cqi);
+  font-size: calc(47 / 784 * 100cqi);
+  font-weight: 600;
+  line-height: calc(50 / 784 * 100cqi);
+  white-space: pre-line;
+  letter-spacing: -0.01em;
+}
+
+.raya {
+  width: calc(33 / 784 * 100cqi);
+  height: 2px;
+  margin-top: calc(55 / 784 * 100cqi);
+  background: #9a9a9a;
+}
+
+.sigla {
+  min-height: 1.2em;
+  margin-top: calc(28 / 784 * 100cqi);
+  margin-left: calc(-8 / 784 * 100cqi);
+  font-size: calc(28 / 784 * 100cqi);
+  line-height: 1;
+  letter-spacing: 0.44em;
+  color: #5f5f5f;
+}
+
+.flecha {
+  position: absolute;
+  z-index: 1;
+  right: calc(23 / 784 * 100cqi);
+  bottom: calc(11 / 784 * 100cqi);
+  width: calc(58 / 784 * 100cqi);
+  aspect-ratio: 1;
+  border-radius: 999px;
+  background: var(--blanco);
+  display: grid;
+  place-items: center;
+  color: var(--navy);
+}
+
+.flecha svg {
+  width: 52%;
+}
+
+/* ===== Tablet y celular ===== */
+@media (max-width: 1023px) {
+  .seccion {
+    padding: 72px max(20px, env(safe-area-inset-right, 0px)) 72px max(20px, env(safe-area-inset-left, 0px));
+  }
+
+  .titulo {
+    max-width: 22em;
+    font-size: clamp(22px, 4.6vw, 34px);
+    line-height: 1.23;
+    transform: none;
+  }
+
+  .grilla {
+    width: auto;
+    margin: 40px 0 0;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    max-width: 784px;
+    margin-inline: auto;
+  }
+}
+
+@media (max-width: 560px) {
+  /* en celular la tarjeta es un poco más alta para que el texto no toque la foto */
+  .tarjeta {
+    aspect-ratio: 784 / 430;
+  }
+
+  .etiqueta {
+    font-size: max(11px, calc(18 / 784 * 100cqi));
+  }
+
+  .nombre {
+    font-size: max(21px, calc(48 / 784 * 100cqi));
+    line-height: 1.08;
+    margin-top: 8px;
+  }
+
+  .raya {
+    margin-top: 18px;
+  }
+
+  .sigla {
+    margin-top: 10px;
+    font-size: max(12px, calc(25 / 784 * 100cqi));
+  }
+
+  .flecha {
+    width: 40px;
+  }
+}
+
+/* con título de dos líneas la raya y la sigla quedan a la misma altura que en las demás */
+.dosLineas .raya {
+  margin-top: calc(66 / 784 * 100cqi);
+}
+
+@media (max-width: 560px) {
+  .dosLineas {
+    --arriba: 82;
+  }
+
+  .dosLineas .raya {
+    margin-top: 18px;
+  }
+}

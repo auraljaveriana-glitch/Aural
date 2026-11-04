@@ -1,0 +1,243 @@
+/* "Tu camino hacia una mejor audición" — INICIO PAG @1920
+   sección: de y973 a y1987 (96 px bajo el hero), esquinas superiores de 80 px,
+   degradado lineal de #051e42 arriba a blanco abajo
+   título: 2 líneas, mayúsculas de 28 px cada 48 px, cap en +148, centrado 27 px a la izquierda
+   texto: #dddddd, 3 líneas cada 40 px desde +309
+   tarjetas: 520 × 285 en x117 / x688 / x1268, y+553; nombre blanco centrado
+   flecha: 8 × 16 en x1856, centro en +720 · puntos: barra 105 × 12 en x890 y punto de 12 en x1018, en +916
+   ondas: "ONDAS 5%" de Figma a 2383 px de ancho (x-11, +103), en blanco al ~5 % */
+
+.seccion {
+  position: relative;
+  min-height: calc(1014 * var(--px));
+  margin-top: calc(96 * var(--px));
+  padding-top: calc(137.7 * var(--px));
+  border-radius: calc(80 * var(--px)) calc(80 * var(--px)) 0 0;
+  background: linear-gradient(180deg, #051e42 0%, #ffffff calc(100% + 13 * var(--px)));
+  color: var(--blanco);
+  text-align: center;
+  overflow: hidden;
+}
+
+/* ondas: se usa la exportación como máscara para pintarlas en blanco */
+.ondas {
+  position: absolute;
+  left: calc(-11 * var(--px));
+  top: calc(103 * var(--px));
+  width: calc(2383 * var(--px));
+  aspect-ratio: 2636 / 1143;
+  background: var(--blanco);
+  -webkit-mask: url("/img/ondas.png") center / 100% 100% no-repeat;
+  mask: url("/img/ondas.png") center / 100% 100% no-repeat;
+  pointer-events: none;
+}
+
+.titulo,
+.texto,
+.carrusel {
+  position: relative;
+}
+
+.titulo,
+.texto {
+  transform: translateX(calc(-27 * var(--px)));
+}
+
+.titulo {
+  max-width: calc(700 * var(--px));
+  margin-inline: auto;
+  font-size: calc(40 * var(--px));
+  line-height: calc(48 * var(--px));
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+.titulo b {
+  font-weight: 700;
+}
+
+.texto {
+  max-width: none;
+  margin: calc(65 * var(--px)) auto 0;
+  font-size: calc(30.5 * var(--px));
+  line-height: calc(40 * var(--px));
+  font-weight: 400;
+  letter-spacing: 0.015em;
+  color: #dddddd;
+  transform: translateX(calc(-20 * var(--px)));
+}
+
+.corte {
+  display: inline;
+}
+
+.carrusel {
+  position: absolute;
+  inset: calc(553 * var(--px)) 0 auto 0;
+}
+
+.tarjetas {
+  list-style: none;
+  padding: 0 0 0 calc(117 * var(--px));
+  margin: 0;
+  display: flex;
+  gap: calc(51 * var(--px)) ;
+}
+
+.tarjeta {
+  position: relative;
+  display: none;
+  width: calc(520 * var(--px));
+  height: calc(285 * var(--px));
+  flex: none;
+}
+
+.tarjeta[data-visible] {
+  display: block;
+}
+
+/* la tercera tarjeta queda a 59 px de la segunda en Figma */
+.tarjeta[data-visible] ~ .tarjeta[data-visible] ~ .tarjeta[data-visible] {
+  margin-left: calc(8 * var(--px));
+}
+
+.tarjeta img {
+  width: 100%;
+  height: 100%;
+}
+
+.nombre {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 calc(110 * var(--px));
+  font-size: calc(29.5 * var(--px));
+  line-height: calc(39 * var(--px));
+  font-weight: 600;
+  text-wrap: balance;
+}
+
+.flecha {
+  position: absolute;
+  left: calc(1846 * var(--px));
+  top: calc(140 * var(--px));
+  width: calc(28 * var(--px));
+  height: calc(36 * var(--px));
+  min-width: 28px;
+  min-height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--navy);
+  cursor: pointer;
+}
+
+.flecha svg {
+  width: calc(8 * var(--px));
+  height: calc(16 * var(--px));
+}
+
+.puntos {
+  position: absolute;
+  left: calc(890 * var(--px));
+  top: calc(363 * var(--px));
+  display: flex;
+  gap: calc(23 * var(--px));
+}
+
+.punto,
+.puntoActivo {
+  height: calc(12 * var(--px));
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: var(--navy);
+  cursor: pointer;
+}
+
+.punto {
+  width: calc(12 * var(--px));
+}
+
+.puntoActivo {
+  width: calc(105 * var(--px));
+}
+
+/* ===== Tablet y celular: las 5 tarjetas en una fila que se desliza ===== */
+@media (max-width: 1023px) {
+  .seccion {
+    min-height: 0;
+    margin: 24px 0 0;
+    padding: 56px 0 48px;
+    border-radius: 28px 28px 0 0;
+    background: linear-gradient(180deg, #051e42 0%, #4d6382 55%, #ffffff 100%);
+  }
+
+  .ondas {
+    left: -60%;
+    top: 40px;
+    width: 260%;
+  }
+
+  .titulo,
+  .texto {
+    transform: none;
+    padding-inline: 24px;
+  }
+
+  .titulo {
+    max-width: 22em;
+    font-size: clamp(20px, 5.4vw, 28px);
+    line-height: 1.25;
+  }
+
+  .texto {
+    max-width: 34em;
+    margin-top: 16px;
+    font-size: 15px;
+    line-height: 1.55;
+  }
+
+  .corte {
+    display: none;
+  }
+
+  .carrusel {
+    position: static;
+    margin-top: 32px;
+  }
+
+  .tarjetas {
+    gap: 12px;
+    padding: 0 24px 8px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+
+  .tarjeta,
+  .tarjeta[data-visible] {
+    display: block;
+    width: min(72vw, 300px);
+    height: auto;
+    aspect-ratio: 520 / 285;
+    margin-left: 0 !important;
+    scroll-snap-align: center;
+  }
+
+  .nombre {
+    padding: 0 18%;
+    font-size: 16px;
+    line-height: 1.3;
+  }
+
+  .flecha,
+  .puntos {
+    display: none;
+  }
+}

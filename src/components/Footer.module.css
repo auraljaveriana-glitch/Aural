@@ -1,0 +1,238 @@
+/* Footer — INICIO PAG @1920 (y desde el inicio del footer, y8610; alto 979)
+   logo blanco 256 × 86 en x240, +271; redes: círculos de 54 px cada 78 px en +423
+   columnas en x619 / x997 / x1375; títulos (cap 21 px) en +280; enlaces cada 54 px desde +342, #cdd2d9
+   contacto: ícono teal #14b8a6 en x1375, texto en x1423
+   línea divisoria de 2 px en +651 (x240–1679); textos legales en +683, #9ba5b3 */
+
+.footer {
+  background: var(--navy);
+  color: var(--blanco);
+  font-family: var(--font-ui);
+  padding: calc(271 * var(--px)) calc(240 * var(--px)) calc(273 * var(--px));
+}
+
+.arriba {
+  display: grid;
+  grid-template-columns: calc(379 * var(--px)) calc(378 * var(--px)) calc(378 * var(--px)) 1fr;
+}
+
+.logo {
+  width: calc(256 * var(--px));
+  margin-top: calc(-5 * var(--px));
+  height: auto;
+}
+
+.redes {
+  list-style: none;
+  padding: 0;
+  margin-top: calc(66 * var(--px));
+  display: flex;
+  gap: calc(24 * var(--px));
+}
+
+.redes a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(54 * var(--px));
+  height: calc(54 * var(--px));
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Facebook ya trae el ícono centrado en 54 × 54 */
+.redes img {
+  display: block;
+}
+
+.columna h2 {
+  margin-top: calc(1 * var(--px));
+  font-size: calc(29 * var(--px));
+  line-height: calc(29 * var(--px));
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.columna ul {
+  list-style: none;
+  padding: 0;
+  margin-top: calc(32 * var(--px));
+  display: flex;
+  flex-direction: column;
+  gap: calc(24 * var(--px));
+}
+
+.columna li {
+  font-size: calc(24 * var(--px));
+  line-height: calc(30 * var(--px));
+  color: #cdd2d9;
+}
+
+.columna a:hover {
+  color: var(--blanco);
+}
+
+.contacto {
+  gap: calc(30 * var(--px)) !important;
+}
+
+.contacto li {
+  display: flex;
+  gap: calc(18 * var(--px));
+}
+
+.contacto li > span:last-child {
+  display: flex;
+  flex-direction: column;
+  gap: calc(6 * var(--px));
+}
+
+.icono {
+  flex: none;
+  width: calc(30 * var(--px));
+  height: calc(30 * var(--px));
+  margin-top: calc(2 * var(--px));
+  color: #14b8a6;
+}
+
+.icono svg {
+  width: 100%;
+  height: 100%;
+}
+
+.etiqueta {
+  color: var(--blanco);
+}
+
+.abajo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: calc(118 * var(--px));
+  margin-right: calc(1 * var(--px));
+  padding-top: calc(30 * var(--px));
+  border-top: calc(2 * var(--px)) solid rgba(255, 255, 255, 0.08);
+  font-size: calc(21.8 * var(--px));
+  line-height: 1.2;
+  color: #9ba5b3;
+}
+
+.abajo ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  gap: calc(20 * var(--px));
+  margin-right: calc(-16 * var(--px));
+}
+
+.abajo a:hover {
+  color: var(--blanco);
+}
+
+/* En la plantilla "RIC" el footer es más bajo: logo a 160 px del borde y 148 px al final */
+@media (min-width: 1024px) {
+  :global(body:has([data-pagina="audifonos"])) .footer {
+    padding-top: calc(165 * var(--px));
+    padding-bottom: calc(149 * var(--px));
+  }
+}
+
+/* ===== Tablet y celular ===== */
+@media (max-width: 1023px) {
+  .footer {
+    padding: 56px max(24px, env(safe-area-inset-right, 0px)) 40px max(24px, env(safe-area-inset-left, 0px));
+  }
+
+  .arriba {
+    grid-template-columns: 1fr 1fr;
+    gap: 40px 24px;
+  }
+
+  .marca {
+    grid-column: 1 / -1;
+  }
+
+  .logo {
+    width: 160px;
+    margin-top: 0;
+  }
+
+  .redes {
+    margin-top: 24px;
+    gap: 14px;
+  }
+
+  .redes a {
+    width: 44px;
+    height: 44px;
+  }
+
+  .redes li:first-child img {
+    width: 44px !important;
+    height: 44px !important;
+  }
+
+  .redes li:nth-child(2) img {
+    width: 24px !important;
+    height: 24px !important;
+  }
+
+  .redes li:nth-child(3) img {
+    width: 26px !important;
+    height: 21px !important;
+  }
+
+  .columna h2 {
+    font-size: 17px;
+    line-height: 1.2;
+  }
+
+  .columna ul {
+    margin-top: 16px;
+    gap: 12px;
+  }
+
+  .columna li {
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
+  /* contacto ocupa todo el ancho para que el correo no se corte */
+  .arriba > .columna:last-child {
+    grid-column: 1 / -1;
+  }
+
+  .contacto {
+    gap: 18px !important;
+  }
+
+  .contacto li {
+    gap: 12px;
+  }
+
+  .contacto li > span:last-child {
+    gap: 2px;
+  }
+
+  .icono {
+    width: 20px;
+    height: 20px;
+    margin-top: 1px;
+  }
+
+  .abajo {
+    flex-direction: column-reverse;
+    align-items: flex-start;
+    gap: 16px;
+    margin-top: 40px;
+    padding-top: 24px;
+    border-top-width: 1px;
+    font-size: 12px;
+  }
+
+  .abajo ul {
+    flex-wrap: wrap;
+    gap: 8px 16px;
+    margin-right: 0;
+  }
+}

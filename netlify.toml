@@ -1,0 +1,7 @@
+# Netlify construye el sitio Next.js en cada cambio de la rama main
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[build.environment]
+  NODE_VERSION = "20"

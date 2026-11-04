@@ -1,0 +1,208 @@
+/* Medidas de "INICIO PAG" @1920 (y desde el inicio de la sección, que está en y5290)
+   bloque gris (imagen de fondo con su sombra): y55, 1920 × 948
+   foto vertical: x901, y3, 503 × 884 — sobresale por encima del bloque
+   foto pequeña: x1410, y564, 479 × 322
+   "Nuestros audífonos": x152, y148, gris #757575
+   logo Widex: x149, y251, 575 × 166
+   texto: x177, primera línea y488, interlínea 40, gris #545454
+   botón: x175, y785, 345 × 67, gris #70706f */
+
+.seccion {
+  position: relative;
+  height: calc(1003 * var(--px));
+  /* la sombra inferior del bloque cae sobre el fondo de "Nuestras sedes" */
+  background: linear-gradient(transparent calc(937 * var(--px)), #ececec 0);
+}
+
+.seccion::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(55 * var(--px));
+  height: calc(948 * var(--px));
+  background: url("/img/widex/fondo.png") center top / 100% 100% no-repeat;
+}
+
+.texto {
+  position: absolute;
+  z-index: 1;
+  left: calc(149 * var(--px));
+  top: calc(148 * var(--px));
+  width: calc(640 * var(--px));
+  display: flex;
+  flex-direction: column;
+}
+
+.etiqueta {
+  padding-left: calc(3 * var(--px));
+  font-size: calc(22.5 * var(--px));
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #757575;
+}
+
+.logo {
+  margin: calc(80 * var(--px)) 0 0;
+  width: calc(575 * var(--px));
+}
+
+.logo img {
+  width: 100%;
+  height: auto;
+}
+
+.parrafo {
+  margin-left: calc(28 * var(--px));
+  font-size: calc(31 * var(--px));
+  line-height: calc(40 * var(--px));
+  color: #545454;
+}
+
+.primero {
+  margin-top: calc(63 * var(--px));
+  max-width: calc(500 * var(--px));
+}
+
+.parrafo + .parrafo {
+  margin-top: calc(16 * var(--px));
+  max-width: calc(600 * var(--px));
+}
+
+.boton {
+  align-self: flex-start;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: calc(345 * var(--px));
+  height: calc(67 * var(--px));
+  margin: calc(49 * var(--px)) 0 0 calc(26 * var(--px));
+  padding-inline: calc(33 * var(--px)) calc(22 * var(--px));
+  border-radius: 999px;
+  background: #70706f;
+  color: var(--blanco);
+  font-size: calc(20 * var(--px));
+}
+
+.boton svg {
+  width: calc(34 * var(--px));
+}
+
+.fotoGrande,
+.fotoPequena,
+.fotoCargador {
+  position: absolute;
+  z-index: 1;
+  object-fit: cover;
+}
+
+.fotoGrande {
+  left: calc(901 * var(--px));
+  top: calc(3 * var(--px));
+  width: calc(503 * var(--px));
+  height: calc(884 * var(--px));
+}
+
+.fotoCargador {
+  /* arranca en el borde superior del bloque gris y termina 7 px antes de la foto pequeña */
+  left: calc(1410 * var(--px));
+  top: calc(55 * var(--px));
+  width: calc(479 * var(--px));
+  height: calc(502 * var(--px));
+}
+
+.fotoPequena {
+  left: calc(1410 * var(--px));
+  top: calc(564 * var(--px));
+  width: calc(479 * var(--px));
+  height: calc(322 * var(--px));
+}
+
+/* ===== Tablet y celular ===== */
+@media (max-width: 1023px) {
+  .seccion {
+    height: auto;
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 12px;
+    padding: 56px max(20px, env(safe-area-inset-right, 0px)) 56px max(20px, env(safe-area-inset-left, 0px));
+    background: linear-gradient(135deg, #d9d9d9 0%, #d9d9d9 45%, #8f8f8f 100%);
+  }
+
+  .seccion::before {
+    display: none;
+  }
+
+  .texto,
+  .fotoGrande,
+  .fotoPequena,
+  .fotoCargador {
+    position: static;
+    width: 100%;
+    height: auto;
+  }
+
+  .texto {
+    grid-column: 1 / -1;
+    margin-bottom: 24px;
+  }
+
+  .etiqueta {
+    font-size: 13px;
+    padding-left: 0;
+  }
+
+  .logo {
+    width: min(300px, 70%);
+    margin-top: 24px;
+  }
+
+  .parrafo,
+  .primero,
+  .parrafo + .parrafo {
+    margin-left: 0;
+    max-width: 32em;
+    font-size: 17px;
+    line-height: 1.4;
+  }
+
+  .primero {
+    margin-top: 24px;
+  }
+
+  .parrafo + .parrafo {
+    margin-top: 8px;
+  }
+
+  .boton {
+    width: auto;
+    height: 52px;
+    gap: 20px;
+    margin: 28px 0 0;
+    padding-inline: 24px 20px;
+    font-size: 16px;
+  }
+
+  .boton svg {
+    width: 28px;
+  }
+
+  .fotoGrande {
+    aspect-ratio: 503 / 884;
+  }
+
+  /* columna derecha: cargador arriba y gama de colores abajo, junto a la foto grande */
+  .fotoGrande {
+    grid-row: 2 / span 2;
+  }
+
+  .fotoCargador {
+    aspect-ratio: 478 / 555;
+  }
+
+  .fotoPequena {
+    aspect-ratio: 479 / 322;
+  }
+}

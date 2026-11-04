@@ -1,0 +1,352 @@
+/* Medidas de "INICIO PAG" @1920 (y desde el inicio de la sección, y6293)
+   fondo #ececec
+   "Nuestras sedes": centrado, azul #376aab, cap en +84
+   título: una línea centrada, cap de 34 px en +135
+   lista: x1169–1777; cada fila empieza con una línea #788597 de 2 px con un punto a la izquierda;
+     filas cada 119.5 px desde +479; nombre de la ciudad 20 px debajo de la línea (x1196);
+     la ciudad elegida lleva una franja azul de 37 px desde x1177, 18 px debajo de la línea
+   etiqueta amarilla: 345 × 67 en x72, +410 (posición para Cartagena) */
+
+.seccion {
+  background: #ececec;
+  /* el título va corrido a la derecha (como en Figma): que no genere scroll horizontal */
+  overflow-x: clip;
+  padding-top: calc(80 * var(--px));
+  /* la sección termina donde empieza la tarjeta "No te pierdas…" (y7667) */
+  padding-bottom: calc(70 * var(--px));
+}
+
+.etiqueta {
+  font-size: calc(22.5 * var(--px));
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.3em;
+  text-align: center;
+  text-transform: uppercase;
+  color: #376aab;
+  /* en Figma el encabezado está corrido 22 px a la derecha del centro */
+  transform: translateX(calc(22 * var(--px)));
+}
+
+.titulo {
+  margin-top: calc(28 * var(--px));
+  font-size: calc(48 * var(--px));
+  line-height: 1.1;
+  font-weight: 300;
+  text-align: center;
+  transform: translateX(calc(26 * var(--px)));
+}
+
+.titulo b {
+  font-weight: 700;
+}
+
+.cuerpo {
+  position: relative;
+  display: grid;
+  grid-template-columns: calc(1169 * var(--px)) calc(608 * var(--px));
+  margin-top: calc(40 * var(--px));
+  min-height: calc(1080 * var(--px));
+}
+
+.mapa {
+  position: relative;
+}
+
+/* mapa: 731 × 1024 en x229.5, 18 px por encima del inicio del cuerpo */
+.mapaImagen {
+  position: absolute;
+  left: calc(229.5 * var(--px));
+  top: calc(-18 * var(--px));
+  width: calc(731 * var(--px));
+  aspect-ratio: 731 / 1024;
+}
+
+.mapaFondo {
+  width: 100%;
+  height: 100%;
+}
+
+.pin {
+  position: absolute;
+  height: auto;
+  pointer-events: none;
+}
+
+.pinActivo {
+  z-index: 1;
+}
+
+.etiquetaSede {
+  position: absolute;
+  z-index: 2;
+  /* posición junto al pin de la ciudad elegida (px de Figma, desde site.ts) */
+  left: calc(var(--tag-x) * var(--px));
+  top: calc(var(--tag-top) * var(--px));
+  /* 345 px como en Figma; crece si la ciudad tiene varias sedes */
+  min-width: calc(345 * var(--px));
+  min-height: calc(67 * var(--px));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: calc(16 * var(--px));
+  padding: calc(10 * var(--px)) calc(24 * var(--px)) calc(10 * var(--px)) calc(34 * var(--px));
+  border-radius: calc(34 * var(--px));
+  background: var(--dorado);
+  color: #111;
+}
+
+.etiquetaSede ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: calc(8 * var(--px));
+}
+
+.etiquetaSede li {
+  display: flex;
+  flex-direction: column;
+}
+
+/* la etiqueta termina a la izquierda del pin, crezca lo que crezca */
+.aLaIzquierda {
+  transform: translateX(-100%);
+  /* nunca se sale por el borde izquierdo: si la dirección es larga, pasa a dos líneas */
+  max-width: calc((var(--tag-x) - 24) * var(--px));
+}
+
+.aLaIzquierda .direccion {
+  white-space: normal;
+}
+
+.direccion {
+  font-size: calc(19 * var(--px));
+  line-height: 1.15;
+  white-space: nowrap;
+}
+
+.tramo {
+  white-space: nowrap;
+}
+
+.barrio {
+  font-size: calc(14 * var(--px));
+  line-height: 1.2;
+}
+
+.sigla {
+  align-self: center;
+  font-size: calc(23 * var(--px));
+  font-weight: 700;
+}
+
+.lista {
+  list-style: none;
+  padding: 0;
+  margin-top: calc(259 * var(--px));
+  display: flex;
+  flex-direction: column;
+}
+
+.lista li {
+  height: calc(119.5 * var(--px));
+}
+
+.ciudad {
+  position: relative;
+  width: 100%;
+  min-height: 44px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: calc(18 * var(--px)) calc(10 * var(--px)) 0 calc(24 * var(--px));
+  border: 0;
+  border-top: 2px solid #788597;
+  background: none;
+  cursor: pointer;
+  font-family: var(--font-titulos);
+  color: var(--navy);
+  text-align: left;
+}
+
+/* punto al inicio de la línea */
+.ciudad::before {
+  content: "";
+  position: absolute;
+  left: calc(-1 * var(--px));
+  top: calc(-5 * var(--px));
+  width: calc(8 * var(--px));
+  height: calc(8 * var(--px));
+  border-radius: 999px;
+  background: var(--navy);
+}
+
+.nombre {
+  font-size: calc(24 * var(--px));
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.cantidad {
+  margin-top: calc(4 * var(--px));
+  font-size: calc(17 * var(--px));
+  color: #7a7a7a;
+}
+
+.cantidad b {
+  font-weight: 700;
+}
+
+.activa {
+  color: var(--blanco);
+}
+
+/* franja azul de la ciudad elegida */
+.activa::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: calc(8 * var(--px));
+  right: 0;
+  top: calc(16 * var(--px));
+  height: calc(37 * var(--px));
+  background: var(--navy);
+}
+
+.activa .cantidad {
+  color: var(--blanco);
+}
+
+.ciudad {
+  isolation: isolate;
+}
+
+/* ===== Tablet y celular (opción B) =====
+   Orden: título → ciudades en botones → mapa recortado → etiqueta con direcciones */
+@media (max-width: 1023px) {
+  .seccion {
+    padding: 56px max(20px, env(safe-area-inset-right, 0px)) 56px max(20px, env(safe-area-inset-left, 0px));
+  }
+
+  .etiqueta {
+    font-size: 14px;
+  }
+
+  .etiqueta,
+  .titulo {
+    transform: none;
+  }
+
+  .titulo {
+    margin-top: 12px;
+    font-size: clamp(24px, 5.4vw, 36px);
+  }
+
+  .cuerpo {
+    grid-template-columns: minmax(0, 1fr);
+    min-height: 0;
+    margin-top: 28px;
+    gap: 20px;
+  }
+
+  .lista {
+    order: -1;
+    margin-top: 0;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .lista li {
+    height: auto;
+  }
+
+  .ciudad {
+    min-height: 44px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    padding: 8px 16px;
+    border: 1.5px solid #788597;
+    border-radius: 999px;
+    text-align: center;
+  }
+
+  .ciudad::before,
+  .activa::after {
+    display: none;
+  }
+
+  .activa {
+    background: var(--navy);
+    border-color: var(--navy);
+  }
+
+  .nombre {
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .cantidad {
+    margin-top: 0;
+    font-size: 11px;
+  }
+
+  .mapa {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  /* se recorta el margen vacío del mapa (x60–715, y100–990 de 731 × 1024) */
+  .mapaRecorte {
+    width: min(78%, 320px);
+    aspect-ratio: 655 / 890;
+    overflow: hidden;
+  }
+
+  .mapaImagen {
+    position: relative;
+    left: auto;
+    top: auto;
+    width: calc(100% * 731 / 655);
+    margin-left: calc(-100% * 60 / 655);
+    margin-top: calc(-100% * 100 / 655);
+  }
+
+  .etiquetaSede {
+    position: static;
+    transform: none;
+    max-width: none;
+    width: 100%;
+    min-width: 0;
+    min-height: 56px;
+    gap: 16px;
+    padding: 14px 20px;
+    border-radius: 24px;
+  }
+
+  .etiquetaSede ul {
+    min-width: 0;
+    gap: 10px;
+  }
+
+  .direccion {
+    font-size: 15px;
+    white-space: normal;
+  }
+
+  .barrio {
+    font-size: 12px;
+  }
+
+  .sigla {
+    font-size: 18px;
+  }
+}
