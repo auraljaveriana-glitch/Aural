@@ -7,8 +7,9 @@
    opciones cerradas: gris #706f6f; flecha a la derecha en x772
    foto: x903–1888 × y4476–5102 (986 × 627, esquinas redondeadas en la imagen) */
 
+/* v2 (nov-2026): etiqueta azul y 81 px más de aire arriba */
 .seccion {
-  padding-top: calc(91 * var(--px));
+  padding-top: calc(172 * var(--px));
   padding-bottom: calc(188 * var(--px));
 }
 
@@ -19,7 +20,7 @@
   letter-spacing: 0.3em;
   text-align: center;
   text-transform: uppercase;
-  color: var(--dorado);
+  color: #376aab;
 }
 
 .titulo {

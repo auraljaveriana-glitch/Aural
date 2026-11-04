@@ -1,0 +1,46 @@
+/* Fondo del hero (INICIO PAG v2): de gris muy claro a la izquierda a azul suave a la derecha,
+   con un brillo azul más intenso abajo a la derecha. Sube detrás del menú (133 px) y llega
+   hasta debajo de las esquinas redondeadas de "Tu camino…" (y973). */
+.arriba {
+  position: relative;
+  overflow-x: clip;
+  margin-top: calc(-133 * var(--px));
+  padding-top: calc(133 * var(--px));
+  background:
+    radial-gradient(ellipse 34% 30% at 100% 100%, rgba(70, 100, 140, 0.55), rgba(70, 100, 140, 0) 100%) 0 0 /
+      100% calc(973 * var(--px)) no-repeat,
+    linear-gradient(90deg, #fbfbfb 0%, #f2f1f1 22%, #eceaea 40%, #e5e6e9 50%, #d6dde6 60%, #c2cfe0 78%, #b2c5dd 90%, #a9bfdb 100%)
+      0 0 / 100% calc(973 * var(--px)) no-repeat;
+}
+
+/* ondas muy tenues detrás del texto del hero */
+.arriba::before {
+  content: "";
+  position: absolute;
+  left: calc(-11 * var(--px));
+  top: calc(150 * var(--px));
+  width: calc(2383 * var(--px));
+  aspect-ratio: 2636 / 1143;
+  background: url("/img/ondas.png") 0 0 / 100% 100% no-repeat;
+  opacity: 0.3;
+  -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 40%, transparent 45%);
+  mask-image: linear-gradient(90deg, #000 0%, #000 40%, transparent 45%);
+  pointer-events: none;
+}
+
+.arriba > * {
+  position: relative;
+}
+
+@media (max-width: 1023px) {
+  .arriba {
+    margin-top: -72px;
+    padding-top: 72px;
+    background:
+      linear-gradient(160deg, #fbfbfb 0%, #eceaea 45%, #c2cfe0 85%, #a9bfdb 100%) 0 0 / 100% 100% no-repeat;
+  }
+
+  .arriba::before {
+    display: none;
+  }
+}

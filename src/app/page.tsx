@@ -6,13 +6,16 @@ import PorQue from "@/components/inicio/PorQue";
 import Widex from "@/components/inicio/Widex";
 import Sedes from "@/components/inicio/Sedes";
 import Momento from "@/components/inicio/Momento";
+import styles from "./page.module.css";
 
 // Inicio — se construye por secciones siguiendo "INICIO PAG" de Figma.
 export default function Inicio() {
   return (
     <>
-      <Hero />
-      <Camino />
+      <div className={styles.arriba}>
+        <Hero />
+        <Camino />
+      </div>
       <Soluciones />
       <Servicios />
       <PorQue />

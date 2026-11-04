@@ -12,9 +12,10 @@
   padding-top: calc(56 * var(--px));
 }
 
+/* v2 (nov-2026): el título baja 17 px; los botones quedan donde estaban */
 .texto {
   padding-left: calc(140 * var(--px));
-  padding-top: calc(43 * var(--px));
+  padding-top: calc(60 * var(--px));
 }
 
 .titulo {
@@ -37,7 +38,7 @@
 .botones {
   display: flex;
   gap: calc(32 * var(--px));
-  margin-top: calc(78 * var(--px));
+  margin-top: calc(61 * var(--px));
 }
 
 .boton {
