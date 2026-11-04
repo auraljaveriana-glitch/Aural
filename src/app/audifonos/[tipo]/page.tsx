@@ -7,9 +7,8 @@ import Cierre from "@/components/audifonos/Cierre";
 
 type Props = { params: Promise<{ tipo: string }> };
 
-// Solo se generan los tipos que ya tienen la plantilla completa (por ahora, RIC)
 export function generateStaticParams() {
-  return tipos.filter((t) => t.plantilla).map((t) => ({ tipo: t.slug }));
+  return tipos.map((t) => ({ tipo: t.slug }));
 }
 
 export const dynamicParams = false;
@@ -25,10 +24,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function PaginaAudifono({ params }: Props) {
   const tipo = tipoPorSlug((await params).tipo);
-  if (!tipo?.plantilla) notFound();
+  if (!tipo) notFound();
 
   return (
-    <div data-pagina="audifonos">
+    <div data-pagina="audifonos" data-tema={tipo.plantilla.tema ?? "gris"}>
       <PanelAudifono tipo={tipo} />
       <Modelos tipo={tipo} />
       <Cierre />

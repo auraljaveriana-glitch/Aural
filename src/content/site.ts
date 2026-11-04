@@ -49,7 +49,7 @@ export const footer = {
     { label: "Audífonos Retroauriculares", href: "/audifonos/retroauriculares" },
     { label: "Audífonos RIC / RITE", href: "/audifonos/receptor-en-el-canal" },
     { label: "Audífonos Recargables", href: "/audifonos/recargables" },
-    { label: "Audífonos Bluetooth", href: "/audifonos/bluetooth" },
+    { label: "Audífonos Bluetooth", href: "/audifonos/recargables" }, // Bluetooth va dentro de Recargables
   ],
   legales: [
     { label: "Política de Privacidad", href: "/politica-de-privacidad" },

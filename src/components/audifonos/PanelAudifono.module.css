@@ -18,6 +18,31 @@
   color: var(--blanco);
 }
 
+/* ---- tema beige (Intracanal): fondo rosado, textos y barra café ---- */
+.beige {
+  --texto-letras: #644639;
+  color: #644639;
+  background:
+    linear-gradient(180deg, rgba(60, 30, 15, 0) 0%, rgba(60, 30, 15, 0.05) 70%, rgba(60, 30, 15, 0.1) 100%),
+    linear-gradient(98deg, #f4ece8 0%, #efe5e0 22%, #cdbab2 50%, #ae978d 78%, #a28a7f 100%);
+}
+
+.beige .pista {
+  background: rgba(100, 70, 59, 0.18);
+}
+
+.beige .barra {
+  background: #644639;
+}
+
+.beige .item {
+  border-top-color: rgba(100, 70, 59, 0.5);
+}
+
+.beige .item button {
+  color: #644639;
+}
+
 /* ---- ondas: "ONDAS 5%" de Figma a 2161 px (x-10), en blanco; cada franja se desvanece hacia abajo ---- */
 .ondas {
   position: absolute;
@@ -122,44 +147,59 @@
   }
 }
 
-/* letras grandes: gris oscuro, alineadas a la izquierda en x759 (mayúsculas de 360 px desde y386);
-   "AUDÍFONOS" debajo en letra delgada, x752, y789 */
+/* letras grandes y "AUDÍFONOS": cada una se ubica con su caja (top, left o right, tamaño) desde content */
 .sigla {
   position: absolute;
+  inset: 0;
   z-index: 1;
-  left: calc(752 * var(--px));
-  top: calc(304.5 * var(--px));
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  color: #2f2e2e;
+  margin: 0;
+  color: var(--texto-letras, #2f2e2e);
+  pointer-events: none;
+}
+
+.letras,
+.subtitulo {
+  position: absolute;
+  top: calc(var(--t) * var(--px));
+  left: calc(var(--l) * var(--px));
+  right: calc(var(--r) * var(--px));
+  font-size: calc(var(--s) * var(--px));
+  line-height: 1;
+  white-space: nowrap;
 }
 
 .letras {
-  margin-left: calc(-58 * var(--px));
-  font-size: calc(514 * var(--px));
-  line-height: 1;
   font-weight: 300;
+  letter-spacing: calc(var(--e, 0) * 1em);
 }
 
 .subtitulo {
-  margin-top: calc(-36 * var(--px));
-  font-size: calc(34 * var(--px));
-  line-height: 1;
   font-weight: 300;
   letter-spacing: 0.6em;
   text-transform: uppercase;
 }
 
+/* con caja anclada a la derecha, el espaciado final no debe correr el texto */
+.subtitulo[style*="--r"] {
+  margin-right: -0.6em;
+}
+
 .frase {
   position: absolute;
-  left: calc(223 * var(--px));
-  top: calc(1256.7 * var(--px));
+  left: calc(var(--l) * var(--px));
+  top: calc(var(--t) * var(--px));
   width: calc(660 * var(--px));
   font-size: calc(40 * var(--px));
   line-height: calc(48 * var(--px));
   font-weight: 500;
   text-transform: uppercase;
+}
+
+/* "CONECTIVIDAD BLUETOOTH": una sola línea, primera palabra delgada */
+.fraseLigera {
+  width: auto;
+  font-weight: 300;
+  white-space: nowrap;
 }
 
 .frase b {
@@ -168,9 +208,9 @@
 
 .texto {
   position: absolute;
-  left: calc(223 * var(--px));
-  top: calc(1456 * var(--px));
-  width: calc(746 * var(--px));
+  left: calc(var(--l) * var(--px));
+  top: calc(var(--t) * var(--px));
+  width: calc(var(--w) * var(--px));
   font-size: calc(30.5 * var(--px));
   line-height: calc(40 * var(--px));
   font-weight: 300;
@@ -278,16 +318,27 @@
   .sigla {
     order: 2;
     margin-top: -12px;
+    display: flex;
+    flex-direction: column;
     align-items: center;
+    pointer-events: auto;
   }
 
+  .letras,
+  .subtitulo {
+    position: static;
+    text-align: center !important;
+  }
+
+  /* el tamaño depende del largo de la palabra (RIC cabe grande; INTRACANAL más pequeño) */
   .letras {
-    font-size: clamp(120px, 38vw, 240px);
+    font-size: min(38vw, 240px, calc(140vw / var(--n, 3)));
+    letter-spacing: 0;
     margin: 0;
   }
 
   .subtitulo {
-    margin-top: -6px;
+    margin-top: 2px;
     font-size: 14px;
     margin-right: -0.6em;
   }
@@ -300,6 +351,7 @@
     width: auto;
     font-size: clamp(20px, 5.4vw, 28px);
     line-height: 1.25;
+    white-space: normal;
   }
 
   .texto {

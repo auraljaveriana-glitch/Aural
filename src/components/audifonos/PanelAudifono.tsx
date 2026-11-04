@@ -81,9 +81,18 @@ export default function PanelAudifono({ tipo }: { tipo: TipoAudifono }) {
   const [d1, d2, d3] = p.dispositivos;
   const pos = (d: { left: number; top: number; ancho: number }) =>
     ({ "--l": d.left, "--t": d.top, "--w": d.ancho }) as React.CSSProperties;
+  // letras del hero: caja anclada a la izquierda o a la derecha (px de Figma)
+  const ubicar = (l: { tamano: number; top: number; left?: number; right?: number; espaciado?: number }) =>
+    ({
+      "--s": l.tamano,
+      "--t": l.top,
+      ...(l.left !== undefined ? { "--l": l.left } : { "--r": l.right }),
+      ...(l.espaciado !== undefined ? { "--e": l.espaciado } : {}),
+      textAlign: l.left !== undefined ? "left" : "right",
+    }) as unknown as React.CSSProperties;
 
   return (
-    <section ref={panel} className={styles.panel} aria-labelledby="audifono-titulo">
+    <section ref={panel} className={`${styles.panel} ${p.tema === "beige" ? styles.beige : ""}`} aria-labelledby="audifono-titulo">
       <div className={styles.riel} aria-hidden="true">
         <div className={styles.indicador}>
           <span className={styles.pista} />
@@ -107,8 +116,15 @@ export default function PanelAudifono({ tipo }: { tipo: TipoAudifono }) {
       {/* 1 · hero */}
       <div className={styles.hero}>
         <h1 id="audifono-titulo" className={styles.sigla}>
-          <span className={styles.letras}>{p.sigla}</span>
-          <span className={styles.subtitulo}>Audífonos</span>
+          <span
+            className={styles.letras}
+            style={{ ...ubicar(p.letras), "--n": p.letras.texto.length } as React.CSSProperties}
+          >
+            {p.letras.texto}
+          </span>{" "}
+          <span className={styles.subtitulo} style={ubicar(p.subtitulo)}>
+            Audífonos
+          </span>
         </h1>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={d1.src} alt={`Audífono ${tipo.titulo.fuerte}`} className={`${styles.dispositivo} ${styles.fijo}`} style={pos(d1)} />
@@ -117,11 +133,19 @@ export default function PanelAudifono({ tipo }: { tipo: TipoAudifono }) {
       {/* 2 · texto */}
       <div className={styles.bloqueTexto}>
         {p.frase && (
-          <h2 className={styles.frase}>
+          <h2
+            className={`${styles.frase} ${p.frase.ligera ? styles.fraseLigera : ""}`}
+            style={{ "--t": p.frase.top, "--l": p.frase.left } as React.CSSProperties}
+          >
             {p.frase.normal} <b>{p.frase.fuerte}</b>
           </h2>
         )}
-        <p className={styles.texto}>{p.texto}</p>
+        <p
+          className={styles.texto}
+          style={{ "--t": p.texto.top, "--l": p.texto.left, "--w": p.texto.ancho } as React.CSSProperties}
+        >
+          {p.texto.contenido}
+        </p>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={d2.src} alt="" className={`${styles.dispositivo} ${styles.fijo} ${styles.d2}`} style={pos(d2)} />
       </div>

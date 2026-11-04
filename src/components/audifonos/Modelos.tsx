@@ -10,9 +10,10 @@ export default function Modelos({ tipo }: { tipo: TipoAudifono }) {
       <h2 id="modelos-titulo" className={styles.titulo}>
         {tipo.modelosTitulo.suave} <b>{tipo.modelosTitulo.fuerte}</b>
       </h2>
-      <ul className={styles.fila}>
+      <ul className={styles.fila} style={{ "--x": tipo.modelosX ?? 0 } as React.CSSProperties}>
         {tipo.modelos.map((m) => {
-          const [primera, ...resto] = m.nombre.split(" ");
+          const fuerte = m.negrita ?? m.nombre.split(" ")[0];
+          const resto = m.nombre.slice(fuerte.length).trim();
           return (
             <li key={m.nombre} className={styles.modelo}>
               <span className={styles.ovalo}>
@@ -28,7 +29,7 @@ export default function Modelos({ tipo }: { tipo: TipoAudifono }) {
                 />
               </span>
               <span className={styles.nombre}>
-                <b>{primera}</b> {resto.join(" ")}
+                {fuerte && <b>{fuerte}</b>} {resto}
               </span>
             </li>
           );
