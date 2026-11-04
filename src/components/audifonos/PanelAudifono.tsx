@@ -91,6 +91,11 @@ export default function PanelAudifono({ tipo }: { tipo: TipoAudifono }) {
         </div>
       </div>
 
+      {/* ondas de fondo: una franja por cada bloque */}
+      {[282, 1117.5, 2101].map((t) => (
+        <div key={t} className={styles.ondas} style={{ "--t": t } as React.CSSProperties} aria-hidden="true" />
+      ))}
+
       {/* audífono que se mueve (solo escritorio) */}
       <div ref={viajero} className={styles.viajero} aria-hidden="true">
         {p.dispositivos.map((d, i) => (

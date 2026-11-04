@@ -6,7 +6,8 @@
  * Ver README.md → "Imágenes pendientes de Audífonos".
  */
 
-export type Modelo = { nombre: string; imagen: string };
+/** foto: posición de la imagen respecto al óvalo (334 × 277), en px de Figma */
+export type Modelo = { nombre: string; imagen: string; foto?: { left: number; top: number; ancho: number } };
 export type Dispositivo = { src: string; left: number; top: number; ancho: number };
 
 export type TipoAudifono = {
@@ -80,7 +81,10 @@ export const tipos: TipoAudifono[] = [
       "Adaptación precisa según tu perfil auditivo",
     ],
     modelosTitulo: { suave: "Audífonos", fuerte: "Receptor en canal RIC" },
-    modelos: [m("RIC 10"), m("RIC 312 D")],
+    modelos: [
+      { ...m("RIC 10"), foto: { left: -28.5, top: -30, ancho: 467 } },
+      { ...m("RIC 312 D"), foto: { left: -15.2, top: -69.7, ancho: 375.5 } },
+    ],
     banner: "/figma/audifonos/receptor-en-el-canal/banner.png",
     icono: "/figma/audifonos/receptor-en-el-canal/icono.svg",
     tarjeta: "/figma/soluciones/receptor-en-el-canal.png",

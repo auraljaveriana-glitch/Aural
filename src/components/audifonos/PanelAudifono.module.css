@@ -12,11 +12,23 @@
   height: calc(2916 * var(--px));
   border-radius: 0 0 calc(46 * var(--px)) calc(46 * var(--px));
   overflow: hidden;
-  /* PENDIENTE: fondo con ondas exportado de Figma; mientras tanto, el degradado de la plantilla */
   background:
     linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.06) 70%, rgba(0, 0, 0, 0.12) 100%),
     linear-gradient(98deg, #b8b1b1 0%, #b6b0b0 22%, #a49f9f 48%, #888585 72%, #6e6d6d 92%, #626262 100%);
   color: var(--blanco);
+}
+
+/* ---- ondas: "ONDAS 5%" de Figma a 2161 px (x-10), en blanco; cada franja se desvanece hacia abajo ---- */
+.ondas {
+  position: absolute;
+  left: calc(-10 * var(--px));
+  top: calc(var(--t) * var(--px));
+  width: calc(2161.5 * var(--px));
+  height: calc(456 * var(--px));
+  background: url("/img/ondas-blanco.png") 0 0 / 100% auto no-repeat;
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 55%, rgba(0, 0, 0, 0.45) 98%, transparent 100%);
+  mask-image: linear-gradient(180deg, #000 0%, #000 55%, rgba(0, 0, 0, 0.45) 98%, transparent 100%);
+  pointer-events: none;
 }
 
 /* ---- indicador de avance ---- */

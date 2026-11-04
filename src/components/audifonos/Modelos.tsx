@@ -16,7 +16,16 @@ export default function Modelos({ tipo }: { tipo: TipoAudifono }) {
           return (
             <li key={m.nombre} className={styles.modelo}>
               <span className={styles.ovalo}>
-                <Img src={m.imagen} alt={`Audífono ${m.nombre}`} />
+                <Img
+                  src={m.imagen}
+                  alt={`Audífono ${m.nombre}`}
+                  className={m.foto ? styles.fotoUbicada : undefined}
+                  style={
+                    m.foto
+                      ? ({ "--l": m.foto.left, "--t": m.foto.top, "--w": m.foto.ancho } as React.CSSProperties)
+                      : undefined
+                  }
+                />
               </span>
               <span className={styles.nombre}>
                 <b>{primera}</b> {resto.join(" ")}

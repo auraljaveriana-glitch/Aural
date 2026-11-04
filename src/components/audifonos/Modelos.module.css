@@ -29,7 +29,7 @@
   display: flex;
   justify-content: center;
   gap: calc(48 * var(--px));
-  transform: translateX(calc(-8 * var(--px)));
+  transform: translateX(calc(1 * var(--px)));
 }
 
 .modelo {
@@ -59,6 +59,16 @@
   width: calc(100% + 20 * var(--px));
   height: calc(100% + 24 * var(--px));
   object-fit: contain;
+}
+
+/* foto ubicada como en Figma (sobresale del óvalo) */
+.ovalo .fotoUbicada {
+  inset: auto;
+  left: calc(var(--l) * var(--px));
+  top: calc(var(--t) * var(--px));
+  width: calc(var(--w) * var(--px));
+  height: auto;
+  max-width: none;
 }
 
 .nombre {
@@ -97,7 +107,7 @@
 
   .ovalo {
     width: 150px;
-    height: 124px;
+    height: 124.4px;
     box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, 0.45);
   }
 
@@ -105,6 +115,15 @@
     inset: -14px -4px 4px;
     width: calc(100% + 8px);
     height: calc(100% + 10px);
+  }
+
+  /* en celular el óvalo mide 150 px: la foto se escala igual (150 / 334) */
+  .ovalo .fotoUbicada {
+    inset: auto;
+    left: calc(var(--l) * 150px / 334);
+    top: calc(var(--t) * 150px / 334);
+    width: calc(var(--w) * 150px / 334);
+    height: auto;
   }
 
   .nombre {
