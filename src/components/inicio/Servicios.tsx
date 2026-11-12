@@ -2,16 +2,16 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import Img from "@/components/Img";
-import { servicios } from "@/content/servicios";
+import { servicioInicial, servicios } from "@/content/servicios";
 import styles from "./Servicios.module.css";
 
-/* "Nuestros servicios" v2: diagrama de 4 servicios.
-   Sin selección se ve el diseño base (círculo azul). Al pasar el mouse (o tocar) un servicio,
-   aparece su foto en grande y cambia el texto de la izquierda. */
+/* "Nuestros servicios": diagrama de 4 servicios.
+   Sin selección está activo "Entrenamiento auditivo" (círculo azul) y se ve el texto general.
+   Al pasar el mouse (o tocar) un servicio, aparece su círculo de color y cambia el texto. */
 export default function Servicios() {
   const [activo, setActivo] = useState<string | null>(null);
   const actual = servicios.find((s) => s.id === activo);
+  const resaltado = activo ?? servicioInicial;
 
   return (
     <section id="servicios" className={styles.seccion} aria-labelledby="servicios-titulo">
@@ -41,36 +41,39 @@ export default function Servicios() {
         </Link>
       </div>
 
-      <div
-        className={`${styles.diagrama} ${actual ? styles.conActivo : ""}`}
-        onMouseLeave={() => setActivo(null)}
-      >
-        <span className={styles.brillo} aria-hidden="true" />
-        <span className={styles.disco} aria-hidden="true" />
+      <div className={styles.diagrama} onMouseLeave={() => setActivo(null)}>
+        {servicios.map((s) => (
+          // círculos de color: todos cargados, solo el activo visible
+          <span
+            key={s.id}
+            className={`${styles.color} ${s.id === resaltado ? styles.colorVisible : ""}`}
+            style={{ "--x": s.centro.x, "--y": s.centro.y, backgroundImage: `url(${s.circulo})` } as React.CSSProperties}
+            aria-hidden="true"
+          />
+        ))}
         <ul className={styles.nodos}>
           {servicios.map((s) => {
-            const esActivo = s.id === activo;
-            // sin selección, "Entrenamiento" va suelto sobre el círculo azul (como en Figma)
-            const suelto = !actual && s.id === "entrenamiento";
-            const clase = esActivo ? styles.activo : suelto ? styles.suelto : styles.blanco;
+            const esActivo = s.id === resaltado;
             return (
               <li
                 key={s.id}
-                className={`${styles.nodo} ${clase}`}
-                style={{ "--x": s.centro.x, "--y": s.centro.y } as React.CSSProperties}
+                className={`${styles.nodo} ${esActivo ? styles.activo : styles.blanco}`}
+                style={
+                  {
+                    "--x": s.centro.x,
+                    "--y": s.centro.y,
+                    "--fondo": s.interior.fondo,
+                    "--contenido": s.interior.contenido,
+                  } as React.CSSProperties
+                }
               >
                 <button
                   type="button"
-                  aria-pressed={esActivo}
+                  aria-pressed={s.id === activo}
                   onMouseEnter={() => setActivo(s.id)}
                   onFocus={() => setActivo(s.id)}
                   onClick={() => setActivo(s.id)}
                 >
-                  {esActivo && (
-                    <span className={styles.foto} aria-hidden="true">
-                      <Img src={s.foto} alt="" />
-                    </span>
-                  )}
                   <span className={styles.circulo}>
                     <span
                       className={styles.icono}
