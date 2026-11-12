@@ -3,56 +3,92 @@
 
 .escena {
   position: relative;
-  background: #1b2a4a;
+  background: var(--blanco);
+  /* cuánto se mueve cada mitad al abrirse: deja en el centro el ancho del contenido (969) */
+  --d: calc(484.5 * var(--px));
 }
 
-/* foto del edificio fija de fondo: la caja cubre toda la escena y su hija se queda pegada
-   arriba de la pantalla, sin pasar del final de la escena (el resto de la página va encima) */
-.fondo {
+/* ---------- capa fija: foto partida ---------- */
+.puertas {
   position: absolute;
   inset: 0;
-  z-index: 0;
+  z-index: 2;
+  pointer-events: none;
 }
 
-.fondo::before {
-  content: "";
+.pegado {
   position: sticky;
   top: 0;
-  display: block;
   height: 100vh;
+  overflow: hidden;
+}
+
+/* dos contenedores con la MISMA imagen, alineada para que juntos formen la foto completa */
+.mitad {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+  overflow: hidden;
+  will-change: transform;
+}
+
+.mitad::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 200%;
+  height: 100%;
   background: url("/img/nosotros-fondo-temporal.jpg") center top / cover no-repeat;
 }
 
-.hero,
+.izquierda {
+  left: 0;
+  transform: translate3d(calc(var(--abre, 0) * -1 * var(--d)), 0, 0);
+}
+
+.izquierda::before {
+  left: 0;
+}
+
+.derecha {
+  left: 50%;
+  transform: translate3d(calc(var(--abre, 0) * var(--d)), 0, 0);
+}
+
+.derecha::before {
+  left: -100%;
+}
+
 .panel,
 .cierre {
   position: relative;
+}
+
+.panel {
   z-index: 1;
 }
 
-/* ---------- 1 · hero ---------- */
-/* carril: el hero se queda pegado arriba mientras pasa el panel, hasta antes del video (y≈4000) */
-.carril {
-  position: relative;
-  z-index: 1;
-  height: calc(3950 * var(--px));
-  margin-bottom: calc(-2977 * var(--px));
+.cierre {
+  z-index: 3;
 }
 
-.carril .hero {
-  position: sticky;
-  top: 0;
+/* ---------- 1 · hero (texto sobre la mitad izquierda: se va con ella) ---------- */
+.inicio {
+  height: calc(973 * var(--px));
 }
 
 .hero {
-  height: calc(973 * var(--px));
+  position: absolute;
+  inset: 0;
   color: var(--blanco);
-  overflow: hidden;
 }
 
 .heroContenido {
   position: absolute;
   inset: 0;
+  transform: translate3d(calc(var(--abre, 0) * -1 * var(--d)), 0, 0);
+  opacity: calc(1 - var(--inicio, 0) * 1.4);
 }
 
 .heroTitulo {
@@ -123,8 +159,9 @@
 
 /* ---------- 2 · panel blanco ---------- */
 .panel {
-  margin-left: calc(951 * var(--px));
-  height: calc(3877 * var(--px));
+  width: calc(969 * var(--px));
+  margin: 0 auto;
+  height: calc(4500 * var(--px));
   background: var(--blanco);
   color: var(--navy);
 }
@@ -265,21 +302,45 @@
   text-align: justify;
 }
 
-/* video sobre la foto, a la izquierda del panel */
+/* video: en el espacio central, debajo del texto de Tecnología */
 .video {
   position: absolute;
-  left: calc(-907 * var(--px));
-  top: calc(3129 * var(--px));
+  left: calc(50 * var(--px));
+  top: calc(3740 * var(--px));
   width: calc(868 * var(--px));
   height: calc(580 * var(--px));
   object-fit: cover;
   background: #cfcfcf;
 }
 
-/* ---------- 3 · cierre ---------- */
+/* entrada de los bloques del contenido (se marca data-visible al aparecer) */
+.panel > * {
+  opacity: 0;
+  translate: 0 calc(36 * var(--px));
+  transition:
+    opacity 0.9s ease,
+    translate 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.panel > [data-visible] {
+  opacity: 1;
+  translate: 0 0;
+}
+
+/* ---------- 3 · cierre: aparece cuando la foto ya está recompuesta ---------- */
 .cierre {
   height: calc(974 * var(--px));
   color: var(--blanco);
+  opacity: calc((var(--cierra, 0) - 0.55) * 2.3);
+  translate: 0 calc((1 - var(--cierra, 0)) * 40 * var(--px));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .panel > * {
+    opacity: 1;
+    translate: none;
+    transition: none;
+  }
 }
 
 .cierreTitulo {
@@ -333,16 +394,16 @@
 
 /* ===== Tablet y celular: el contenido blanco sube encima de la foto a todo el ancho ===== */
 @media (max-width: 1023px) {
-  .carril {
-    height: auto;
-    margin-bottom: 0;
+  /* en pantallas angostas las mitades se abren del todo y el contenido ocupa todo el ancho */
+  .escena {
+    --d: 50vw;
   }
 
-  .carril .hero {
-    position: relative;
+  .pegado {
+    height: 100svh;
   }
 
-  .hero {
+  .inicio {
     height: 100svh;
     min-height: 560px;
   }
@@ -407,12 +468,11 @@
   }
 
   .panel {
-    margin-left: 0;
+    width: auto;
     height: auto;
-    padding: 56px 24px 64px;
+    padding: 56px 24px 30svh;
     display: flex;
     flex-direction: column;
-    border-radius: 24px 24px 0 0;
   }
 
   .etiqueta {
@@ -498,7 +558,7 @@
 
   .cierre {
     height: auto;
-    min-height: 520px;
+    min-height: 100svh;
     display: flex;
     flex-direction: column;
     justify-content: center;

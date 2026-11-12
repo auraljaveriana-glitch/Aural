@@ -6,9 +6,11 @@ import { site } from "@/content/site";
 import styles from "./Nosotros.module.css";
 
 /* Página Nosotros (Figma "nosotros", 12-nov-2026).
-   Efecto (como el video de referencia de Jean): la foto del edificio queda fija de fondo a todo el ancho;
-   al bajar, la imagen se parte a la mitad: el panel blanco sube por la derecha y el bloque "Escuchar mejor"
-   baja con el scroll (se queda en pantalla, a la izquierda) hasta que llega la sección de Tecnología. Al final, la foto vuelve completa (cierre).
+   Animación principal (especificación de Jean): una sola foto del centro se parte por la mitad al hacer scroll;
+   cada mitad se abre hacia su lado y revela el contenido blanco detrás; al final las dos mitades vuelven a
+   juntarse en el centro, recomponen la foto y aparece el cierre. Todo va ligado al scroll (y se revierte al subir).
+   Técnica: capa sticky con dos contenedores overflow:hidden que usan la misma imagen alineada; JS solo
+   calcula el progreso (--abre, --inicio, --cierra) con interpolación suave.
    PENDIENTE (exportar de Figma): foto del edificio sin tono, logo gris, símbolo y gráfico de "Lo que nos guía";
    mientras tanto se usan recortes del diseño. */
 
@@ -33,8 +35,84 @@ function Flecha() {
   );
 }
 
+const limitar = (v: number) => Math.min(1, Math.max(0, v));
+const suave = (t: number) => t * t * (3 - 2 * t);
+
 export default function Nosotros() {
+  const escena = useRef<HTMLDivElement>(null);
+  const panel = useRef<HTMLElement>(null);
   const video = useRef<HTMLVideoElement>(null);
+
+  // progreso de la animación de la foto partida, ligado al scroll
+  useEffect(() => {
+    const el = escena.current;
+    const pn = panel.current;
+    if (!el || !pn) return;
+    const sinMovimiento = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    const actual = { abre: 0, inicio: 0, cierra: 0 };
+    let raf = 0;
+
+    const objetivo = () => {
+      const vh = window.innerHeight;
+      const y = window.scrollY;
+      const inicioEscena = el.getBoundingClientRect().top + y;
+      const finPanel = pn.getBoundingClientRect().bottom + y;
+      const inicio = limitar((y - inicioEscena) / (vh * 0.7)); // fases 2-3: se abre
+      const cierra = limitar((y - (finPanel - vh * 0.65)) / (vh * 0.65)); // fase 4: se vuelve a unir
+      return { abre: suave(inicio) * (1 - suave(cierra)), inicio, cierra };
+    };
+
+    const pintar = () => {
+      el.style.setProperty("--abre", actual.abre.toFixed(4));
+      el.style.setProperty("--inicio", actual.inicio.toFixed(4));
+      el.style.setProperty("--cierra", actual.cierra.toFixed(4));
+    };
+
+    const paso = () => {
+      const o = objetivo();
+      let sigue = false;
+      for (const k of ["abre", "inicio", "cierra"] as const) {
+        const d = o[k] - actual[k];
+        if (sinMovimiento || Math.abs(d) < 0.0008) actual[k] = o[k];
+        else {
+          actual[k] += d * 0.16;
+          sigue = true;
+        }
+      }
+      pintar();
+      raf = sigue ? requestAnimationFrame(paso) : 0;
+    };
+    const pedir = () => {
+      if (!raf) raf = requestAnimationFrame(paso);
+    };
+
+    Object.assign(actual, objetivo());
+    pintar();
+    window.addEventListener("scroll", pedir, { passive: true });
+    window.addEventListener("resize", pedir);
+    return () => {
+      window.removeEventListener("scroll", pedir);
+      window.removeEventListener("resize", pedir);
+      cancelAnimationFrame(raf);
+    };
+  }, []);
+
+  // los bloques del contenido entran con opacidad y un leve desplazamiento vertical
+  useEffect(() => {
+    const pn = panel.current;
+    if (!pn) return;
+    const io = new IntersectionObserver(
+      (entradas) =>
+        entradas.forEach((e) => {
+          if (e.isIntersecting) (e.target as HTMLElement).dataset.visible = "";
+        }),
+      { rootMargin: "0px 0px -12% 0px" },
+    );
+    Array.from(pn.children).forEach((c) => io.observe(c));
+    return () => io.disconnect();
+  }, []);
 
   // el video solo se reproduce cuando está en pantalla
   useEffect(() => {
@@ -52,41 +130,56 @@ export default function Nosotros() {
   }, []);
 
   return (
-    <div className={styles.escena}>
-      <div className={styles.fondo} aria-hidden="true" />
-
-      {/* 1 · hero: el texto acompaña el scroll (pegado a la pantalla) mientras el panel sube a la derecha */}
-      <div className={styles.carril}>
-        <section className={styles.hero} aria-labelledby="nosotros-titulo">
-          <div className={styles.heroContenido}>
-            <h1 id="nosotros-titulo" className={styles.heroTitulo}>
-              <span>Escuchar mejor</span>
-              <b>es vivir mejor</b>
-            </h1>
-            <p className={styles.heroTexto}>
-              En Aural creemos que escuchar nos conecta con las personas, los
-              momentos y las experiencias que hacen parte de nuestra vida.
-            </p>
-            <ul className={styles.cifras}>
-              <li>
-                <b>5</b>
-                <span>Ciudades</span>
-              </li>
-              <li>
-                <b>10</b>
-                <span>
-                  Centros
-                  <br />
-                  auditivos
-                </span>
-              </li>
-            </ul>
-          </div>
-        </section>
+    <div className={styles.escena} ref={escena}>
+      {/* capa fija: la foto partida en dos mitades + el texto inicial */}
+      <div className={styles.puertas}>
+        <div className={styles.pegado}>
+          <div
+            className={`${styles.mitad} ${styles.izquierda}`}
+            aria-hidden="true"
+          />
+          <div
+            className={`${styles.mitad} ${styles.derecha}`}
+            aria-hidden="true"
+          />
+          <section className={styles.hero} aria-labelledby="nosotros-titulo">
+            <div className={styles.heroContenido}>
+              <h1 id="nosotros-titulo" className={styles.heroTitulo}>
+                <span>Escuchar mejor</span>
+                <b>es vivir mejor</b>
+              </h1>
+              <p className={styles.heroTexto}>
+                En Aural creemos que escuchar nos conecta con las personas, los
+                momentos y las experiencias que hacen parte de nuestra vida.
+              </p>
+              <ul className={styles.cifras}>
+                <li>
+                  <b>5</b>
+                  <span>Ciudades</span>
+                </li>
+                <li>
+                  <b>10</b>
+                  <span>
+                    Centros
+                    <br />
+                    auditivos
+                  </span>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </div>
       </div>
 
+      {/* 1 · espacio de la foto completa antes de que se abra */}
+      <div className={styles.inicio} aria-hidden="true" />
+
       {/* 2 · panel blanco */}
-      <section className={styles.panel} aria-labelledby="nosotros-historia">
+      <section
+        ref={panel}
+        className={styles.panel}
+        aria-labelledby="nosotros-historia"
+      >
         <p
           className={styles.etiqueta}
           style={{ "--l": 175, "--t": 205 } as React.CSSProperties}
