@@ -81,6 +81,10 @@
   background: rgba(255, 255, 255, 0.5);
 }
 
+.solido {
+  background: var(--blanco);
+}
+
 /* ===== Tablet y celular ===== */
 @media (max-width: 1023px) {
   .header {

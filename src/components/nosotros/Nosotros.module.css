@@ -1,0 +1,511 @@
+/* Nosotros @1920 (Figma "nosotros"): hero de y0 a y973 · panel blanco desde x951, de y973 a y4850
+   · cierre sobre la foto de y4850 a y5824 · footer. Posiciones del panel relativas a su esquina. */
+
+.escena {
+  position: relative;
+  background: #1b2a4a;
+}
+
+/* foto del edificio fija de fondo: la caja cubre toda la escena y su hija se queda pegada
+   arriba de la pantalla, sin pasar del final de la escena (el resto de la página va encima) */
+.fondo {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.fondo::before {
+  content: "";
+  position: sticky;
+  top: 0;
+  display: block;
+  height: 100vh;
+  background: url("/img/nosotros-fondo-temporal.jpg") center top / cover no-repeat;
+}
+
+.hero,
+.panel,
+.cierre {
+  position: relative;
+  z-index: 1;
+}
+
+/* ---------- 1 · hero ---------- */
+.hero {
+  height: calc(973 * var(--px));
+  color: var(--blanco);
+  overflow: hidden;
+}
+
+.heroContenido {
+  position: absolute;
+  inset: 0;
+  transform: translateY(var(--bajar, 0px));
+  opacity: var(--opacidad, 1);
+  will-change: transform, opacity;
+}
+
+.heroTitulo {
+  position: absolute;
+  left: calc(153 * var(--px));
+  top: calc(262 * var(--px));
+  display: flex;
+  flex-direction: column;
+  font-size: calc(70 * var(--px));
+  line-height: calc(84 * var(--px));
+  font-weight: 300;
+  text-transform: uppercase;
+}
+
+.heroTitulo b {
+  font-weight: 600;
+}
+
+.heroTexto {
+  position: absolute;
+  left: calc(157 * var(--px));
+  top: calc(486 * var(--px));
+  width: calc(578 * var(--px));
+  font-size: calc(29.5 * var(--px));
+  line-height: calc(40 * var(--px));
+  font-weight: 400;
+  text-align: justify;
+}
+
+.cifras {
+  position: absolute;
+  left: calc(154 * var(--px));
+  top: calc(724 * var(--px));
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: calc(10 * var(--px));
+}
+
+.cifras li {
+  width: calc(172 * var(--px));
+  height: calc(172 * var(--px));
+  display: flex;
+  flex-direction: column;
+  padding: calc(14 * var(--px)) calc(36 * var(--px));
+  background: rgba(255, 255, 255, 0.16);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+
+.cifras b {
+  font-size: calc(98 * var(--px));
+  line-height: 1;
+  font-weight: 700;
+}
+
+.cifras span {
+  margin-top: calc(14 * var(--px));
+  padding-top: calc(10 * var(--px));
+  border-top: calc(1.5 * var(--px)) solid rgba(255, 255, 255, 0.8);
+  width: fit-content;
+  font-size: calc(14 * var(--px));
+  line-height: 1.1;
+  text-transform: uppercase;
+  color: #f0f0f0;
+}
+
+/* ---------- 2 · panel blanco ---------- */
+.panel {
+  margin-left: calc(951 * var(--px));
+  height: calc(3877 * var(--px));
+  background: var(--blanco);
+  color: var(--navy);
+}
+
+.etiqueta {
+  position: absolute;
+  left: calc(var(--l) * var(--px));
+  top: calc(var(--t) * var(--px) - 0.17em);
+  font-size: calc(22.5 * var(--px));
+  line-height: 1;
+  font-weight: 300;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #4c7ab4;
+}
+
+.logo {
+  position: absolute;
+  left: calc(159 * var(--px));
+  top: calc(272 * var(--px));
+  width: calc(385 * var(--px));
+  margin: 0;
+}
+
+.logo img {
+  width: 100%;
+}
+
+.historia {
+  position: absolute;
+  left: calc(171 * var(--px));
+  top: calc(449 * var(--px));
+  width: calc(652 * var(--px));
+  display: flex;
+  flex-direction: column;
+  gap: calc(39 * var(--px));
+  font-size: calc(29.5 * var(--px));
+  line-height: calc(38 * var(--px));
+  color: #777777;
+  text-align: justify;
+}
+
+.historia b {
+  font-weight: 600;
+  color: var(--navy);
+}
+
+.simbolo {
+  position: absolute;
+  left: calc(289 * var(--px));
+  top: calc(1127 * var(--px));
+  width: calc(425 * var(--px));
+}
+
+.hitos {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.hitos li {
+  position: absolute;
+  left: calc(var(--x) * var(--px));
+  top: calc(var(--y) * var(--px));
+  width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.punto {
+  width: calc(76 * var(--px));
+  height: calc(76 * var(--px));
+  margin-top: calc(-38 * var(--px));
+  border-radius: 50%;
+  background: var(--navy);
+  flex: none;
+}
+
+.hitos b {
+  margin-top: calc(38 * var(--px));
+  font-size: calc(46 * var(--px));
+  line-height: 1;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.hitos li > span:last-child {
+  margin-top: calc(8 * var(--px));
+  font-size: calc(21 * var(--px));
+  line-height: 1.2;
+  color: #7f7f7f;
+  white-space: nowrap;
+}
+
+.guiaTitulo {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(2040 * var(--px));
+  margin: 0;
+  font-size: calc(42 * var(--px));
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-align: center;
+  text-transform: uppercase;
+  transform: translateX(calc(0 * var(--px)));
+}
+
+.guia {
+  position: absolute;
+  left: calc(4 * var(--px));
+  top: calc(2117 * var(--px));
+  width: calc(965 * var(--px));
+}
+
+.tecTitulo {
+  position: absolute;
+  left: calc(153 * var(--px));
+  top: calc(3223 * var(--px));
+  margin: 0;
+  font-size: calc(42 * var(--px));
+  line-height: calc(50 * var(--px));
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.tecTexto {
+  position: absolute;
+  left: calc(154 * var(--px));
+  top: calc(3416 * var(--px));
+  width: calc(676 * var(--px));
+  font-size: calc(29.5 * var(--px));
+  line-height: calc(38 * var(--px));
+  color: #777777;
+  text-align: justify;
+}
+
+/* video sobre la foto, a la izquierda del panel */
+.video {
+  position: absolute;
+  left: calc(-907 * var(--px));
+  top: calc(3129 * var(--px));
+  width: calc(868 * var(--px));
+  height: calc(580 * var(--px));
+  object-fit: cover;
+  background: #cfcfcf;
+}
+
+/* ---------- 3 · cierre ---------- */
+.cierre {
+  height: calc(974 * var(--px));
+  color: var(--blanco);
+}
+
+.cierreTitulo {
+  position: absolute;
+  left: calc(1139 * var(--px));
+  top: calc(284 * var(--px));
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  font-size: calc(64 * var(--px));
+  line-height: calc(70 * var(--px));
+  font-weight: 300;
+  text-transform: uppercase;
+}
+
+.cierreTitulo b {
+  font-weight: 700;
+}
+
+.botones {
+  position: absolute;
+  left: calc(1132 * var(--px));
+  top: calc(592 * var(--px));
+  display: flex;
+  flex-direction: column;
+  gap: calc(30 * var(--px));
+}
+
+.boton {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: calc(392 * var(--px));
+  height: calc(68 * var(--px));
+  padding: 0 calc(46 * var(--px)) 0 calc(50 * var(--px));
+  border: calc(1.5 * var(--px)) solid rgba(255, 255, 255, 0.9);
+  border-radius: 999px;
+  color: var(--blanco);
+  font-size: calc(21 * var(--px));
+  font-weight: 300;
+}
+
+.boton b {
+  font-weight: 700;
+}
+
+.flecha {
+  width: calc(32 * var(--px));
+  height: calc(20 * var(--px));
+}
+
+/* ===== Tablet y celular: el contenido blanco sube encima de la foto a todo el ancho ===== */
+@media (max-width: 1023px) {
+  .hero {
+    height: 100svh;
+    min-height: 560px;
+  }
+
+  .heroContenido {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 96px 24px 40px;
+  }
+
+  .heroTitulo,
+  .heroTexto,
+  .cifras,
+  .etiqueta,
+  .logo,
+  .historia,
+  .simbolo,
+  .hitos li,
+  .guiaTitulo,
+  .guia,
+  .tecTitulo,
+  .tecTexto,
+  .video,
+  .cierreTitulo,
+  .botones {
+    position: static;
+    width: auto;
+    transform: none;
+  }
+
+  .heroTitulo {
+    font-size: clamp(30px, 8.6vw, 44px);
+    line-height: 1.15;
+  }
+
+  .heroTexto {
+    margin-top: 18px;
+    font-size: 16px;
+    line-height: 1.5;
+    text-align: left;
+  }
+
+  .cifras {
+    margin-top: 28px;
+  }
+
+  .cifras li {
+    width: 120px;
+    height: 120px;
+    padding: 12px 18px;
+  }
+
+  .cifras b {
+    font-size: 54px;
+  }
+
+  .cifras span {
+    margin-top: 8px;
+    padding-top: 6px;
+    font-size: 11px;
+  }
+
+  .panel {
+    margin-left: 0;
+    height: auto;
+    padding: 56px 24px 64px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 24px 24px 0 0;
+  }
+
+  .etiqueta {
+    font-size: 14px;
+    margin-top: 8px;
+  }
+
+  .logo {
+    margin-top: 18px;
+    width: 220px;
+  }
+
+  .historia {
+    margin-top: 24px;
+    gap: 16px;
+    font-size: 16px;
+    line-height: 1.55;
+    text-align: left;
+  }
+
+  .simbolo {
+    width: 220px;
+    margin: 40px auto 0;
+  }
+
+  .hitos {
+    margin-top: 32px;
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .hitos li {
+    flex: 1;
+  }
+
+  .punto {
+    width: 36px;
+    height: 36px;
+    margin-top: 0;
+  }
+
+  .hitos b {
+    margin-top: 12px;
+    font-size: 24px;
+  }
+
+  .hitos li > span:last-child {
+    font-size: 13px;
+    white-space: normal;
+  }
+
+  .guiaTitulo {
+    margin-top: 56px;
+    font-size: 20px;
+  }
+
+  .guia {
+    margin-top: 16px;
+    width: 100%;
+  }
+
+  .tecTitulo {
+    margin-top: 48px;
+    font-size: 24px;
+    line-height: 1.25;
+  }
+
+  .tecTexto {
+    margin-top: 16px;
+    font-size: 16px;
+    line-height: 1.55;
+    text-align: left;
+  }
+
+  .video {
+    order: 99;
+    margin-top: 28px;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 868 / 580;
+  }
+
+  .cierre {
+    height: auto;
+    min-height: 520px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 64px 24px;
+  }
+
+  .cierreTitulo {
+    font-size: clamp(30px, 8.6vw, 44px);
+    line-height: 1.15;
+  }
+
+  .botones {
+    margin-top: 28px;
+    gap: 12px;
+  }
+
+  .boton {
+    width: 100%;
+    height: 52px;
+    padding: 0 22px;
+    border-width: 1.5px;
+    font-size: 16px;
+  }
+
+  .flecha {
+    width: 26px;
+    height: 16px;
+  }
+}

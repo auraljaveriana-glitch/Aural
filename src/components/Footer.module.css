@@ -131,7 +131,7 @@
 
 /* En la plantilla "RIC" el footer es más bajo: logo a 160 px del borde y 148 px al final */
 @media (min-width: 1024px) {
-  :global(body:has([data-pagina="audifonos"])) .footer {
+  :global(body:has([data-pagina="audifonos"], [data-pagina="nosotros"])) .footer {
     padding-top: calc(165 * var(--px));
     padding-bottom: calc(149 * var(--px));
   }

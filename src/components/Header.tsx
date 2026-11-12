@@ -9,10 +9,12 @@ import styles from "./Header.module.css";
 export default function Header() {
   const [abierto, setAbierto] = useState(false);
   // En las páginas de audífonos (plantilla "RIC") la barra flota sobre el panel gris
-  const flotante = usePathname()?.startsWith("/audifonos/");
+  const ruta = usePathname() ?? "";
+  const flotante = ruta.startsWith("/audifonos/") || ruta.startsWith("/nosotros");
+  const solido = ruta.startsWith("/nosotros"); // en Nosotros la barra es blanca sólida
 
   return (
-    <header className={`${styles.header} ${flotante ? styles.flotante : ""}`}>
+    <header className={`${styles.header} ${flotante ? styles.flotante : ""} ${solido ? styles.solido : ""}`}>
       <Link href="/" className={styles.logo} aria-label="Aural Centros Auditivos, inicio">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/img/logo-aural.svg" alt="Aural Centros Auditivos" width={160} height={54} />
