@@ -6,8 +6,9 @@ import { site } from "@/content/site";
 import styles from "./Nosotros.module.css";
 
 /* Página Nosotros (Figma "nosotros", 12-nov-2026).
-   Efecto: la foto del edificio queda fija de fondo; el bloque "Escuchar mejor" baja despacio y se
-   desvanece mientras el panel blanco sube por la derecha. Al final, la foto vuelve completa (cierre).
+   Efecto (como el video de referencia de Jean): la foto del edificio queda fija de fondo a todo el ancho;
+   al bajar, el bloque "Escuchar mejor" se va con la página (sin desaparecer) y el panel blanco sube por
+   la derecha, partiendo la pantalla a la mitad. Al final, la foto vuelve completa (cierre).
    PENDIENTE (exportar de Figma): foto del edificio sin tono, logo gris, símbolo y gráfico de "Lo que nos guía";
    mientras tanto se usan recortes del diseño. */
 
@@ -26,29 +27,7 @@ function Flecha() {
 }
 
 export default function Nosotros() {
-  const hero = useRef<HTMLDivElement>(null);
   const video = useRef<HTMLVideoElement>(null);
-
-  // el texto del hero baja más lento que la página y se desvanece
-  useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    let raf = 0;
-    const medir = () => {
-      raf = 0;
-      const y = Math.max(0, window.scrollY);
-      hero.current?.style.setProperty("--bajar", `${y * 0.45}px`);
-      hero.current?.style.setProperty("--opacidad", String(Math.max(0, 1 - y / (window.innerHeight * 0.75))));
-    };
-    const alMover = () => {
-      if (!raf) raf = requestAnimationFrame(medir);
-    };
-    medir();
-    window.addEventListener("scroll", alMover, { passive: true });
-    return () => {
-      window.removeEventListener("scroll", alMover);
-      if (raf) cancelAnimationFrame(raf);
-    };
-  }, []);
 
   // el video solo se reproduce cuando está en pantalla
   useEffect(() => {
@@ -71,7 +50,7 @@ export default function Nosotros() {
 
       {/* 1 · hero */}
       <section className={styles.hero} aria-labelledby="nosotros-titulo">
-        <div ref={hero} className={styles.heroContenido}>
+        <div className={styles.heroContenido}>
           <h1 id="nosotros-titulo" className={styles.heroTitulo}>
             <span>Escuchar mejor</span>
             <b>es vivir mejor</b>

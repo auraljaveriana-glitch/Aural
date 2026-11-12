@@ -40,9 +40,6 @@
 .heroContenido {
   position: absolute;
   inset: 0;
-  transform: translateY(var(--bajar, 0px));
-  opacity: var(--opacidad, 1);
-  will-change: transform, opacity;
 }
 
 .heroTitulo {
