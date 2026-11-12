@@ -285,11 +285,13 @@
   transform: translateX(calc(19 * var(--px)));
 }
 
+/* gráfico de "Lo que nos guía": recorte completo (sin cortar los círculos) y más pequeño (82 %)
+   que en el diseño, a pedido de Jean; centrado en el mismo espacio */
 .guia {
   position: absolute;
-  left: calc(4 * var(--px));
-  top: calc(2117 * var(--px));
-  width: calc(965 * var(--px));
+  left: calc(91 * var(--px));
+  top: calc(2174 * var(--px));
+  width: calc(791 * var(--px));
 }
 
 .tecTitulo {
