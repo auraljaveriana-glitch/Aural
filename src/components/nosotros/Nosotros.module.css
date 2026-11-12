@@ -31,6 +31,19 @@
 }
 
 /* ---------- 1 · hero ---------- */
+/* carril: el hero se queda pegado arriba mientras pasa el panel, hasta antes del video (y≈4000) */
+.carril {
+  position: relative;
+  z-index: 1;
+  height: calc(3950 * var(--px));
+  margin-bottom: calc(-2977 * var(--px));
+}
+
+.carril .hero {
+  position: sticky;
+  top: 0;
+}
+
 .hero {
   height: calc(973 * var(--px));
   color: var(--blanco);
@@ -320,6 +333,15 @@
 
 /* ===== Tablet y celular: el contenido blanco sube encima de la foto a todo el ancho ===== */
 @media (max-width: 1023px) {
+  .carril {
+    height: auto;
+    margin-bottom: 0;
+  }
+
+  .carril .hero {
+    position: relative;
+  }
+
   .hero {
     height: 100svh;
     min-height: 560px;
