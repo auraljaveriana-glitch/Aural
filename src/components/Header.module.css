@@ -81,9 +81,37 @@
   background: rgba(255, 255, 255, 0.5);
 }
 
-.solido {
-  background: var(--blanco);
+/* Nosotros v2: barra delgada (x15–1904, y13–77), esquinas rectas; logo 143 px sin subtítulo,
+   botón 154×40 terminando en x1801 */
+@media (min-width: 1024px) {
+  .delgado {
+    top: calc(13 * var(--px));
+    height: calc(64 * var(--px));
+    min-height: 0;
+    padding-left: calc(139 * var(--px));
+    padding-right: calc(103 * var(--px));
+    border-radius: 0;
+    background: rgba(255, 255, 255, 0.62);
+  }
+
+  .delgado .logo {
+    width: calc(143 * var(--px));
+    transform: translateY(calc(-4 * var(--px)));
+  }
+
+  .delgado .nav {
+    gap: calc(84 * var(--px));
+    font-size: max(15px, calc(20 * var(--px)));
+    transform: translateX(calc(-19.5 * var(--px)));
+  }
+
+  .delgado .ctaHeader {
+    width: max(130px, calc(154 * var(--px)));
+    height: max(36px, calc(40 * var(--px)));
+    font-size: max(14px, calc(16.5 * var(--px)));
+  }
 }
+
 
 /* ===== Tablet y celular ===== */
 @media (max-width: 1023px) {

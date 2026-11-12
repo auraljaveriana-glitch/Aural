@@ -11,13 +11,18 @@ export default function Header() {
   // En las páginas de audífonos (plantilla "RIC") la barra flota sobre el panel gris
   const ruta = usePathname() ?? "";
   const flotante = ruta.startsWith("/audifonos/") || ruta.startsWith("/nosotros");
-  const solido = false; // diseño v2 de Nosotros: misma barra translúcida que las páginas de audífonos
+  // diseño v2 de Nosotros (nov-2026): barra delgada de lado a lado, logo sin "Centros auditivos"
+  const delgado = ruta.startsWith("/nosotros");
 
   return (
-    <header className={`${styles.header} ${flotante ? styles.flotante : ""} ${solido ? styles.solido : ""}`}>
+    <header className={`${styles.header} ${flotante ? styles.flotante : ""} ${delgado ? styles.delgado : ""}`}>
       <Link href="/" className={styles.logo} aria-label="Aural Centros Auditivos, inicio">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/img/logo-aural.svg" alt="Aural Centros Auditivos" width={160} height={54} />
+        {delgado ? (
+          <img src="/img/logo-aural-sin-subtitulo.svg" alt="Aural Centros Auditivos" width={160} height={38} />
+        ) : (
+          <img src="/img/logo-aural.svg" alt="Aural Centros Auditivos" width={160} height={54} />
+        )}
       </Link>
 
       <nav aria-label="Principal" className={`${styles.menu} ${abierto ? styles.abierto : ""}`} id="menu-principal">
