@@ -111,8 +111,9 @@
   position: absolute;
   left: calc(157 * var(--px));
   top: calc(486 * var(--px));
-  width: calc(578 * var(--px));
+  width: calc(692 * var(--px));
   font-size: calc(29.5 * var(--px));
+  letter-spacing: calc(1.4 * var(--px));
   line-height: calc(40 * var(--px));
   font-weight: 400;
   text-align: justify;
@@ -120,7 +121,7 @@
 
 .cifras {
   position: absolute;
-  left: calc(154 * var(--px));
+  left: calc(160 * var(--px));
   top: calc(724 * var(--px));
   list-style: none;
   margin: 0;
@@ -134,10 +135,20 @@
   height: calc(172 * var(--px));
   display: flex;
   flex-direction: column;
-  padding: calc(14 * var(--px)) calc(36 * var(--px));
+  padding: calc(9 * var(--px)) calc(35 * var(--px)) calc(17 * var(--px));
   background: rgba(255, 255, 255, 0.16);
   -webkit-backdrop-filter: blur(6px);
   backdrop-filter: blur(6px);
+}
+
+.cifras span::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: calc(22 * var(--px));
+  height: calc(1.5 * var(--px));
+  background: rgba(255, 255, 255, 0.85);
 }
 
 .cifras b {
@@ -146,12 +157,13 @@
   font-weight: 700;
 }
 
+/* rayita corta sobre la etiqueta (diseño v2) */
 .cifras span {
-  margin-top: calc(14 * var(--px));
-  padding-top: calc(10 * var(--px));
-  border-top: calc(1.5 * var(--px)) solid rgba(255, 255, 255, 0.8);
+  position: relative;
+  margin-top: auto; /* etiquetas alineadas abajo: la de dos líneas sube */
+  padding-top: calc(16 * var(--px));
   width: fit-content;
-  font-size: calc(14 * var(--px));
+  font-size: calc(15 * var(--px));
   line-height: 1.1;
   text-transform: uppercase;
   color: #f0f0f0;
@@ -161,7 +173,7 @@
 .panel {
   width: calc(969 * var(--px));
   margin: 0 auto;
-  height: calc(4500 * var(--px));
+  height: calc(4317 * var(--px));
   background: var(--blanco);
   color: var(--navy);
 }
@@ -243,16 +255,16 @@
 }
 
 .hitos b {
-  margin-top: calc(38 * var(--px));
-  font-size: calc(46 * var(--px));
+  margin-top: calc((38 + var(--ya, 0)) * var(--px));
+  font-size: calc(47 * var(--px));
   line-height: 1;
   font-weight: 700;
   white-space: nowrap;
 }
 
 .hitos li > span:last-child {
-  margin-top: calc(8 * var(--px));
-  font-size: calc(21 * var(--px));
+  margin-top: calc((8 + var(--ca, 0)) * var(--px));
+  font-size: calc(24 * var(--px));
   line-height: 1.2;
   color: #7f7f7f;
   white-space: nowrap;
@@ -262,15 +274,15 @@
   position: absolute;
   left: 0;
   right: 0;
-  top: calc(2040 * var(--px));
+  top: calc(2052 * var(--px));
   margin: 0;
-  font-size: calc(42 * var(--px));
+  font-size: calc(27 * var(--px));
   line-height: 1;
   font-weight: 700;
-  letter-spacing: 0.3em;
+  letter-spacing: 0.175em;
   text-align: center;
   text-transform: uppercase;
-  transform: translateX(calc(0 * var(--px)));
+  transform: translateX(calc(19 * var(--px)));
 }
 
 .guia {
@@ -282,10 +294,10 @@
 
 .tecTitulo {
   position: absolute;
-  left: calc(153 * var(--px));
-  top: calc(3223 * var(--px));
+  left: calc(149 * var(--px));
+  top: calc(3173 * var(--px));
   margin: 0;
-  font-size: calc(42 * var(--px));
+  font-size: calc(41 * var(--px));
   line-height: calc(50 * var(--px));
   font-weight: 500;
   text-transform: uppercase;
@@ -293,8 +305,8 @@
 
 .tecTexto {
   position: absolute;
-  left: calc(154 * var(--px));
-  top: calc(3416 * var(--px));
+  left: calc(144 * var(--px));
+  top: calc(3881 * var(--px));
   width: calc(676 * var(--px));
   font-size: calc(29.5 * var(--px));
   line-height: calc(38 * var(--px));
@@ -302,13 +314,13 @@
   text-align: justify;
 }
 
-/* video: en el espacio central, debajo del texto de Tecnología */
+/* video: entre el título y el texto de Tecnología (diseño v2) */
 .video {
   position: absolute;
-  left: calc(50 * var(--px));
-  top: calc(3740 * var(--px));
-  width: calc(868 * var(--px));
-  height: calc(580 * var(--px));
+  left: calc(141 * var(--px));
+  top: calc(3361 * var(--px));
+  width: calc(677 * var(--px));
+  height: calc(454 * var(--px));
   object-fit: cover;
   background: #cfcfcf;
 }
@@ -463,8 +475,13 @@
 
   .cifras span {
     margin-top: 8px;
-    padding-top: 6px;
+    padding-top: 8px;
     font-size: 11px;
+  }
+
+  .cifras span::before {
+    width: 16px;
+    height: 1.5px;
   }
 
   .panel {
@@ -549,7 +566,6 @@
   }
 
   .video {
-    order: 99;
     margin-top: 28px;
     width: 100%;
     height: auto;

@@ -15,9 +15,31 @@ import styles from "./Nosotros.module.css";
    mientras tanto se usan recortes del diseño. */
 
 const hitos = [
-  { anio: "1983", texto: "Nace Aural en España", x: 185, y: 1628 },
-  { anio: "2017", texto: "Llegamos a Colombia", x: 503, y: 1574 },
-  { anio: "HOY", texto: "10 sedes en el país", x: 777, y: 1618 },
+  // ya / ca: separación extra (px de diseño) del año y del texto, que en el diseño varía en cada hito
+  {
+    anio: "1983",
+    texto: "Nace Aural en España",
+    x: 185,
+    y: 1630,
+    ya: 5,
+    ca: 0,
+  },
+  {
+    anio: "2016",
+    texto: "Llegamos a Colombia",
+    x: 503,
+    y: 1576,
+    ya: 12,
+    ca: 6,
+  },
+  {
+    anio: "HOY",
+    texto: "10 sedes en el país",
+    x: 777,
+    y: 1620,
+    ya: 20,
+    ca: -8,
+  },
 ];
 
 function Flecha() {
@@ -154,11 +176,15 @@ export default function Nosotros() {
               </p>
               <ul className={styles.cifras}>
                 <li>
+                  <b>2</b>
+                  <span>Países</span>
+                </li>
+                <li>
                   <b>5</b>
                   <span>Ciudades</span>
                 </li>
                 <li>
-                  <b>10</b>
+                  <b>12</b>
                   <span>
                     Centros
                     <br />
@@ -213,7 +239,14 @@ export default function Nosotros() {
           {hitos.map((h) => (
             <li
               key={h.anio}
-              style={{ "--x": h.x, "--y": h.y } as React.CSSProperties}
+              style={
+                {
+                  "--x": h.x,
+                  "--y": h.y,
+                  "--ya": h.ya,
+                  "--ca": h.ca,
+                } as React.CSSProperties
+              }
             >
               <span className={styles.punto} aria-hidden="true" />
               <b>{h.anio}</b>
@@ -232,7 +265,7 @@ export default function Nosotros() {
 
         <p
           className={styles.etiqueta}
-          style={{ "--l": 153, "--t": 3170 } as React.CSSProperties}
+          style={{ "--l": 149, "--t": 3120 } as React.CSSProperties}
         >
           Tecnología
         </p>
@@ -241,12 +274,6 @@ export default function Nosotros() {
           <br />
           con la vida
         </h2>
-        <p className={styles.tecTexto}>
-          Creemos que la tecnología auditiva debe adaptarse a ti y a tu manera
-          de vivir. Por eso, contamos con soluciones diseñadas para ofrecer una
-          experiencia auditiva personalizada y ayudarte a disfrutar de los
-          sonidos cotidianos.
-        </p>
         <video
           ref={video}
           className={styles.video}
@@ -258,6 +285,12 @@ export default function Nosotros() {
           preload="metadata"
           aria-label="Video: audífono Widex por dentro"
         />
+        <p className={styles.tecTexto}>
+          Creemos que la tecnología auditiva debe adaptarse a ti y a tu manera
+          de vivir. Por eso, contamos con soluciones diseñadas para ofrecer una
+          experiencia auditiva personalizada y ayudarte a disfrutar de los
+          sonidos cotidianos.
+        </p>
       </section>
 
       {/* 3 · cierre sobre la foto */}

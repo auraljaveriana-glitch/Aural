@@ -11,7 +11,7 @@ export default function Header() {
   // En las páginas de audífonos (plantilla "RIC") la barra flota sobre el panel gris
   const ruta = usePathname() ?? "";
   const flotante = ruta.startsWith("/audifonos/") || ruta.startsWith("/nosotros");
-  const solido = ruta.startsWith("/nosotros"); // en Nosotros la barra es blanca sólida
+  const solido = false; // diseño v2 de Nosotros: misma barra translúcida que las páginas de audífonos
 
   return (
     <header className={`${styles.header} ${flotante ? styles.flotante : ""} ${solido ? styles.solido : ""}`}>
