@@ -1,0 +1,779 @@
+/* Figma "PROCESO" @1920 (13-nov-2026, recibido en baja resolución: medidas ±3 px).
+   La página empieza bajo la barra del menú (y133); por eso .pagina sube 133 px y todo usa
+   coordenadas absolutas del diseño. Fórmula del tope de la mayúscula: top + (lh/2 − 0.3415·font). */
+
+.pagina {
+  --amarillo: #f4c247;
+  --linea: rgba(239, 211, 133, 0.75);
+  position: relative;
+  margin-top: calc(-133 * var(--px));
+  height: calc(5868 * var(--px));
+  overflow-x: clip;
+  background:
+    radial-gradient(calc(700 * var(--px)) calc(500 * var(--px)) at 15% 22%, rgba(214, 223, 236, 0.55), transparent 70%),
+    radial-gradient(calc(800 * var(--px)) calc(500 * var(--px)) at 80% 40%, rgba(225, 231, 241, 0.6), transparent 70%),
+    radial-gradient(calc(900 * var(--px)) calc(600 * var(--px)) at 30% 62%, rgba(230, 235, 243, 0.6), transparent 70%),
+    radial-gradient(calc(900 * var(--px)) calc(600 * var(--px)) at 75% 80%, rgba(228, 233, 242, 0.65), transparent 70%),
+    var(--blanco);
+}
+
+/* ondas de líneas verticales del inicio (exportación "ONDAS" usada como máscara) */
+.ondas {
+  position: absolute;
+  left: calc(-40 * var(--px));
+  top: calc(150 * var(--px));
+  width: calc(1800 * var(--px));
+  aspect-ratio: 2636 / 1143;
+  background: #e5eaf1;
+  -webkit-mask: url("/img/proceso/ondas-lineas.png") center / 100% 100% no-repeat;
+  mask: url("/img/proceso/ondas-lineas.png") center / 100% 100% no-repeat;
+  pointer-events: none;
+}
+
+/* luz azulada detrás del collage */
+.brillo {
+  position: absolute;
+  left: calc(950 * var(--px));
+  top: calc(100 * var(--px));
+  width: calc(1100 * var(--px));
+  height: calc(900 * var(--px));
+  background: radial-gradient(closest-side, rgba(215, 225, 240, 0.85), rgba(235, 240, 248, 0.4) 70%, transparent);
+  pointer-events: none;
+}
+
+/* ---------- inicio ---------- */
+.hero {
+  position: absolute;
+  inset: 0 0 auto;
+  height: calc(1000 * var(--px));
+}
+
+.etiqueta {
+  position: absolute;
+  left: calc(131 * var(--px));
+  top: calc(243 * var(--px));
+  margin: 0;
+  font-size: calc(24 * var(--px));
+  line-height: 1;
+  letter-spacing: 0.25em;
+  color: #4a6ea5;
+  text-transform: uppercase;
+}
+
+.etiqueta2 {
+  left: calc(138 * var(--px));
+  top: calc(1086 * var(--px));
+}
+
+.titulo {
+  position: absolute;
+  left: calc(125 * var(--px));
+  top: calc(303 * var(--px));
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  font-size: calc(73 * var(--px));
+  line-height: calc(67 * var(--px));
+  font-weight: 300;
+  color: var(--navy);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.titulo b {
+  font-weight: 700;
+}
+
+.pasos5 {
+  position: absolute;
+  left: calc(130 * var(--px));
+  top: calc(588 * var(--px));
+  width: calc(74 * var(--px));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--amarillo);
+  font-weight: 700;
+  line-height: 1;
+}
+
+.pasos5 b {
+  font-size: calc(96 * var(--px));
+}
+
+.pasos5 span {
+  margin-top: calc(5 * var(--px));
+  font-size: calc(19 * var(--px));
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.pasos5::after {
+  content: "";
+  position: absolute;
+  left: calc(109 * var(--px));
+  top: calc(9 * var(--px));
+  width: calc(1.5 * var(--px));
+  height: calc(107 * var(--px));
+  background: var(--linea);
+}
+
+.intro {
+  position: absolute;
+  left: calc(280 * var(--px));
+  top: calc(606 * var(--px));
+  width: calc(534 * var(--px));
+  margin: 0;
+  font-size: calc(23 * var(--px));
+  line-height: calc(32 * var(--px));
+  color: var(--navy);
+}
+
+/* cada línea del diseño, justificada (menos la última) */
+.intro span {
+  display: block;
+  text-align: justify;
+  text-align-last: justify;
+}
+
+.intro span:last-child {
+  text-align-last: left;
+}
+
+.bajar {
+  position: absolute;
+  left: calc(152 * var(--px));
+  top: calc(853 * var(--px));
+  width: calc(16 * var(--px));
+  height: calc(30 * var(--px));
+  color: #8aa2c4;
+}
+
+.bajar svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.collage {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.circulo,
+.punto {
+  position: absolute;
+  left: calc((var(--x) - var(--r)) * var(--px));
+  top: calc((var(--y) - var(--r)) * var(--px));
+  width: calc(var(--r) * 2 * var(--px));
+  height: calc(var(--r) * 2 * var(--px));
+  border-radius: 50%;
+}
+
+.circulo {
+  object-fit: cover;
+}
+
+.puntoNavy {
+  background: var(--navy);
+}
+
+.puntoDorado {
+  background: var(--amarillo);
+}
+
+/* ---------- pasos ---------- */
+.listaPasos {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.paso {
+  position: absolute;
+  left: calc(43 * var(--px));
+  top: calc(var(--top) * var(--px));
+  width: calc(1827 * var(--px));
+  height: calc(var(--alto) * var(--px));
+  border-radius: calc(40 * var(--px));
+  background: rgba(250, 250, 249, 0.92);
+  box-shadow: 0 calc(10 * var(--px)) calc(40 * var(--px)) rgba(4, 30, 66, 0.05);
+}
+
+/* todos los hijos usan x absolutas del diseño: se resta el margen de la tarjeta (43) */
+.paso > *,
+.encabezado > * {
+  position: absolute;
+}
+
+.encabezado {
+  position: static;
+}
+
+/* línea dorada: baja por la izquierda y dobla hacia la derecha abajo */
+.linea {
+  left: calc((273 - 43) * var(--px));
+  top: calc(var(--y) * var(--px));
+  width: calc((1834 - 273) * var(--px));
+  height: calc(var(--h) * var(--px));
+  border-left: calc(1.5 * var(--px)) solid var(--linea);
+  border-bottom: calc(1.5 * var(--px)) solid var(--linea);
+  border-bottom-left-radius: calc(42 * var(--px));
+}
+
+.puntoDifuso {
+  left: calc((var(--x) - 43 - 22) * var(--px));
+  top: calc((var(--y) - 22) * var(--px));
+  width: calc(44 * var(--px));
+  height: calc(44 * var(--px));
+  border-radius: 50%;
+  filter: blur(calc(5 * var(--px)));
+  opacity: 0.75;
+}
+
+.puntoDifuso.puntoDorado {
+  left: calc((var(--x) - 43 - 11) * var(--px));
+  top: calc((var(--y) - 11) * var(--px));
+  width: calc(22 * var(--px));
+  height: calc(22 * var(--px));
+  filter: blur(calc(3 * var(--px)));
+}
+
+.numero {
+  right: calc((1870 - 233) * var(--px));
+  top: calc((var(--y) - 20.6) * var(--px));
+  font-size: calc(130 * var(--px));
+  line-height: 1;
+  font-weight: 700;
+  color: var(--amarillo);
+  letter-spacing: -0.01em;
+}
+
+.pasoTitulo {
+  left: calc((308 - 43) * var(--px));
+  top: calc((var(--y) - 12.4) * var(--px));
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  font-size: calc(50 * var(--px));
+  line-height: calc(59 * var(--px));
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--navy);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.subtitulo {
+  left: calc((344 - 43) * var(--px));
+  top: calc((var(--y) - 11.2) * var(--px));
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  font-size: calc(36 * var(--px));
+  line-height: calc(47 * var(--px));
+  font-weight: 600;
+  color: #3a3a3a;
+  white-space: nowrap;
+}
+
+.subtituloNavy {
+  color: var(--navy);
+}
+
+.texto {
+  left: calc((344 - 43) * var(--px));
+  top: calc((var(--y) - 7) * var(--px));
+  width: max-content; /* los saltos de línea vienen del diseño */
+  margin: 0;
+  font-size: calc(23 * var(--px));
+  line-height: calc(28 * var(--px));
+  color: #77787a;
+  white-space: pre-line;
+}
+
+.textoFuerte {
+  font-weight: 700;
+  color: #4d4e50;
+}
+
+.foto {
+  left: calc((1057 - 43) * var(--px));
+  top: calc(var(--y) * var(--px));
+  width: calc(773 * var(--px));
+  height: calc(593 * var(--px));
+  border-radius: calc(10 * var(--px));
+  object-fit: cover;
+}
+
+/* paso 2: tres pruebas en píldoras azules */
+.pruebas {
+  left: calc((1244 - 43) * var(--px));
+  top: calc(var(--y) * var(--px));
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: calc(27 * var(--px));
+}
+
+.prueba {
+  display: flex;
+  align-items: center;
+  width: calc(559 * var(--px));
+  height: calc(201 * var(--px));
+  padding-left: calc(30 * var(--px));
+  border-radius: 999px;
+  background: linear-gradient(90deg, #2c4f80 0%, #213a62 100%);
+  color: var(--blanco);
+}
+
+.prueba img {
+  flex: none;
+  width: calc(158 * var(--px));
+  height: calc(158 * var(--px));
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.prueba div {
+  margin-left: calc(43 * var(--px));
+  width: calc(215 * var(--px));
+  margin-top: calc(-6 * var(--px));
+}
+
+.prueba h3 {
+  margin: 0 0 calc(12 * var(--px));
+  font-size: calc(20 * var(--px));
+  line-height: 1.2;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.prueba p {
+  margin: 0;
+  font-size: calc(16 * var(--px));
+  line-height: calc(18 * var(--px));
+  opacity: 0.85;
+  white-space: pre-line;
+}
+
+/* pasos 3–5: lista con ícono a la derecha */
+.lista {
+  inset: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  pointer-events: none;
+}
+
+.lista li {
+  position: absolute;
+  left: calc((1296 - 43) * var(--px));
+  top: calc((var(--y) - 7.1) * var(--px));
+  display: flex;
+  align-items: center;
+  gap: calc(98 * var(--px));
+  pointer-events: auto;
+}
+
+.lista li > span:last-child {
+  display: flex;
+  flex-direction: column;
+  white-space: nowrap;
+  font-size: calc(23 * var(--px));
+  line-height: calc(30 * var(--px));
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #353535;
+  text-transform: uppercase;
+}
+
+.icono {
+  flex: none;
+  align-self: center;
+  width: calc(64 * var(--px));
+  height: calc(64 * var(--px));
+  mix-blend-mode: multiply;
+}
+
+.lista li.separador {
+  left: calc((1297 - 43) * var(--px));
+  top: calc(var(--y) * var(--px));
+  width: calc(523 * var(--px));
+  height: calc(1.5 * var(--px));
+  background: var(--linea);
+}
+
+/* ---------- cierre ---------- */
+.cierre {
+  position: relative;
+  padding: 0 calc(57 * var(--px));
+}
+
+.cierreFoto {
+  position: relative;
+  height: calc(713 * var(--px));
+  border-radius: calc(70 * var(--px)) calc(70 * var(--px)) 0 0;
+  overflow: hidden;
+  color: var(--blanco);
+  background: url("/img/proceso/temp-cta.jpg") center / cover no-repeat;
+}
+
+.cierreTitulo {
+  position: absolute;
+  left: calc((1163 - 57) * var(--px));
+  top: calc(113 * var(--px));
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  font-size: calc(66 * var(--px));
+  line-height: calc(74 * var(--px));
+  font-weight: 300;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.cierreTitulo b {
+  font-weight: 700;
+}
+
+.botones {
+  position: absolute;
+  left: calc((1162 - 57) * var(--px));
+  top: calc(424 * var(--px));
+  display: flex;
+  flex-direction: column;
+  gap: calc(31 * var(--px));
+}
+
+.boton {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: calc(392 * var(--px));
+  height: calc(66 * var(--px));
+  padding: 0 calc(46 * var(--px)) 0 calc(50 * var(--px));
+  border: calc(1.5 * var(--px)) solid rgba(255, 255, 255, 0.9);
+  border-radius: 999px;
+  color: var(--blanco);
+  font-size: calc(21 * var(--px));
+  font-weight: 300;
+}
+
+.boton b {
+  font-weight: 700;
+}
+
+.flecha {
+  width: calc(32 * var(--px));
+  height: calc(20 * var(--px));
+}
+
+/* ===== Tablet y celular: todo apilado ===== */
+@media (max-width: 1023px) {
+  .pagina {
+    height: auto;
+    margin-top: 0;
+    padding: 24px 16px 48px;
+  }
+
+  .ondas,
+  .brillo {
+    display: none;
+  }
+
+  .hero,
+  .etiqueta,
+  .titulo,
+  .pasos5,
+  .intro,
+  .bajar,
+  .collage {
+    position: relative;
+    inset: auto;
+    left: auto;
+    top: auto;
+    height: auto;
+    width: auto;
+  }
+
+  .hero {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .etiqueta {
+    font-size: 12px;
+  }
+
+  .etiqueta2 {
+    margin: 48px 0 16px;
+  }
+
+  .titulo {
+    margin-top: 12px;
+    font-size: clamp(28px, 8.4vw, 44px);
+    line-height: 1.05;
+    white-space: normal;
+  }
+
+  .pasos5 {
+    position: absolute;
+    left: 0;
+    top: auto;
+    width: 56px;
+  }
+
+  .hero > .pasos5 {
+    position: relative;
+    margin-top: 24px;
+  }
+
+  .pasos5 b {
+    font-size: 54px;
+  }
+
+  .pasos5 span {
+    font-size: 12px;
+  }
+
+  .pasos5::after {
+    display: none;
+  }
+
+  .intro {
+    margin-top: -64px;
+    margin-left: 72px;
+    padding-left: 16px;
+    border-left: 1.5px solid var(--linea);
+    font-size: 15px;
+    line-height: 1.5;
+    text-align: left;
+  }
+
+  .bajar {
+    display: none;
+  }
+
+  /* collage: se escala con --u (1 px del diseño) dentro de una caja de 900×750 del diseño */
+  .collage {
+    --u: calc((100vw - 32px) / 900);
+    margin-top: 24px;
+    height: calc(720 * var(--u));
+  }
+
+  .circulo,
+  .punto {
+    left: calc((var(--x) - 990 - var(--r)) * var(--u));
+    top: calc((var(--y) - 180 - var(--r)) * var(--u));
+    width: calc(var(--r) * 2 * var(--u));
+    height: calc(var(--r) * 2 * var(--u));
+  }
+
+  .listaPasos {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .paso {
+    position: relative;
+    left: auto;
+    top: auto;
+    width: auto;
+    height: auto;
+    padding: 28px 20px 32px;
+    border-radius: 24px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .paso > *,
+  .encabezado > *,
+  .lista li,
+  .lista li.separador {
+    position: relative;
+    left: auto;
+    right: auto;
+    top: auto;
+  }
+
+  .linea,
+  .puntoDifuso,
+  .lista li.separador {
+    display: none;
+  }
+
+  .encabezado {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+
+  .numero {
+    font-size: 52px;
+  }
+
+  .pasoTitulo {
+    margin-top: 6px;
+    font-size: 19px;
+    line-height: 1.25;
+    letter-spacing: 0.1em;
+    white-space: normal;
+  }
+
+  .pasoTitulo span {
+    display: inline;
+  }
+
+  .pasoTitulo span + span::before {
+    content: " ";
+  }
+
+  .pasoTitulo {
+    display: block;
+  }
+
+  .subtitulo {
+    display: block;
+    margin-top: 20px;
+    font-size: 20px;
+    line-height: 1.3;
+    white-space: normal;
+  }
+
+  .texto,
+  .prueba p {
+    white-space: normal;
+  }
+
+  .intro span {
+    display: inline;
+  }
+
+  .texto {
+    width: auto;
+    margin-top: 12px;
+    font-size: 15px;
+    line-height: 1.55;
+  }
+
+  .foto {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 773 / 593;
+    margin-top: 20px;
+    border-radius: 12px;
+  }
+
+  .pruebas {
+    margin-top: 20px;
+    gap: 12px;
+  }
+
+  .prueba {
+    width: 100%;
+    height: auto;
+    padding: 12px 20px 12px 12px;
+  }
+
+  .prueba img {
+    width: 76px;
+    height: 76px;
+  }
+
+  .prueba div {
+    width: auto;
+    margin: 0 0 0 16px;
+  }
+
+  .prueba h3 {
+    margin-bottom: 4px;
+    font-size: 13px;
+  }
+
+  .prueba p {
+    font-size: 12.5px;
+    line-height: 1.4;
+  }
+
+  .lista {
+    position: relative;
+    inset: auto;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .lista li {
+    gap: 16px;
+    padding: 14px 0;
+    border-top: 1px solid var(--linea);
+  }
+
+  .lista li > span:last-child {
+    display: block;
+    white-space: normal;
+    width: auto;
+    font-size: 13px;
+    line-height: 1.35;
+  }
+
+  .icono {
+    width: 40px;
+    height: 40px;
+  }
+
+  .cierre {
+    padding: 0 12px;
+  }
+
+  .cierreFoto {
+    height: auto;
+    min-height: 460px;
+    padding: 48px 24px 40px;
+    border-radius: 32px 32px 0 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 28px;
+    background-position: 30% center;
+  }
+
+  .cierreFoto::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 20%, rgba(4, 30, 66, 0.55));
+  }
+
+  .cierreTitulo,
+  .botones {
+    position: relative;
+    left: auto;
+    top: auto;
+  }
+
+  .cierreTitulo {
+    font-size: clamp(26px, 8vw, 38px);
+    line-height: 1.1;
+    white-space: normal;
+  }
+
+  .boton {
+    width: min(100%, 320px);
+    height: 52px;
+    padding: 0 24px;
+    font-size: 16px;
+  }
+
+  .flecha {
+    width: 26px;
+    height: 16px;
+  }
+}

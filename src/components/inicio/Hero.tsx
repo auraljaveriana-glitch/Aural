@@ -29,7 +29,7 @@ export default function Hero() {
             Agenda tu cita
             <Chevron />
           </Link>
-          <Link href="#" className={`${styles.boton} ${styles.botonContorno}`}>
+          <Link href="/proceso" className={`${styles.boton} ${styles.botonContorno}`}>
             Conoce el proceso
             <Chevron />
           </Link>
