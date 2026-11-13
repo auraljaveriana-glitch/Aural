@@ -1,10 +1,11 @@
 import Link from "next/link";
 import { site } from "@/content/site";
 import CarruselHero from "./CarruselHero";
+import ContadorPacientes from "./ContadorPacientes";
 import styles from "./Hero.module.css";
 
 const cifras = [
-  { valor: "5.000 +", etiqueta: "Pacientes satisfechos" },
+  { valor: <ContadorPacientes />, etiqueta: "Pacientes satisfechos" }, // sube cada día hábil
   { valor: "92%", etiqueta: "Nos recomiendan" },
 ];
 
