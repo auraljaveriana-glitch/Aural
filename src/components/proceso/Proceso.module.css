@@ -780,3 +780,41 @@
     height: 16px;
   }
 }
+
+/* ---------- animación cinematográfica (Cinematico.tsx) ---------- */
+.cine {
+  overflow-x: clip;
+}
+
+/* mientras arranca el JavaScript, lo del inicio queda oculto para que no "salte" */
+.preparando [data-a="hero-circulo"],
+.preparando [data-a="hero-punto"],
+.preparando [data-a="hero-linea"],
+.preparando [data-a="hero-entra"],
+.preparando [data-a="hero-bajar"] {
+  visibility: hidden;
+}
+
+/* cada línea de los títulos grandes se revela desde abajo dentro de su máscara */
+.mascara {
+  display: block;
+  overflow: hidden;
+  padding-top: 0.12em;
+  margin-top: -0.12em;
+}
+
+.mascara > * {
+  display: block;
+}
+
+.cine .paso,
+.cine .circulo,
+.cine .foto {
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .preparando [data-a] {
+    visibility: visible;
+  }
+}
