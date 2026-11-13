@@ -1,0 +1,33 @@
+/* Pantalla de entrada: blanco a pantalla completa con el logo animado al centro.
+   El video es un recorte de 1000×400 del original 1920×1080, mostrado al mismo tamaño relativo
+   (52vw = 1000/1920) para que el logo se vea igual que en la animación. */
+.intro {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  background: #fff;
+  cursor: pointer;
+  transition:
+    opacity 0.7s ease,
+    visibility 0.7s;
+}
+
+.saliendo {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.video {
+  width: clamp(280px, 52vw, 1000px);
+  aspect-ratio: 1000 / 400;
+  height: auto;
+  background: #fff;
+}
+
+@media (max-width: 1023px) {
+  .video {
+    width: min(86vw, 560px);
+  }
+}
