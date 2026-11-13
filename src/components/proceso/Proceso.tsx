@@ -36,6 +36,20 @@ function PasoTarjeta({ paso }: { paso: Paso }) {
       itemClassName={styles.paso}
       style={{ "--top": t, "--alto": paso.tarjeta.bottom - t } as Vars}
     >
+      {/* el mismo video del fondo, detrás del contenido de la tarjeta (cada paso empieza en otro punto) */}
+      <span className={styles.pasoFondo} aria-hidden="true">
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          poster="/video/proceso-fondo.jpg"
+          data-solo-visible=""
+        >
+          <source src={`/video/proceso-fondo.mp4#t=${(Number(paso.numero) - 1) * 12}`} type="video/mp4" />
+        </video>
+      </span>
       <span
         className={styles.linea}
         data-a="linea"

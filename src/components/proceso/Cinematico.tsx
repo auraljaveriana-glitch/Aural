@@ -119,12 +119,24 @@ export default function Cinematico({ children }: { children: React.ReactNode }) 
       aparecer(q('[data-a="cierre-boton"]'), cierre, { delay: 0.6, stagger: 0.12 });
     });
 
+    // los videos de las tarjetas solo se reproducen mientras se ven (ahorra batería y procesador)
+    const videos = Array.from(el.querySelectorAll<HTMLVideoElement>("video[data-solo-visible]"));
+    const io = new IntersectionObserver((entradas) =>
+      entradas.forEach((e) => {
+        const v = e.target as HTMLVideoElement;
+        if (e.isIntersecting) v.play().catch(() => {});
+        else v.pause();
+      }),
+    );
+    videos.forEach((v) => io.observe(v));
+
     // recalcular cuando terminan de cargar las imágenes
     const refrescar = () => ScrollTrigger.refresh();
     window.addEventListener("load", refrescar);
 
     return () => {
       window.removeEventListener("load", refrescar);
+      io.disconnect();
       mm.revert();
     };
   }, []);
