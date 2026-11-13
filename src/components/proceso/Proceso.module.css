@@ -423,7 +423,11 @@
   border-radius: calc(70 * var(--px)) calc(70 * var(--px)) 0 0;
   overflow: hidden;
   color: var(--blanco);
-  background: url("/img/proceso/temp-cta.jpg") center / cover no-repeat;
+  /* foto definitiva (Jean, 13-nov) con el velo azul del diseño; la foto trae esquinas blancas
+     redondeadas que quedan fuera del encuadre */
+  background:
+    linear-gradient(rgba(37, 62, 120, 0.5), rgba(37, 62, 120, 0.5)),
+    url("/img/proceso/cierre.webp") 50% 24% / cover no-repeat;
 }
 
 .cierreTitulo {

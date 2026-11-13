@@ -5,16 +5,19 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import styles from "./Proceso.module.css";
 
-/* Experiencia "cinematográfica" de Conoce el proceso (pedido de Jean, 13-nov-2026):
-   - Inicio: las fotos y el título entran con escala, opacidad y desenfoque; al bajar, el título se
-     corre y se achica, y fotos, ondas y luz se mueven a distintas velocidades (parallax).
-   - Pasos: cada tarjeta entra con desplazamiento, escala y desenfoque; el número llega desde la
-     izquierda, el título se revela de forma horizontal, los textos suben, la foto hace zoom y lo de
-     la derecha entra desde la derecha. Todo ligado al scroll (scrub), así que se revierte al subir.
-   - Cierre: la foto crece hasta su tamaño y el título se revela línea por línea.
-   Las posiciones finales son siempre las del diseño. Con "reducir movimiento" no se anima nada. */
+/* Animaciones de Conoce el proceso — estilo editorial (pedido de Jean, 13-nov-2026, 2.ª versión):
+   lentas y elegantes, nunca exageradas.
+   - Los números grandes aparecen suavemente al entrar en pantalla.
+   - Títulos y textos: opacidad + desplazamiento vertical.
+   - Imágenes: un pequeño desplazamiento vertical al aparecer.
+   - Parallax leve en los números, las fotos del inicio y las ondas.
+   Cada elemento se anima una vez al entrar (y se deshace si se vuelve arriba del todo).
+   Las posiciones finales son las del diseño. Con "reducir movimiento" no se anima nada. */
 
 gsap.registerPlugin(ScrollTrigger);
+
+const LENTO = 1.4;
+const SUAVE = "power3.out";
 
 export default function Cinematico({ children }: { children: React.ReactNode }) {
   const raiz = useRef<HTMLDivElement>(null);
@@ -32,179 +35,116 @@ export default function Cinematico({ children }: { children: React.ReactNode }) 
 
     mm.add({ escritorio: "(min-width: 1024px)", celular: "(max-width: 1023px)" }, (ctx) => {
       const { escritorio } = ctx.conditions as { escritorio: boolean };
-      const k = escritorio ? 1 : 0.5; // distancias más cortas en pantallas pequeñas
-      const vw = window.innerWidth / 1920;
+      const d = escritorio ? 40 : 24; // desplazamiento vertical de entrada
 
-      /* ---------- inicio: entrada ---------- */
-      const entrada = gsap.timeline({ defaults: { ease: "power3.out" } });
-      entrada
-        .from(q('[data-a="hero-circulo"]'), {
-          scale: 0.55,
+      // aparece al entrar en pantalla (se repite si el usuario vuelve a subir por encima)
+      const aparecer = (objetivos: gsap.TweenTarget, trigger: Element, extra: gsap.TweenVars = {}) =>
+        gsap.from(objetivos, {
+          y: d,
           autoAlpha: 0,
-          filter: "blur(14px)",
-          duration: 1.3,
+          duration: LENTO,
+          ease: SUAVE,
           stagger: 0.12,
-          ease: "back.out(1.4)",
-        })
-        .from(q('[data-a="hero-punto"]'), { scale: 0, duration: 0.8, stagger: 0.07, ease: "back.out(2.5)" }, 0.5)
-        .from(q('[data-a="hero-linea"]'), { yPercent: 110, duration: 1.1, stagger: 0.14 }, 0.25)
-        .from(q('[data-a="hero-entra"]'), { y: 30 * k, autoAlpha: 0, duration: 0.9, stagger: 0.1 }, 0.55)
-        .from(q('[data-a="hero-bajar"]'), { y: -16, autoAlpha: 0, duration: 0.8 }, 1);
+          ...extra,
+          scrollTrigger: { trigger, start: "top 85%", toggleActions: "play none none reverse" },
+        });
 
+      /* ---------- inicio ---------- */
+      gsap
+        .timeline({ defaults: { ease: SUAVE, duration: LENTO } })
+        .from(q('[data-a="hero-linea"]'), { yPercent: 100, stagger: 0.12 }, 0.1)
+        .from(q('[data-a="hero-entra"]'), { y: d * 0.6, autoAlpha: 0, stagger: 0.1 }, 0.45)
+        .from(q('[data-a="hero-circulo"]'), { y: d, autoAlpha: 0, stagger: 0.1 }, 0.3)
+        .from(q('[data-a="hero-punto"]'), { autoAlpha: 0, duration: 1, stagger: 0.06 }, 0.8)
+        .from(q('[data-a="hero-bajar"]'), { y: -10, autoAlpha: 0, duration: 1 }, 1.1);
       el.classList.remove(styles.preparando);
 
-      /* ---------- inicio: al hacer scroll ---------- */
+      // parallax leve al bajar: cada foto a una velocidad un poco distinta
       const hero = q('[data-a="hero"]')[0];
-      const salida = { trigger: hero, start: "top top", end: () => `+=${window.innerHeight * 0.9}`, scrub: 0.8 };
-      gsap.to(q('[data-a="hero-titulo"]'), {
-        y: -140 * k,
-        scale: 0.82,
-        transformOrigin: "0% 0%",
-        autoAlpha: 0.25,
-        ease: "none",
-        scrollTrigger: salida,
-      });
-      gsap.to(q('[data-a="hero-entra"]'), { y: -90 * k, autoAlpha: 0, ease: "none", scrollTrigger: salida });
-      gsap.to(q('[data-a="hero-bajar"]'), { autoAlpha: 0, ease: "none", scrollTrigger: salida });
-      // cada foto a su propia velocidad, con un leve zoom: profundidad
+      const alBajar = { trigger: hero, start: "top top", end: "bottom top", scrub: true };
       q('[data-a="hero-circulo"], [data-a="hero-punto"]').forEach((c, i) => {
-        gsap.to(c, {
-          y: -(110 + ((i * 53) % 190)) * k,
-          scale: i % 2 ? 1.08 : 0.94,
-          ease: "none",
-          scrollTrigger: salida,
-        });
+        gsap.to(c, { y: -(30 + (i % 4) * 22) * (escritorio ? 1 : 0.5), ease: "none", scrollTrigger: alBajar });
       });
-      gsap.to(q('[data-a="ondas"]'), { y: 220 * k, ease: "none", scrollTrigger: { ...salida, end: () => `+=${window.innerHeight * 1.4}` } });
-      gsap.to(q('[data-a="brillo"]'), { y: 320 * k, scale: 1.2, ease: "none", scrollTrigger: salida });
+      gsap.to(q('[data-a="hero-titulo"]'), { y: -30, ease: "none", scrollTrigger: alBajar });
+      gsap.to(q('[data-a="ondas"]'), { y: 60, ease: "none", scrollTrigger: alBajar });
 
-      gsap.from(q('[data-a="etiqueta2"]'), {
-        x: -120 * k,
-        autoAlpha: 0,
-        ease: "power2.out",
-        scrollTrigger: { trigger: q('[data-a="etiqueta2"]')[0], start: "top 95%", end: "top 70%", scrub: 0.8 },
-      });
+      aparecer(q('[data-a="etiqueta2"]'), q('[data-a="etiqueta2"]')[0]);
 
       /* ---------- pasos ---------- */
       q('[data-a="paso"]').forEach((paso) => {
         const p = gsap.utils.selector(paso);
-        const llegada = { trigger: paso, start: "top 98%", end: "top 45%", scrub: 0.9 };
 
-        // la tarjeta entra: sube, crece y se enfoca
+        // la tarjeta aparece con un leve ascenso
         gsap.from(paso, {
-          y: 140 * k,
-          scale: 0.92,
+          y: d * 1.5,
           autoAlpha: 0,
-          filter: "blur(12px)",
-          ease: "power2.out",
-          scrollTrigger: { ...llegada, end: "top 60%" },
+          duration: 1.6,
+          ease: SUAVE,
+          scrollTrigger: { trigger: paso, start: "top 90%", toggleActions: "play none none reverse" },
         });
 
-        // número desde la izquierda; luego flota más lento que la tarjeta (parallax)
-        gsap.from(p('[data-a="numero"]'), { x: -160 * k, autoAlpha: 0, ease: "power3.out", scrollTrigger: llegada });
+        // número grande: aparece suave y luego tiene un parallax mínimo
+        aparecer(p('[data-a="numero"]'), paso, { y: d * 1.2, duration: 1.8, delay: 0.1 });
         gsap.fromTo(
           p('[data-a="numero"]'),
-          { yPercent: 0 },
+          { yPercent: -6 },
           {
-            yPercent: 35,
+            yPercent: 6,
             ease: "none",
             immediateRender: false,
-            scrollTrigger: { trigger: paso, start: "top 45%", end: "bottom top", scrub: true },
+            scrollTrigger: { trigger: paso, start: "top bottom", end: "bottom top", scrub: true },
           },
         );
 
-        // título: revelado horizontal, línea por línea
-        gsap.from(p('[data-a="titulo"] > span'), {
-          clipPath: "inset(0 100% 0 0)",
-          x: 120 * k,
-          ease: "power3.out",
-          stagger: 0.15,
-          scrollTrigger: llegada,
-        });
-
-        gsap.from(p('[data-a="sube"]'), {
-          y: 60 * k,
-          autoAlpha: 0,
-          filter: "blur(6px)",
-          stagger: 0.18,
-          ease: "power2.out",
-          scrollTrigger: { ...llegada, start: "top 80%", end: "top 30%" },
-        });
-
-        // la línea dorada se dibuja de arriba hacia abajo
+        aparecer(p('[data-a="titulo"] > span'), paso, { delay: 0.2 });
+        aparecer(p('[data-a="sube"]'), paso, { delay: 0.35, stagger: 0.15 });
         gsap.from(p('[data-a="linea"]'), {
           clipPath: "inset(0 0 100% 0)",
-          ease: "none",
-          scrollTrigger: { ...llegada, end: "top 25%" },
+          duration: 1.8,
+          ease: "power2.inOut",
+          scrollTrigger: { trigger: paso, start: "top 80%", toggleActions: "play none none reverse" },
         });
 
-        // foto: zoom progresivo con desenfoque inicial
+        // imagen: pequeño desplazamiento vertical y un parallax muy leve dentro de la tarjeta
         const foto = p('[data-a="foto"]');
         if (foto.length) {
-          gsap.from(foto, {
-            scale: 1.25,
-            autoAlpha: 0,
-            filter: "blur(16px)",
-            clipPath: `inset(12% 12% 12% 12% round ${10 * vw}px)`,
-            ease: "power2.out",
-            scrollTrigger: llegada,
-          });
+          aparecer(foto, paso, { y: d * 1.4, duration: 1.8, delay: 0.25 });
+          gsap.fromTo(
+            foto,
+            { yPercent: 2 },
+            {
+              yPercent: -2,
+              ease: "none",
+              immediateRender: false,
+              scrollTrigger: { trigger: paso, start: "top bottom", end: "bottom top", scrub: true },
+            },
+          );
         }
 
-        // lo de la derecha (pruebas o lista) entra desde la derecha
-        gsap.from(p('[data-a="derecha"]'), {
-          x: 180 * k,
-          autoAlpha: 0,
-          filter: "blur(8px)",
-          stagger: 0.16,
-          ease: "power3.out",
-          scrollTrigger: { ...llegada, start: "top 85%", end: "top 30%" },
-        });
+        aparecer(p('[data-a="derecha"]'), paso, { delay: 0.3, stagger: 0.14 });
         gsap.from(p('[data-a="raya"]'), {
           scaleX: 0,
           transformOrigin: "0% 50%",
-          stagger: 0.16,
-          ease: "power2.out",
-          scrollTrigger: { ...llegada, start: "top 75%", end: "top 25%" },
-        });
-      });
-
-      // puntos difusos: movimiento sutil y continuo
-      q('[data-a="flota"]').forEach((d, i) => {
-        gsap.to(d, {
-          y: i % 2 ? -14 : 12,
-          x: i % 2 ? 6 : -8,
-          duration: 2.6 + (i % 3) * 0.6,
-          ease: "sine.inOut",
-          yoyo: true,
-          repeat: -1,
+          duration: 1.4,
+          ease: "power2.inOut",
+          stagger: 0.14,
+          delay: 0.5,
+          scrollTrigger: { trigger: paso, start: "top 85%", toggleActions: "play none none reverse" },
         });
       });
 
       /* ---------- cierre ---------- */
       const cierre = q('[data-a="cierre"]')[0];
-      const tCierre = { trigger: cierre, start: "top 95%", end: "top 25%", scrub: 0.9 };
-      gsap.from(q('[data-a="cierre-foto"]'), {
-        scale: 0.86,
-        y: 80 * k,
-        autoAlpha: 0.3,
-        filter: "blur(10px)",
-        ease: "power2.out",
-        scrollTrigger: tCierre,
-      });
+      aparecer(q('[data-a="cierre-foto"]'), cierre, { y: d * 1.5, duration: 1.6 });
       gsap.from(q('[data-a="cierre-linea"]'), {
-        yPercent: 110,
-        stagger: 0.15,
-        ease: "power3.out",
-        scrollTrigger: { ...tCierre, start: "top 70%", end: "top 15%" },
+        yPercent: 100,
+        duration: LENTO,
+        ease: SUAVE,
+        stagger: 0.12,
+        delay: 0.3,
+        scrollTrigger: { trigger: cierre, start: "top 75%", toggleActions: "play none none reverse" },
       });
-      gsap.from(q('[data-a="cierre-boton"]'), {
-        x: 80 * k,
-        autoAlpha: 0,
-        stagger: 0.15,
-        ease: "power3.out",
-        scrollTrigger: { ...tCierre, start: "top 55%", end: "top 5%" },
-      });
+      aparecer(q('[data-a="cierre-boton"]'), cierre, { delay: 0.6, stagger: 0.12 });
     });
 
     // recalcular cuando terminan de cargar las imágenes
