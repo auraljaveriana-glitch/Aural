@@ -213,10 +213,21 @@
   background: rgba(255, 255, 255, 0.55);
 }
 
-/* con el video, las ondas y la luz del diseño no se muestran */
-.pagina:has(.fondoVideo) .ondas,
-.pagina:has(.fondoVideo) .brillo {
-  display: none;
+/* el inicio va en blanco (con sus ondas y su luz, como en el diseño) y tapa el video;
+   abajo se funde para que el video aparezca suave donde empiezan los pasos */
+.arriba {
+  background: var(--blanco);
+}
+
+.arriba::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  height: calc(220 * var(--px));
+  background: linear-gradient(var(--blanco), rgba(255, 255, 255, 0));
+  pointer-events: none;
 }
 
 .arriba,
