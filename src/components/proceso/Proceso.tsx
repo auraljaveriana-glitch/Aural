@@ -110,7 +110,7 @@ function PasoTarjeta({ paso }: { paso: Paso }) {
             <li key={it.y} style={{ "--y": v(it.y) } as Vars}>
               {it.icono ? (
                 // eslint-disable-next-line @next/next/no-img-element
-                <img src={it.icono} alt="" className={styles.icono} />
+                <img src={it.icono} alt="" className={styles.icono} style={{ "--iw": it.iconoAncho ?? 44 } as Vars} />
               ) : (
                 <span className={styles.icono} aria-hidden="true" />
               )}

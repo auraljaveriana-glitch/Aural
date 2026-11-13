@@ -340,7 +340,7 @@
 
 .prueba div {
   margin-left: calc(43 * var(--px));
-  width: calc(215 * var(--px));
+  width: max-content; /* saltos de línea del diseño */
   margin-top: calc(-6 * var(--px));
 }
 
@@ -393,12 +393,14 @@
   text-transform: uppercase;
 }
 
+/* caja de 64 px; el ícono va a su tamaño del diseño (exportación 2x ÷ 2), centrado */
 .icono {
   flex: none;
   align-self: center;
   width: calc(64 * var(--px));
   height: calc(64 * var(--px));
-  mix-blend-mode: multiply;
+  padding: 0 calc((64 - var(--iw, 44)) / 2 * var(--px));
+  object-fit: contain;
 }
 
 .lista li.separador {
@@ -727,6 +729,7 @@
   .icono {
     width: 40px;
     height: 40px;
+    padding: 0 calc((64 - var(--iw, 44)) / 2 * 40px / 64);
   }
 
   .cierre {

@@ -1,9 +1,9 @@
 // Página "Conoce el proceso" (Figma "PROCESO", 13-nov-2026).
 // Los "\n" marcan los saltos de línea del diseño (solo en escritorio).
 // Coordenadas en px del diseño a 1920 de ancho, ABSOLUTAS en la página (mayúsculas = tope de la letra).
-// PENDIENTE: el diseño llegó en baja resolución (675 px); fotos e íconos son recortes temporales.
+// Fotos e íconos: carpeta "Proceso" de Jean. PENDIENTE: foto del cierre (recorte temporal) y el diseño a tamaño completo (se midió sobre 675 px).
 
-export type ItemLista = { texto: string[]; icono?: string; y: number }; // una entrada por línea
+export type ItemLista = { texto: string[]; icono?: string; iconoAncho?: number; y: number }; // una entrada por línea
 export type Prueba = { nombre: string; texto: string; foto: string };
 
 export type Paso = {
@@ -37,7 +37,7 @@ export const pasos: Paso[] = [
     linea: { top: 1230, bottom: 1874 },
     y: { numero: 1242, titulo: 1248, subtitulo: 1575, texto: 1704 },
     anchoTexto: 560,
-    foto: "/img/proceso/temp-escuchamos.jpg",
+    foto: "/img/proceso/escuchamos.webp",
     puntos: { navy: [64, 1866], dorado: [110, 1827] },
   },
   {
@@ -57,17 +57,17 @@ export const pasos: Paso[] = [
       {
         nombre: "Audiometría tonal",
         texto: "Mide qué sonidos escuchas\ny desde qué volumen\nempiezas a percibirlos.",
-        foto: "/img/proceso/temp-prueba-1.jpg",
+        foto: "/img/proceso/prueba-1.webp",
       },
       {
         nombre: "Logoaudiometría",
         texto: "Evalúa qué tan bien\nreconoces y comprendes las\npalabras a diferentes\nvolúmenes.",
-        foto: "/img/proceso/temp-prueba-2.jpg",
+        foto: "/img/proceso/prueba-2.webp",
       },
       {
         nombre: "Impedanciometría",
         texto: "Revisa el estado del oído\nmedio y el movimiento del\ntímpano.",
-        foto: "/img/proceso/temp-prueba-3.jpg",
+        foto: "/img/proceso/prueba-3.webp",
       },
     ],
   },
@@ -85,7 +85,7 @@ export const pasos: Paso[] = [
     lista: [
       { texto: ["Tipos y diseños de", "audífonos"], y: 3197 },
       { texto: ["Tecnologías y", "funcionalidades", "disponibles"], y: 3381 },
-      { texto: ["Recomendaciones", "según tus necesidades", "auditivas"], icono: "/img/proceso/temp-icono-3c.png", y: 3608 },
+      { texto: ["Recomendaciones", "según tus necesidades", "auditivas"], icono: "/img/proceso/icono-recomendaciones.png", iconoAncho: 47, y: 3608 },
     ],
     separadores: [3531],
     puntos: { navy: [51, 3828], dorado: [94, 3788] },
@@ -101,9 +101,9 @@ export const pasos: Paso[] = [
     y: { numero: 4233, titulo: 4237, subtitulo: 4469, texto: 4617 },
     anchoTexto: 590,
     lista: [
-      { texto: ["Configuración", "personalizada"], icono: "/img/proceso/temp-icono-4a.png", y: 4244 },
-      { texto: ["Ajustes de acuerdo", "con tus necesidades"], icono: "/img/proceso/temp-icono-4b.png", y: 4445 },
-      { texto: ["Orientación sobre", "uso y cuidado"], icono: "/img/proceso/temp-icono-4c.png", y: 4667 },
+      { texto: ["Configuración", "personalizada"], icono: "/img/proceso/icono-configuracion.png", iconoAncho: 50, y: 4244 },
+      { texto: ["Ajustes de acuerdo", "con tus necesidades"], icono: "/img/proceso/icono-ajustes.png", iconoAncho: 41, y: 4445 },
+      { texto: ["Orientación sobre", "uso y cuidado"], icono: "/img/proceso/icono-orientacion.png", iconoAncho: 56, y: 4667 },
     ],
     separadores: [4362, 4578],
     puntos: { navy: [107, 4754], dorado: [57, 4790] },
@@ -119,11 +119,11 @@ export const pasos: Paso[] = [
     y: { numero: 5182, titulo: 5188, subtitulo: 5425, texto: 5550 },
     anchoTexto: 612,
     lista: [
-      { texto: ["Seguimiento de tu", "adaptación"], icono: "/img/proceso/temp-icono-5a.png", y: 5245 },
-      { texto: ["Ajustes y", "orientación"], icono: "/img/proceso/temp-icono-5b.png", y: 5441 },
+      { texto: ["Seguimiento de tu", "adaptación"], icono: "/img/proceso/icono-seguimiento.png", iconoAncho: 49, y: 5245 },
+      { texto: ["Ajustes y", "orientación"], icono: "/img/proceso/icono-ajustes.png", iconoAncho: 41, y: 5441 },
       {
         texto: ["Entrenamiento auditivo", "según las necesidades", "de cada paciente"],
-        icono: "/img/proceso/temp-icono-5c.png",
+        icono: "/img/proceso/icono-entrenamiento.png", iconoAncho: 43,
         y: 5654,
       },
     ],
@@ -134,11 +134,11 @@ export const pasos: Paso[] = [
 
 // fotos circulares del inicio: centro y radio
 export const circulos = [
-  { foto: "/img/proceso/temp-hero-manos.jpg", x: 1279, y: 355, r: 137 },
-  { foto: "/img/proceso/temp-hero-oido.jpg", x: 1657, y: 377, r: 165 },
-  { foto: "/img/proceso/temp-hero-senor.jpg", x: 1089, y: 621, r: 97 },
-  { foto: "/img/proceso/temp-hero-audiometria.jpg", x: 1395, y: 689, r: 131 },
-  { foto: "/img/proceso/temp-hero-audifonos.jpg", x: 1706, y: 738, r: 128 },
+  { foto: "/img/proceso/hero-manos.webp", x: 1279, y: 355, r: 137 },
+  { foto: "/img/proceso/hero-oido.webp", x: 1657, y: 377, r: 165 },
+  { foto: "/img/proceso/hero-senor.webp", x: 1089, y: 621, r: 97 },
+  { foto: "/img/proceso/hero-audiometria.webp", x: 1395, y: 689, r: 131 },
+  { foto: "/img/proceso/hero-audifonos.webp", x: 1706, y: 738, r: 128 },
 ];
 
 export const puntosHero = [
