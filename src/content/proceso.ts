@@ -81,13 +81,13 @@ export const pasos: Paso[] = [
     linea: { top: 3178, bottom: 3792 },
     y: { numero: 3182, titulo: 3180, subtitulo: 3450, texto: 3614 },
     anchoTexto: 606,
-    // en el diseño los dos primeros puntos no tienen ícono ni separador entre ellos
+    // PENDIENTE: ícono de "Tecnologías y funcionalidades disponibles"
     lista: [
-      { texto: ["Tipos y diseños de", "audífonos"], y: 3197 },
+      { texto: ["Tipos y diseños de", "audífonos"], icono: "/img/proceso/icono-audifono.png", iconoAncho: 48, y: 3197 },
       { texto: ["Tecnologías y", "funcionalidades", "disponibles"], y: 3381 },
       { texto: ["Recomendaciones", "según tus necesidades", "auditivas"], icono: "/img/proceso/icono-recomendaciones.png", iconoAncho: 47, y: 3608 },
     ],
-    separadores: [3531],
+    separadores: [3315, 3531],
     puntos: { navy: [51, 3828], dorado: [94, 3788] },
   },
   {
