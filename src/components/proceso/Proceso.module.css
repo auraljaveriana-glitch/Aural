@@ -7,8 +7,8 @@
   --linea: rgba(239, 211, 133, 0.75);
   position: relative;
   margin-top: calc(-133 * var(--px));
-  height: calc(5868 * var(--px));
-  overflow-x: clip;
+  padding-bottom: calc(38 * var(--px));
+  overflow-x: clip; /* clip (no hidden) para que las tarjetas puedan quedar pegadas */
   background:
     radial-gradient(calc(700 * var(--px)) calc(500 * var(--px)) at 15% 22%, rgba(214, 223, 236, 0.55), transparent 70%),
     radial-gradient(calc(800 * var(--px)) calc(500 * var(--px)) at 80% 40%, rgba(225, 231, 241, 0.6), transparent 70%),
@@ -184,21 +184,33 @@
 }
 
 /* ---------- pasos ---------- */
-.listaPasos {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+/* inicio: bloque con coordenadas absolutas del diseño hasta donde empieza la primera tarjeta (y1166) */
+.arriba {
+  position: relative;
+  height: calc(1166 * var(--px));
 }
 
-.paso {
-  position: absolute;
-  left: calc(43 * var(--px));
-  top: calc(var(--top) * var(--px));
-  width: calc(1827 * var(--px));
+/* pila de pasos (ScrollStack): tarjetas de x43 a x1870 */
+.cine .pila :global(.scroll-stack__inner) {
+  padding: 0 calc(50 * var(--px)) 0 calc(43 * var(--px));
+}
+
+.cine .paso {
+  position: relative;
   height: calc(var(--alto) * var(--px));
+  padding: 0;
   border-radius: calc(40 * var(--px));
-  background: rgba(250, 250, 249, 0.92);
-  box-shadow: 0 calc(10 * var(--px)) calc(40 * var(--px)) rgba(4, 30, 66, 0.05);
+  background: #fafaf9;
+  color: inherit;
+  box-shadow:
+    0 0 0 1px rgba(4, 30, 66, 0.04),
+    0 calc(-10 * var(--px)) calc(40 * var(--px)) calc(-18 * var(--px)) rgba(4, 30, 66, 0.12),
+    0 calc(18 * var(--px)) calc(48 * var(--px)) calc(-24 * var(--px)) rgba(4, 30, 66, 0.14);
+}
+
+.cine .paso :global(.scroll-stack-card__shade) {
+  position: absolute;
+  background: var(--navy);
 }
 
 /* todos los hijos usan x absolutas del diseño: se resta el margen de la tarjeta (43) */
@@ -581,22 +593,39 @@
     height: calc(var(--r) * 2 * var(--u));
   }
 
-  .listaPasos {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+  .arriba {
+    height: auto;
   }
 
-  .paso {
+  /* en celular no se apilan (las tarjetas son más altas que la pantalla): una debajo de otra */
+  .cine .pila :global(.scroll-stack__inner) {
+    padding: 0;
+  }
+
+  .pila :global(.scroll-stack__slot) {
+    position: relative !important;
+    top: auto !important;
+    margin-bottom: 20px !important;
+  }
+
+  .pila :global(.scroll-stack__inner) > div[aria-hidden],
+  .pila :global(.scroll-stack__end) {
+    display: none;
+  }
+
+  .cine .paso {
     position: relative;
-    left: auto;
-    top: auto;
-    width: auto;
     height: auto;
     padding: 28px 20px 32px;
     border-radius: 24px;
     display: flex;
     flex-direction: column;
+    transform: none !important;
+    filter: none !important;
+  }
+
+  .cine .paso :global(.scroll-stack-card__shade) {
+    display: none;
   }
 
   .paso > *,

@@ -3,6 +3,7 @@ import { site } from "@/content/site";
 import { circulos, pasos, puntosHero, type Paso } from "@/content/proceso";
 import styles from "./Proceso.module.css";
 import Cinematico from "./Cinematico";
+import ScrollStack, { ScrollStackItem } from "@/components/ScrollStack/ScrollStack";
 
 /* Página "Conoce el proceso" (Figma "PROCESO", 13-nov-2026).
    Experiencia "cinematográfica" pedida por Jean: animaciones ligadas al scroll (GSAP ScrollTrigger) en
@@ -31,11 +32,9 @@ function PasoTarjeta({ paso }: { paso: Paso }) {
   const t = paso.tarjeta.top;
   const v = (y: number) => y - t; // posición dentro de la tarjeta
   return (
-    <li
-      className={styles.paso}
-      data-a="paso"
+    <ScrollStackItem
+      itemClassName={styles.paso}
       style={{ "--top": t, "--alto": paso.tarjeta.bottom - t } as Vars}
-      aria-labelledby={`paso-${paso.numero}`}
     >
       <span
         className={styles.linea}
@@ -135,7 +134,7 @@ function PasoTarjeta({ paso }: { paso: Paso }) {
           ))}
         </ul>
       )}
-    </li>
+    </ScrollStackItem>
   );
 }
 
@@ -143,6 +142,7 @@ export default function Proceso() {
   return (
     <Cinematico>
       <div className={styles.pagina}>
+        <div className={styles.arriba}>
         <span className={styles.ondas} data-a="ondas" aria-hidden="true" />
         <span className={styles.brillo} data-a="brillo" aria-hidden="true" />
 
@@ -206,11 +206,24 @@ export default function Proceso() {
           Camino Aural
         </p>
 
-        <ol className={styles.listaPasos}>
+        </div>
+
+        {/* los 5 pasos se apilan al hacer scroll (ScrollStack de React Bits) */}
+        <ScrollStack
+          className={styles.pila}
+          useWindowScroll
+          stackPosition="7%"
+          itemDistance={120}
+          itemStackDistance={28}
+          itemScale={0.035}
+          baseScale={0.88}
+          dimAmount={0.06}
+          holdDistance={160}
+        >
           {pasos.map((p) => (
             <PasoTarjeta key={p.numero} paso={p} />
           ))}
-        </ol>
+        </ScrollStack>
       </div>
 
       {/* cierre */}

@@ -10,7 +10,8 @@ import styles from "./Proceso.module.css";
    - Los números grandes aparecen suavemente al entrar en pantalla.
    - Títulos y textos: opacidad + desplazamiento vertical.
    - Imágenes: un pequeño desplazamiento vertical al aparecer.
-   - Parallax leve en los números, las fotos del inicio y las ondas.
+   - Parallax leve en las fotos del inicio y las ondas.
+   - Los 5 pasos se apilan con ScrollStack (React Bits).
    Cada elemento se anima una vez al entrar (y se deshace si se vuelve arriba del todo).
    Las posiciones finales son las del diseño. Con "reducir movimiento" no se anima nada. */
 
@@ -71,31 +72,12 @@ export default function Cinematico({ children }: { children: React.ReactNode }) 
       aparecer(q('[data-a="etiqueta2"]'), q('[data-a="etiqueta2"]')[0]);
 
       /* ---------- pasos ---------- */
-      q('[data-a="paso"]').forEach((paso) => {
+      // las tarjetas las mueve ScrollStack (se apilan); aquí solo se anima su contenido
+      q(`.${styles.paso}`).forEach((paso) => {
         const p = gsap.utils.selector(paso);
 
-        // la tarjeta aparece con un leve ascenso
-        gsap.from(paso, {
-          y: d * 1.5,
-          autoAlpha: 0,
-          duration: 1.6,
-          ease: SUAVE,
-          scrollTrigger: { trigger: paso, start: "top 90%", toggleActions: "play none none reverse" },
-        });
-
-        // número grande: aparece suave y luego tiene un parallax mínimo
+        // número grande: aparece suave
         aparecer(p('[data-a="numero"]'), paso, { y: d * 1.2, duration: 1.8, delay: 0.1 });
-        gsap.fromTo(
-          p('[data-a="numero"]'),
-          { yPercent: -6 },
-          {
-            yPercent: 6,
-            ease: "none",
-            immediateRender: false,
-            scrollTrigger: { trigger: paso, start: "top bottom", end: "bottom top", scrub: true },
-          },
-        );
-
         aparecer(p('[data-a="titulo"] > span'), paso, { delay: 0.2 });
         aparecer(p('[data-a="sube"]'), paso, { delay: 0.35, stagger: 0.15 });
         gsap.from(p('[data-a="linea"]'), {
@@ -105,20 +87,10 @@ export default function Cinematico({ children }: { children: React.ReactNode }) 
           scrollTrigger: { trigger: paso, start: "top 80%", toggleActions: "play none none reverse" },
         });
 
-        // imagen: pequeño desplazamiento vertical y un parallax muy leve dentro de la tarjeta
+        // imagen: pequeño desplazamiento vertical
         const foto = p('[data-a="foto"]');
         if (foto.length) {
           aparecer(foto, paso, { y: d * 1.4, duration: 1.8, delay: 0.25 });
-          gsap.fromTo(
-            foto,
-            { yPercent: 2 },
-            {
-              yPercent: -2,
-              ease: "none",
-              immediateRender: false,
-              scrollTrigger: { trigger: paso, start: "top bottom", end: "bottom top", scrub: true },
-            },
-          );
         }
 
         aparecer(p('[data-a="derecha"]'), paso, { delay: 0.3, stagger: 0.14 });
