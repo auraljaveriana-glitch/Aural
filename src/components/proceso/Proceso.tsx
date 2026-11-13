@@ -142,6 +142,14 @@ export default function Proceso() {
   return (
     <Cinematico>
       <div className={styles.pagina}>
+        {/* video de fondo (Jean, 13-nov): queda fijo detrás de todo el contenido, con un velo claro */}
+        <div className={styles.fondoVideo} aria-hidden="true">
+          <div className={styles.fondoVideoPegado}>
+            <video autoPlay muted loop playsInline preload="auto" poster="/video/proceso-fondo.jpg">
+              <source src="/video/proceso-fondo.mp4" type="video/mp4" />
+            </video>
+          </div>
+        </div>
         <div className={styles.arriba}>
         <span className={styles.ondas} data-a="ondas" aria-hidden="true" />
         <span className={styles.brillo} data-a="brillo" aria-hidden="true" />

@@ -184,6 +184,47 @@
 }
 
 /* ---------- pasos ---------- */
+/* video de fondo: contenedor del alto de la página + capa pegada de 100vh (no tapa el cierre ni el footer) */
+.fondoVideo {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.fondoVideoPegado {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.fondoVideoPegado video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* velo claro para que los textos azules del inicio se lean bien */
+.fondoVideoPegado::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.55);
+}
+
+/* con el video, las ondas y la luz del diseño no se muestran */
+.pagina:has(.fondoVideo) .ondas,
+.pagina:has(.fondoVideo) .brillo {
+  display: none;
+}
+
+.arriba,
+.pila {
+  position: relative;
+  z-index: 1;
+}
+
 /* inicio: bloque con coordenadas absolutas del diseño hasta donde empieza la primera tarjeta (y1166) */
 .arriba {
   position: relative;
@@ -847,6 +888,14 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .fondoVideoPegado video {
+    display: none;
+  }
+
+  .fondoVideoPegado {
+    background: url("/video/proceso-fondo.jpg") center / cover;
+  }
+
   .preparando [data-a] {
     visibility: visible;
   }
