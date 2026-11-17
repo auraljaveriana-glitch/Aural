@@ -6,7 +6,11 @@ import styles from "./Modelos.module.css";
    El nombre lleva la primera palabra en negrita: "RIC 10" → **RIC** 10 */
 export default function Modelos({ tipo }: { tipo: TipoAudifono }) {
   return (
-    <section className={styles.seccion} aria-labelledby="modelos-titulo">
+    <section
+      className={styles.seccion}
+      style={{ "--extra": tipo.plantilla.modelosExtra ?? 0, "--fila": tipo.plantilla.modelosFilaExtra ?? 0 } as React.CSSProperties}
+      aria-labelledby="modelos-titulo"
+    >
       <h2 id="modelos-titulo" className={styles.titulo}>
         {tipo.modelosTitulo.suave} <b>{tipo.modelosTitulo.fuerte}</b>
       </h2>

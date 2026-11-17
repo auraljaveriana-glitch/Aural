@@ -92,6 +92,7 @@ export default function PanelAudifono({ tipo }: { tipo: TipoAudifono }) {
     { titulo: "Beneficios", items: tipo.beneficios },
   ];
   const [d1, d2, d3] = p.dispositivos;
+  const bq = p.bloque;
   const pos = (d: { left: number; top: number; ancho: number }) =>
     ({ "--l": d.left, "--t": d.top, "--w": d.ancho }) as React.CSSProperties;
   // letras del hero: caja anclada a la izquierda o a la derecha (px de Figma)
@@ -105,7 +106,12 @@ export default function PanelAudifono({ tipo }: { tipo: TipoAudifono }) {
     }) as unknown as React.CSSProperties;
 
   return (
-    <section ref={panel} className={`${styles.panel} ${p.tema === "beige" ? styles.beige : ""}`} aria-labelledby="audifono-titulo">
+    <section
+      ref={panel}
+      className={`${styles.panel} ${p.tema === "beige" ? styles.beige : p.tema === "azul" ? styles.azul : ""}`}
+      style={{ "--alto": p.panelAlto ?? 2916, "--acordeon": p.acordeonTop ?? 2293 } as React.CSSProperties}
+      aria-labelledby="audifono-titulo"
+    >
       <div className={styles.riel} aria-hidden="true">
         <div className={styles.indicador}>
           <span className={styles.pista} />
@@ -116,6 +122,18 @@ export default function PanelAudifono({ tipo }: { tipo: TipoAudifono }) {
       {/* ondas de fondo: una franja por cada bloque */}
       {[282, 1117.5, 2101].map((t) => (
         <div key={t} className={styles.ondas} style={{ "--t": t } as React.CSSProperties} aria-hidden="true" />
+      ))}
+
+      {/* letras enormes y casi transparentes detrás de los audífonos 2 y 3 */}
+      {p.marcas?.map((m, i) => (
+        <span
+          key={i}
+          className={styles.marca}
+          aria-hidden="true"
+          style={{ "--l": m.left, "--y": m.y, "--s": m.tamano } as React.CSSProperties}
+        >
+          {m.texto}
+        </span>
       ))}
 
       {/* audífono que se mueve (solo escritorio) */}
@@ -130,13 +148,30 @@ export default function PanelAudifono({ tipo }: { tipo: TipoAudifono }) {
       <div className={styles.hero}>
         <h1 id="audifono-titulo" className={styles.sigla}>
           <span
-            className={styles.letras}
-            style={{ ...ubicar(p.letras), "--n": p.letras.texto.length } as React.CSSProperties}
+            className={`${styles.letras} ${p.letras.degradado ? styles.degradado : ""}`}
+            style={
+              {
+                ...ubicar(p.letras),
+                "--n": p.letras.lineas ? Math.max(...p.letras.lineas.map((l) => l.length)) : p.letras.texto.length,
+                ...(p.letras.alto ? { "--a": p.letras.alto } : {}),
+                ...(p.letras.degradado ? { "--c1": p.letras.degradado[0], "--c2": p.letras.degradado[1] } : {}),
+              } as React.CSSProperties
+            }
+            aria-label={p.letras.texto}
           >
-            {p.letras.texto}
+            {p.letras.lineas
+              ? p.letras.lineas.map((l) => (
+                  <span key={l} className={styles.linea} aria-hidden="true">
+                    {l}
+                  </span>
+                ))
+              : p.letras.texto}
           </span>{" "}
-          <span className={styles.subtitulo} style={ubicar(p.subtitulo)}>
-            Audífonos
+          <span
+            className={styles.subtitulo}
+            style={{ ...ubicar(p.subtitulo), ...(p.subtitulo.color ? { color: p.subtitulo.color } : {}) } as React.CSSProperties}
+          >
+            {p.subtitulo.texto ?? "Audífonos"}
           </span>
         </h1>
         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -145,20 +180,70 @@ export default function PanelAudifono({ tipo }: { tipo: TipoAudifono }) {
 
       {/* 2 · texto */}
       <div className={styles.bloqueTexto}>
-        {p.frase && (
-          <h2
-            className={`${styles.frase} ${p.frase.ligera ? styles.fraseLigera : ""}`}
-            style={{ "--t": p.frase.top, "--l": p.frase.left } as React.CSSProperties}
-          >
-            {p.frase.normal} <b>{p.frase.fuerte}</b>
-          </h2>
-        )}
-        <p
-          className={styles.texto}
-          style={{ "--t": p.texto.top, "--l": p.texto.left, "--w": p.texto.ancho } as React.CSSProperties}
+        <div
+          className={styles.bloque}
+          style={
+            {
+              "--l": bq.left,
+              "--w": bq.ancho,
+              "--c": bq.color,
+              "--ce": bq.etiquetaColor ?? bq.color,
+            } as React.CSSProperties
+          }
         >
-          {p.texto.contenido}
-        </p>
+          <p
+            className={styles.etiqueta}
+            style={{ "--y": bq.y.etiqueta, "--s": bq.tamano.etiqueta, "--e": bq.espaciado?.etiqueta ?? 0.33 } as React.CSSProperties}
+          >
+            {bq.etiqueta}
+          </p>
+          <h2
+            className={styles.titulo}
+            style={
+              {
+                "--y": bq.y.titulo,
+                "--s": bq.tamano.titulo,
+                "--a": bq.tamano.tituloAlto ?? bq.tamano.titulo,
+                "--e": bq.espaciado?.titulo ?? 0,
+              } as React.CSSProperties
+            }
+          >
+            {bq.titulo.map((l) => (
+              <span key={l}>{l}</span>
+            ))}
+          </h2>
+          <p
+            className={styles.texto}
+            style={{ "--y": bq.y.texto, "--s": bq.tamano.texto, "--a": bq.tamano.textoAlto } as React.CSSProperties}
+          >
+            {bq.texto}
+          </p>
+        </div>
+
+        {/* RIC: etiquetas ovaladas unidas por una línea */}
+        {p.pildoras && (
+          <div
+            className={styles.pildoras}
+            aria-hidden="true"
+            style={
+              {
+                "--l": p.pildoras.left,
+                "--w": p.pildoras.ancho,
+                "--h": p.pildoras.alto,
+                "--lx": p.pildoras.lineaX,
+                "--t0": p.pildoras.tops[0],
+                "--t1": p.pildoras.tops[p.pildoras.tops.length - 1],
+              } as React.CSSProperties
+            }
+          >
+            <span className={styles.corchete} />
+            {p.pildoras.items.map((it, i) => (
+              <span key={it} className={styles.pildora} style={{ "--t": p.pildoras!.tops[i] } as React.CSSProperties}>
+                {it}
+              </span>
+            ))}
+          </div>
+        )}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={d2.src} alt="" className={`${styles.dispositivo} ${styles.fijo} ${styles.d2}`} style={pos(d2)} />
       </div>

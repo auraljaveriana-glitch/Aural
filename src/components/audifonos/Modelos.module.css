@@ -5,7 +5,7 @@
 
 .seccion {
   background: #dfdfdf;
-  padding-top: calc(221 * var(--px));
+  padding-top: calc((221 + var(--extra, 0)) * var(--px));
   overflow-x: clip;
 }
 
@@ -25,7 +25,7 @@
 .fila {
   list-style: none;
   padding: 0;
-  margin: calc(168 * var(--px)) 0 0;
+  margin: calc((168 + var(--fila, 0)) * var(--px)) 0 0;
   display: flex;
   justify-content: center;
   gap: calc(48 * var(--px));

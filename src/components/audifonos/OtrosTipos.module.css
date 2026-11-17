@@ -1,0 +1,122 @@
+/* Fila "otros tipos" @1920 (RIC v3): etiquetas (20 px) con mayúsculas en y3963, nombres (41 px, 600)
+   debajo; flecha de 34 × 22 arriba a la derecha de cada nombre; rayas verticales en x668 y x1302
+   (y3962–4038). Contenido de x190 a x1684. --tras: de los nombres de modelos (mayúsculas) a las
+   etiquetas · --antes: de las etiquetas a la foto final. */
+
+.seccion {
+  background: #dfdfdf;
+  /* los nombres de modelos tienen sus mayúsculas 21 px después del final de la sección de modelos */
+  padding-top: calc((var(--tras) - 21 - 3) * var(--px));
+  padding-bottom: calc((var(--antes) - 76) * var(--px));
+  margin-bottom: calc(-319 * var(--px)); /* la foto final ya trae 319 px de margen arriba */
+}
+
+.fila {
+  list-style: none;
+  margin: 0 calc(236 * var(--px)) 0 calc(190 * var(--px));
+  padding: 0;
+  display: grid;
+  grid-template-columns: calc(478 * var(--px)) 1fr calc(382 * var(--px));
+  align-items: stretch;
+}
+
+.fila li {
+  display: flex;
+}
+
+.fila li:nth-child(2) {
+  justify-content: center;
+  border-left: calc(1.5 * var(--px)) solid #3d3d3d;
+  border-right: calc(1.5 * var(--px)) solid #3d3d3d;
+}
+
+.fila li:last-child {
+  justify-content: flex-end;
+}
+
+.enlace {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  color: #333;
+  text-decoration: none;
+}
+
+.etiqueta {
+  font-size: calc(20 * var(--px));
+  line-height: calc(24 * var(--px));
+  color: #6e6e6e;
+  text-transform: uppercase;
+  white-space: pre;
+}
+
+.nombre {
+  margin-top: calc(8 * var(--px));
+  font-size: calc(41 * var(--px));
+  line-height: calc(44 * var(--px));
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.flecha {
+  position: absolute;
+  right: 0;
+  top: calc(-2 * var(--px));
+  width: calc(34 * var(--px));
+  height: calc(22 * var(--px));
+  color: #1e3255;
+  transition: transform 0.25s ease;
+}
+
+.enlace:hover .flecha,
+.enlace:focus-visible .flecha {
+  transform: translateX(calc(6 * var(--px)));
+}
+
+.enlace:hover .nombre {
+  color: #041e42;
+}
+
+@media (max-width: 1023px) {
+  .seccion {
+    padding: 40px 20px 8px;
+    margin-bottom: 0;
+  }
+
+  .fila {
+    margin: 0;
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .fila li,
+  .fila li:nth-child(2),
+  .fila li:last-child {
+    justify-content: flex-start;
+    border: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.18);
+    padding: 14px 0;
+  }
+
+  .enlace {
+    width: 100%;
+  }
+
+  .etiqueta {
+    font-size: 11px;
+    line-height: 14px;
+  }
+
+  .nombre {
+    margin-top: 2px;
+    font-size: 20px;
+    line-height: 1.2;
+  }
+
+  .flecha {
+    top: 50%;
+    width: 24px;
+    height: 16px;
+    transform: translateY(-50%);
+  }
+}

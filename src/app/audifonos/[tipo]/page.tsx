@@ -4,6 +4,7 @@ import { tipos, tipoPorSlug } from "@/content/audifonos";
 import PanelAudifono from "@/components/audifonos/PanelAudifono";
 import Modelos from "@/components/audifonos/Modelos";
 import Cierre from "@/components/audifonos/Cierre";
+import OtrosTipos from "@/components/audifonos/OtrosTipos";
 
 type Props = { params: Promise<{ tipo: string }> };
 
@@ -30,6 +31,7 @@ export default async function PaginaAudifono({ params }: Props) {
     <div data-pagina="audifonos" data-tema={tipo.plantilla.tema ?? "gris"}>
       <PanelAudifono tipo={tipo} />
       <Modelos tipo={tipo} />
+      <OtrosTipos tipo={tipo} />
       <Cierre />
     </div>
   );

@@ -16,8 +16,40 @@ export type Modelo = {
 /** Audífono grande: borde superior izquierdo y ancho de la imagen, sobre el panel */
 export type Dispositivo = { src: string; left: number; top: number; ancho: number };
 
-/** Texto grande del hero. left o right ubican la caja del texto; top es el borde superior de la caja */
-export type Letras = { texto: string; tamano: number; top: number; left?: number; right?: number; espaciado?: number };
+/** Texto grande del hero. left o right ubican la caja del texto; top es el borde superior de la caja.
+ *  lineas/alto: texto en varias líneas (Recargables) · degradado: color de izquierda a derecha */
+export type Letras = {
+  texto: string;
+  tamano: number;
+  top: number;
+  left?: number;
+  right?: number;
+  espaciado?: number;
+  lineas?: string[];
+  alto?: number;
+  degradado?: [string, string];
+};
+
+/** Subtítulo del hero ("TECNOLOGÍA" / "AUDÍFONOS") */
+export type Subtitulo = Omit<Letras, "texto" | "lineas" | "alto" | "degradado"> & { texto?: string; color?: string };
+
+/** Bloque de texto (diseño v3): etiqueta espaciada + título en negrita + párrafo justificado.
+ *  y = tope de las mayúsculas de cada parte (px de Figma) */
+export type Bloque = {
+  etiqueta: string;
+  titulo: string[];
+  texto: string;
+  left: number;
+  ancho: number;
+  color: string;
+  etiquetaColor?: string;
+  y: { etiqueta: number; titulo: number; texto: number };
+  tamano: { etiqueta: number; titulo: number; tituloAlto?: number; texto: number; textoAlto: number };
+  espaciado?: { etiqueta?: number; titulo?: number };
+};
+
+/** Letras enormes y casi transparentes detrás de los audífonos 2 y 3 (y = tope de las mayúsculas) */
+export type Marca = { texto: string; left: number; y: number; tamano: number };
 
 export type TipoAudifono = {
   slug: string;
@@ -30,13 +62,23 @@ export type TipoAudifono = {
   /** corrimiento horizontal de la fila de modelos (px de Figma) */
   modelosX?: number;
   plantilla: {
-    tema?: "gris" | "beige";
+    tema?: "gris" | "beige" | "azul";
     letras: Letras;
-    subtitulo: Omit<Letras, "texto">;
+    subtitulo: Subtitulo;
     /** Los 3 audífonos grandes. Al bajar, el audífono pasa de uno a otro. */
     dispositivos: [Dispositivo, Dispositivo, Dispositivo];
-    frase?: { normal: string; fuerte: string; ligera?: boolean; top: number; left: number };
-    texto: { contenido: string; top: number; left: number; ancho: number };
+    bloque: Bloque;
+    /** RIC: etiquetas ovaladas unidas por una línea */
+    pildoras?: { items: string[]; left: number; ancho: number; alto: number; tops: number[]; lineaX: number };
+    marcas?: Marca[];
+    /** alto del panel y posición del acordeón (si cambian respecto a RIC) */
+    panelAlto?: number;
+    acordeonTop?: number;
+    /** corrimiento vertical de la sección de modelos y de su fila de óvalos (px de Figma) */
+    modelosExtra?: number;
+    modelosFilaExtra?: number;
+    /** fila "otros tipos": distancia de los nombres de modelos a la fila, y de la fila a la foto final */
+    otros: { tras: number; antes: number };
   };
 };
 
@@ -72,17 +114,31 @@ export const tipos: TipoAudifono[] = [
       { nombre: "RIC 312 D", negrita: "RIC", imagen: foto("ric-312-d"), foto: { left: -15.2, top: -69.7, ancho: 375.5 } },
     ],
     plantilla: {
-      letras: { texto: "RIC", tamano: 514, top: 304.5, left: 694 },
-      subtitulo: { tamano: 34, top: 782.5, left: 752 },
-      dispositivos: [disp("ric", 1, 291.5, 211, 663), disp("ric", 2, 1338.5, 1079, 220), disp("ric", 3, 1141, 2032, 663)],
-      frase: { normal: "Discreción, naturalidad y tecnología en", fuerte: "equilibrio perfecto.", top: 1256.7, left: 223 },
-      texto: {
-        contenido:
+      letras: { texto: "RIC", tamano: 500, top: 318.7, left: 622, espaciado: -0.04, degradado: ["#2b2a2a", "#8c8b8b"] },
+      subtitulo: { texto: "Tecnología", tamano: 24, top: 568.2, left: 1285, espaciado: 0.5, color: "#333333" },
+      dispositivos: [
+        { src: "/img/audifonos/v3/ric-1.webp", left: 284, top: 277, ancho: 555 },
+        disp("ric", 2, 1299, 1062, 220),
+        { src: "/img/audifonos/v3/ric-3.webp", left: 1070, top: 2095, ancho: 600 },
+      ],
+      bloque: {
+        etiqueta: "RIC",
+        titulo: ["Equilibrio", "perfecto"],
+        texto:
           "Estos audífonos ubican el receptor dentro del canal auditivo, permitiendo una experiencia de sonido más natural, cómoda y casi imperceptible en el día a día.",
-        top: 1456,
-        left: 223,
-        ancho: 746,
+        left: 150,
+        ancho: 533,
+        color: "#363636",
+        y: { etiqueta: 1245, titulo: 1302, texto: 1508 },
+        tamano: { etiqueta: 24, titulo: 66, tituloAlto: 75, texto: 24, textoAlto: 32 },
+        espaciado: { etiqueta: 0.5, titulo: 0.01 },
       },
+      pildoras: { items: ["Discreción", "Naturalidad", "Tecnología"], left: 856, ancho: 211, alto: 80, tops: [1144, 1420, 1716], lineaX: 1116 },
+      marcas: [
+        { texto: "RIC", left: 1170, y: 1570, tamano: 430 },
+        { texto: "RIC", left: 1170, y: 2460, tamano: 430 },
+      ],
+      otros: { tras: 288, antes: 343 },
     },
   },
   {
@@ -109,15 +165,31 @@ export const tipos: TipoAudifono[] = [
       { nombre: "IMPACT", negrita: "", imagen: foto("impact"), foto: { left: -38, top: -21, ancho: 411 } },
     ],
     plantilla: {
-      letras: { texto: "BTE", tamano: 500, top: 305.8, right: 310, espaciado: 0.026 },
-      subtitulo: { tamano: 33, top: 773.8, right: 344 },
-      dispositivos: [disp("bte", 1, 342, 171, 469), disp("bte", 2, 1230, 1104, 433), disp("bte", 3, 1230, 2019, 433)],
-      texto: {
-        contenido: "Se colocan detrás de la oreja y se conectan al oído mediante un molde o tubo.",
-        top: 1400,
-        left: 243,
-        ancho: 612,
+      letras: { texto: "BTE", tamano: 497, top: 306.2, right: 354, espaciado: 0.026, degradado: ["#2b2a2a", "#7d7c7c"] },
+      subtitulo: { texto: "Tecnología", tamano: 29, top: 775.4, right: 385, espaciado: 0.75, color: "#333333" },
+      dispositivos: [
+        { src: "/img/audifonos/v3/bte-1.webp", left: 358, top: 215, ancho: 420 },
+        disp("bte", 2, 1276, 1095, 420),
+        { src: "/img/audifonos/v3/bte-3.webp", left: 1261, top: 2085, ancho: 434 },
+      ],
+      bloque: {
+        etiqueta: "Diseño",
+        titulo: ["Retroauricular"],
+        texto:
+          "Disponibles en diferentes diseños, los audífonos retroauriculares se ubican detrás de la oreja y se conectan al canal auditivo mediante un molde o tubo. Ofrecen una adaptación cómoda y versátil, con opciones para distintas necesidades auditivas.",
+        left: 166,
+        ancho: 775,
+        color: "#363636",
+        y: { etiqueta: 1271, titulo: 1324, texto: 1472 },
+        tamano: { etiqueta: 33, titulo: 73, texto: 31, textoAlto: 40 },
+        espaciado: { etiqueta: 0.33, titulo: 0.04 },
       },
+      marcas: [
+        { texto: "BTE", left: 1140, y: 1540, tamano: 423 },
+        { texto: "BTE", left: 1140, y: 2500, tamano: 423 },
+      ],
+      modelosExtra: -20,
+      otros: { tras: 329, antes: 335 },
     },
   },
   {
@@ -140,20 +212,31 @@ export const tipos: TipoAudifono[] = [
     ],
     plantilla: {
       tema: "beige",
-      letras: { texto: "INTRACANAL", tamano: 156, top: 451.3, right: 201 },
-      subtitulo: { tamano: 34, top: 630.6, right: 200 },
+      letras: { texto: "INTRACANAL", tamano: 151, top: 453.1, right: 290 },
+      subtitulo: { tamano: 28, top: 622.6, right: 290 },
       dispositivos: [
-        disp("intracanal", 1, 244, 368, 783),
-        disp("intracanal", 2, 1075, 1204, 687),
-        disp("intracanal", 3, 1075, 2169, 687),
+        disp("intracanal", 1, 245, 369, 780),
+        disp("intracanal", 1, 1000, 1212, 780),
+        disp("intracanal", 2, 1026, 1950, 756),
       ],
-      texto: {
-        contenido:
+      bloque: {
+        etiqueta: "Estilo",
+        titulo: ["Discreto"],
+        texto:
           "Se adaptan parcial o completamente dentro del canal auditivo, ofreciendo una solución discreta y personalizada.",
-        top: 1402,
-        left: 253,
-        ancho: 632,
+        left: 265,
+        ancho: 604,
+        color: "#64463b",
+        etiquetaColor: "#5c3d32",
+        y: { etiqueta: 1290, titulo: 1344, texto: 1495 },
+        tamano: { etiqueta: 31, titulo: 103, texto: 30.5, textoAlto: 40 },
+        espaciado: { etiqueta: 0.33, titulo: 0.06 },
       },
+      panelAlto: 2719,
+      acordeonTop: 2076,
+      modelosExtra: -59,
+      modelosFilaExtra: -57,
+      otros: { tras: 256, antes: 398 },
     },
   },
   {
@@ -181,24 +264,63 @@ export const tipos: TipoAudifono[] = [
       { nombre: "SMARTRIC", negrita: "SMARTRIC", imagen: foto("smartric"), foto: { left: 22, top: -61, ancho: 351 } },
     ],
     plantilla: {
-      // en Figma dice "RECARGABLE" (singular)
-      letras: { texto: "RECARGABLE", tamano: 156, top: 451.3, right: 138, espaciado: 0.008 },
-      subtitulo: { tamano: 33, top: 630.8, right: 159 },
-      dispositivos: [
-        disp("recargables", 1, 0, 261, 903),
-        disp("recargables", 2, 707, 1113, 1213),
-        disp("recargables", 3, 1092, 2085, 736),
-      ],
-      frase: { normal: "Conectividad", fuerte: "Bluetooth", ligera: true, top: 1317.7, left: 270 },
-      texto: {
-        contenido:
-          "Conéctate de forma directa a tu celular, televisor y otros dispositivos, integrando tu audición a tu vida digital.",
-        top: 1401,
-        left: 266,
-        ancho: 612,
+      tema: "azul",
+      // en Figma dice "RECAR / GABLE" (singular, en dos líneas)
+      letras: {
+        texto: "RECARGABLE",
+        lineas: ["RECAR", "GABLE"],
+        alto: 180,
+        tamano: 200,
+        top: 396.3,
+        left: 792,
+        degradado: ["#1b3358", "#7e8794"],
       },
+      subtitulo: { tamano: 34, top: 342.6, left: 1117, espaciado: 0.66, color: "#041e42" },
+      dispositivos: [
+        disp("recargables", 1, 50, 273, 904),
+        disp("recargables", 2, 752, 1146, 1168),
+        disp("recargables", 3, 976, 1958, 860),
+      ],
+      bloque: {
+        etiqueta: "Energía",
+        titulo: ["Continua"],
+        texto:
+          "Disponibles en estilos BTE y RIC, nuestros audífonos recargables cuentan con baterías integradas que eliminan la necesidad de cambiar pilas.",
+        left: 170,
+        ancho: 677,
+        color: "#041e42",
+        y: { etiqueta: 1265, titulo: 1325, texto: 1508 },
+        tamano: { etiqueta: 31, titulo: 113, texto: 29.5, textoAlto: 40 },
+        espaciado: { etiqueta: 0.33, titulo: 0.06 },
+      },
+      otros: { tras: 309, antes: 335 },
     },
   },
 ];
+
+/** Fila de enlaces a los otros tipos (orden del diseño v3, 17-nov-2026) */
+export const otrosTipos: Record<string, { slug: string; etiqueta?: string; nombre: string }[]> = {
+  "receptor-en-el-canal": [
+    { slug: "retroauriculares", etiqueta: "BTE", nombre: "Retroauriculares" },
+    { slug: "recargables", nombre: "Recargables" },
+    { slug: "intracanal", etiqueta: "ITC/CIC", nombre: "Intracanal" },
+  ],
+  // en el diseño esta fila repetía "Retroauriculares"; Jean aprobó poner RIC en su lugar
+  retroauriculares: [
+    { slug: "receptor-en-el-canal", etiqueta: "RIC", nombre: "Receptor en el Canal" },
+    { slug: "recargables", nombre: "Recargables" },
+    { slug: "intracanal", etiqueta: "ITC/CIC", nombre: "Intracanal" },
+  ],
+  intracanal: [
+    { slug: "retroauriculares", etiqueta: "BTE", nombre: "Retroauriculares" },
+    { slug: "recargables", nombre: "Recargables" },
+    { slug: "receptor-en-el-canal", etiqueta: "RIC", nombre: "Receptor en el Canal" },
+  ],
+  recargables: [
+    { slug: "receptor-en-el-canal", etiqueta: "RIC", nombre: "Receptor en el Canal" },
+    { slug: "retroauriculares", etiqueta: "BTE", nombre: "Retroauriculares" },
+    { slug: "intracanal", etiqueta: "ITC/CIC", nombre: "Intracanal" },
+  ],
+};
 
 export const tipoPorSlug = (slug: string) => tipos.find((t) => t.slug === slug);
