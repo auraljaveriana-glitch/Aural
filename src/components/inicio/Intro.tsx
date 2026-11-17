@@ -1,18 +1,18 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { Arco, Letras, Punto } from "./LogoPiezas";
 import styles from "./Intro.module.css";
 
-/* Pantalla de entrada del inicio (Jean, 13-nov-2026): animación del logo (After Effects "Comp 1")
-   sobre blanco mientras carga la página; al terminar se desvanece y aparece el inicio.
-   La animación está pasada a SVG (vectorizada cuadro a cuadro del video de Jean): se ve nítida en
-   cualquier pantalla y sin los bordes/rayas del video comprimido. Dura 4,64 s.
-   - Se muestra una vez por sesión del navegador (al volver al inicio no se repite).
-   - Un clic o una tecla la salta. Con "reducir movimiento" no se muestra.
-   - Se quita sola al terminar la animación. */
+/* Pantalla de entrada del inicio (Jean, 17-nov-2026: reemplaza la animación anterior por su video nuevo).
+   Se reproduce con el logo vectorial oficial, así se ve nítida en cualquier pantalla:
+   1) el punto aparece y crece (0,25–1,4 s) · 2) el arco se dibuja alrededor (1,4–1,87 s) y el punto
+   da un pequeño salto · 3) el símbolo se corre a la izquierda (2,53–3 s) · 4) aparece "Aural" (3,07 s)
+   · 5) a los 5,4 s se desvanece y aparece el inicio.
+   - Una vez por sesión del navegador; un clic o una tecla la salta; con "reducir movimiento" no se muestra. */
 
 const CLAVE = "aural-intro-vista";
-const DURACION = 4640 + 350; // animación + una pausa corta con el logo completo
+const DURACION = 5400;
 
 export default function Intro() {
   const [estado, setEstado] = useState<"visible" | "saliendo" | "fuera">("visible");
@@ -45,7 +45,7 @@ export default function Intro() {
     if (estado === "visible") return;
     document.documentElement.style.overflow = "";
     if (estado === "saliendo") {
-      const t = window.setTimeout(() => setEstado("fuera"), 700);
+      const t = window.setTimeout(() => setEstado("fuera"), 450);
       return () => window.clearTimeout(t);
     }
   }, [estado]);
@@ -62,8 +62,32 @@ export default function Intro() {
       <noscript>
         <style>{`.${styles.intro} { display: none !important; }`}</style>
       </noscript>
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img className={styles.logo} src="/video/intro-logo.svg" alt="" />
+      <svg className={styles.logo} viewBox="-4 -2 168 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          {/* trazo que "dibuja" el arco de izquierda a derecha pasando por abajo */}
+          <mask id="intro-trazo" maskUnits="userSpaceOnUse" x="-10" y="-10" width="70" height="60">
+            <path
+              className={styles.trazo}
+              d="M5.9 8.9A15 15 0 1 0 34.1 8.9"
+              pathLength={1}
+              stroke="white"
+              strokeWidth="26"
+              fill="none"
+            />
+          </mask>
+        </defs>
+        <g className={styles.simbolo}>
+          <g mask="url(#intro-trazo)">
+            <Arco />
+          </g>
+          <g className={styles.punto}>
+            <Punto />
+          </g>
+        </g>
+        <g className={styles.letras}>
+          <Letras />
+        </g>
+      </svg>
     </div>
   );
 }
