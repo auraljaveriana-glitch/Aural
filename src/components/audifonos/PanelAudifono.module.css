@@ -133,8 +133,8 @@
   width: calc(var(--w) * var(--px));
   max-width: none;
   height: auto;
-  transform: translate(-50%, -50%);
-  will-change: opacity;
+  transform: translate(-50%, -50%) scale(var(--escala, 1));
+  will-change: opacity, transform;
 }
 
 @media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {

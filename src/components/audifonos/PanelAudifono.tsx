@@ -28,6 +28,7 @@ export default function PanelAudifono({ tipo }: { tipo: TipoAudifono }) {
     const imgs = viajero.current ? Array.from(viajero.current.querySelectorAll("img")) : [];
 
     let raf = 0;
+    let actual: number | null = null; // avance suavizado del viaje (0 = audífono 1, 1 = audífono 2, 2 = audífono 3)
     const medir = () => {
       raf = 0;
       const r = el.getBoundingClientRect();
@@ -37,27 +38,39 @@ export default function PanelAudifono({ tipo }: { tipo: TipoAudifono }) {
       const avance = recorrido > 0 ? limitar(-r.top / recorrido) : 0;
       barra.current?.style.setProperty("--avance", String(avance));
 
-      // posición del audífono: el centro de la pantalla, en px de Figma sobre el panel
+      // posición del centro de la pantalla, en px de Figma sobre el panel
       const yVista = (window.innerHeight / 2 - r.top) / k;
       imgs.forEach((img, i) => {
         alturas[i] = img.naturalWidth ? (centros[i].d.ancho * img.naturalHeight) / img.naturalWidth : 0;
       });
       const cy = centros.map((c, i) => c.d.top + alturas[i] / 2);
-      // tramo actual (0: de la 1 a la 2, 1: de la 2 a la 3)
-      const tramo = yVista < cy[1] ? 0 : 1;
-      const a = tramo, b = tramo + 1;
-      const t = limitar((yVista - cy[a]) / (cy[b] - cy[a] || 1));
+      const objetivo =
+        yVista < cy[1]
+          ? limitar((yVista - cy[0]) / (cy[1] - cy[0] || 1))
+          : 1 + limitar((yVista - cy[1]) / (cy[2] - cy[1] || 1));
+
+      // inercia: el audífono sigue al scroll con un pequeño retraso, así el movimiento es continuo
+      // aunque la rueda del mouse avance a saltos
+      actual = actual === null ? objetivo : actual + (objetivo - actual) * 0.14;
+      if (Math.abs(objetivo - actual) < 0.0005) actual = objetivo;
+      else raf = requestAnimationFrame(medir);
+
+      const tramo = actual < 1 ? 0 : 1;
+      const a = tramo, b = Math.min(2, tramo + 1);
+      const t = actual - tramo;
       const ts = suave(t);
       const x = centros[a].x + (centros[b].x - centros[a].x) * ts;
-      const y = cy[a] + (cy[b] - cy[a]) * t;
-      // la foto cambia en la mitad del trayecto
-      const mezcla = limitar((t - 0.35) / 0.3);
+      const y = cy[a] + (cy[b] - cy[a]) * ts;
+      // cambio de foto: fundido largo y suave, con un leve cambio de escala (sale uno, entra el otro)
+      const mezcla = suave(limitar((t - 0.2) / 0.6));
       imgs.forEach((img, i) => {
         const op = i === a ? 1 - mezcla : i === b ? mezcla : 0;
+        const escala = i === a ? 1 - 0.12 * mezcla : i === b ? 0.88 + 0.12 * mezcla : 1;
         img.style.opacity = String(op);
+        img.style.setProperty("--escala", escala.toFixed(4));
       });
-      viajero.current?.style.setProperty("--x", String(x));
-      viajero.current?.style.setProperty("--y", String(y));
+      viajero.current?.style.setProperty("--x", x.toFixed(2));
+      viajero.current?.style.setProperty("--y", y.toFixed(2));
     };
     const alMover = () => {
       if (!raf) raf = requestAnimationFrame(medir);
