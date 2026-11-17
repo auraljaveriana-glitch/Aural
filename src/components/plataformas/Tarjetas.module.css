@@ -1,0 +1,212 @@
+/* Figma PLATAFORMAS @1920 (página desde y0; el menú normal ocupa 0–133):
+   "NUESTRAS" 24 px, mayúsculas y250, centrado · "Plataformas" 68 px negrita, mayúsculas y295
+   tarjetas 385 × 309 en y463 · logo Widex 128 × 37 en x923, y869 · sección hasta y1000 */
+
+.seccion {
+  position: relative;
+  height: calc((1000 - 133) * var(--px));
+  overflow-x: clip;
+  background: var(--blanco);
+}
+
+.ondas {
+  position: absolute;
+  left: calc(-60 * var(--px));
+  top: calc((130 - 133) * var(--px));
+  width: calc(2050 * var(--px));
+  aspect-ratio: 2636 / 1143;
+  background: #edf0f4;
+  -webkit-mask: url("/img/proceso/ondas-lineas.png") center / 100% 100% no-repeat;
+  mask: url("/img/proceso/ondas-lineas.png") center / 100% 100% no-repeat;
+  pointer-events: none;
+}
+
+.antetitulo,
+.titulo {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: 0;
+  text-align: center;
+  line-height: 1;
+}
+
+.antetitulo {
+  top: calc((250 - 0.1585 * 24 - 133) * var(--px));
+  font-size: calc(24 * var(--px));
+  letter-spacing: 0.35em;
+  text-indent: 0.35em;
+  color: #5d84b6;
+  text-transform: uppercase;
+}
+
+.titulo {
+  top: calc((295 - 0.1585 * 68 - 133) * var(--px));
+  font-size: calc(68 * var(--px));
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  color: var(--navy);
+}
+
+.tarjetas {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.tarjeta {
+  position: absolute;
+  left: calc(var(--x) * var(--px));
+  top: calc((463 - 133) * var(--px));
+  width: calc(385 * var(--px));
+  height: calc(309 * var(--px));
+  border-radius: calc(6 * var(--px));
+  overflow: hidden;
+  background: #ececec center / cover no-repeat;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.tarjeta:hover {
+  transform: translateY(calc(-6 * var(--px)));
+  box-shadow: 0 calc(18 * var(--px)) calc(40 * var(--px)) rgba(4, 30, 66, 0.12);
+}
+
+.etiqueta,
+.nombre,
+.boton {
+  position: absolute;
+  margin: 0;
+}
+
+.etiqueta {
+  left: calc(var(--xt) * var(--px));
+  top: calc((var(--ye) - 0.1585 * 15) * var(--px));
+  font-size: calc(15 * var(--px));
+  line-height: 1;
+  letter-spacing: 0.02em;
+  color: #6f6f6f;
+  text-transform: uppercase;
+}
+
+.nombre {
+  left: calc(var(--xt) * var(--px));
+  top: calc((var(--yt) - 37 / 2 + 0.3415 * 45) * var(--px));
+  display: flex;
+  flex-direction: column;
+  font-size: calc(45 * var(--px));
+  line-height: calc(37 * var(--px));
+  font-weight: 700;
+  letter-spacing: 0;
+  color: var(--navy);
+  text-transform: uppercase;
+}
+
+.boton {
+  left: calc(var(--xb) * var(--px));
+  top: calc(var(--yb) * var(--px));
+  display: inline-flex;
+  align-items: center;
+  gap: calc(22 * var(--px));
+  height: calc(47 * var(--px));
+  padding: 0 calc(24 * var(--px)) 0 calc(20 * var(--px));
+  border-radius: 999px;
+  background: var(--navy);
+  color: var(--blanco);
+  font-size: calc(17 * var(--px));
+}
+
+.boton svg {
+  width: calc(8 * var(--px));
+  height: calc(13 * var(--px));
+  transition: transform 0.25s ease;
+}
+
+.boton:hover svg,
+.boton:focus-visible svg {
+  transform: translateX(calc(4 * var(--px)));
+}
+
+.widex {
+  position: absolute;
+  left: calc(923 * var(--px));
+  top: calc((869 - 133) * var(--px));
+  width: calc(128 * var(--px));
+  height: auto;
+}
+
+@media (max-width: 1023px) {
+  .seccion {
+    height: auto;
+    padding: 40px 20px 48px;
+  }
+
+  .ondas {
+    display: none;
+  }
+
+  .antetitulo,
+  .titulo {
+    position: static;
+  }
+
+  .antetitulo {
+    font-size: 13px;
+  }
+
+  .titulo {
+    margin-top: 8px;
+    font-size: 36px;
+  }
+
+  .tarjetas {
+    margin-top: 28px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .tarjeta {
+    position: relative;
+    left: auto;
+    top: auto;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 385 / 309;
+    border-radius: 10px;
+  }
+
+  .etiqueta {
+    left: 7%;
+    top: 12%;
+    font-size: 12px;
+  }
+
+  .nombre {
+    left: 7%;
+    top: 19%;
+    font-size: 30px;
+    line-height: 1;
+  }
+
+  .boton {
+    left: 6%;
+    top: auto;
+    bottom: 10%;
+    height: 40px;
+    gap: 14px;
+    padding: 0 18px;
+    font-size: 15px;
+  }
+
+  .boton svg {
+    width: 7px;
+    height: 12px;
+  }
+
+  .widex {
+    position: static;
+    display: block;
+    width: 110px;
+    margin: 32px auto 0;
+  }
+}

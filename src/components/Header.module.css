@@ -209,3 +209,15 @@
     border-radius: 10px;
   }
 }
+
+/* plataformas Widex: logo en blanco y "Agenda tu cita" blanco con texto navy */
+@media (min-width: 1024px) {
+  .claro .logo img {
+    filter: brightness(0) invert(1);
+  }
+
+  .claro .ctaHeader {
+    background: var(--blanco);
+    color: var(--navy);
+  }
+}

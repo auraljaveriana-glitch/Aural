@@ -10,12 +10,14 @@ export default function Header() {
   const [abierto, setAbierto] = useState(false);
   // En las páginas de audífonos (plantilla "RIC") la barra flota sobre el panel gris
   const ruta = usePathname() ?? "";
-  const flotante = ruta.startsWith("/audifonos/") || ruta.startsWith("/nosotros");
+  const flotante = ruta.startsWith("/audifonos/") || ruta.startsWith("/nosotros") || ruta.startsWith("/plataformas/");
   // diseño v2 de Nosotros (nov-2026): barra delgada de lado a lado, logo sin "Centros auditivos"
   const delgado = ruta.startsWith("/nosotros");
+  // páginas de cada plataforma Widex: logo blanco y botón blanco (Figma ALLURE RIC, MOMENT RIC…)
+  const claro = ruta.startsWith("/plataformas/");
 
   return (
-    <header className={`${styles.header} ${flotante ? styles.flotante : ""} ${delgado ? styles.delgado : ""}`}>
+    <header className={`${styles.header} ${flotante ? styles.flotante : ""} ${delgado ? styles.delgado : ""} ${claro ? styles.claro : ""}`}>
       <Link href="/" className={styles.logo} aria-label="Aural Centros Auditivos, inicio">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         {delgado ? (
