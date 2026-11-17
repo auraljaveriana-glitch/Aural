@@ -15,7 +15,7 @@ export default function Widex() {
           Desde la claridad esencial hasta el procesamiento inteligente de sonido, tenemos el nivel tecnológico
           ideal para ti.
         </p>
-        <Link href="/audifonos" className={styles.boton}>
+        <Link href="/plataformas" className={styles.boton}>
           Nuestras plataformas
           <svg viewBox="0 0 34 22" aria-hidden="true">
             <path d="M1 11h31M22 1l10 10-10 10" fill="none" stroke="currentColor" strokeWidth="1.6" />
