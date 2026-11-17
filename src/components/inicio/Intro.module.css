@@ -1,6 +1,6 @@
-/* Pantalla de entrada: blanco a pantalla completa con el logo animado al centro.
-   El video es un recorte de 1000×400 del original 1920×1080, mostrado al mismo tamaño relativo
-   (52vw = 1000/1920) para que el logo se vea igual que en la animación. */
+/* Pantalla de entrada: blanco a pantalla completa con el logo animado (SVG) al centro.
+   El SVG cubre 832×200 px del cuadro original de 1920×1080; se muestra al mismo tamaño relativo
+   (43.3vw = 832/1920) para que el logo se vea igual que en la animación. */
 .intro {
   position: fixed;
   inset: 0;
@@ -19,15 +19,14 @@
   visibility: hidden;
 }
 
-.video {
-  width: clamp(280px, 52vw, 1000px);
-  aspect-ratio: 1000 / 400;
+.logo {
+  width: clamp(240px, 43.3vw, 832px);
+  aspect-ratio: 832 / 200;
   height: auto;
-  background: #fff;
 }
 
 @media (max-width: 1023px) {
-  .video {
-    width: min(86vw, 560px);
+  .logo {
+    width: min(78vw, 480px);
   }
 }
