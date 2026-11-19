@@ -74,6 +74,10 @@ export type TipoAudifono = {
     /** alto del panel y posición del acordeón (si cambian respecto a RIC) */
     panelAlto?: number;
     acordeonTop?: number;
+    /** borde izquierdo del acordeón (px de Figma; por defecto 222) */
+    acordeonLeft?: number;
+    /** fondo del panel tomado del diseño (degradado suave sin audífonos ni textos) */
+    fondo?: string;
     /** corrimiento vertical de la sección de modelos y de su fila de óvalos (px de Figma) */
     modelosExtra?: number;
     modelosFilaExtra?: number;
@@ -114,6 +118,8 @@ export const tipos: TipoAudifono[] = [
       { nombre: "RIC 312 D", negrita: "RIC", imagen: foto("ric-312-d"), foto: { left: -15.2, top: -69.7, ancho: 375.5 } },
     ],
     plantilla: {
+      acordeonLeft: 150,
+      fondo: "/img/audifonos/fondos/receptor-en-el-canal.webp",
       letras: { texto: "RIC", tamano: 500, top: 318.7, left: 622, espaciado: -0.04, degradado: ["#2b2a2a", "#8c8b8b"] },
       subtitulo: { texto: "Tecnología", tamano: 24, top: 568.2, left: 1285, espaciado: 0.5, color: "#333333" },
       dispositivos: [
@@ -165,6 +171,8 @@ export const tipos: TipoAudifono[] = [
       { nombre: "IMPACT", negrita: "", imagen: foto("impact"), foto: { left: -38, top: -21, ancho: 411 } },
     ],
     plantilla: {
+      acordeonLeft: 174,
+      fondo: "/img/audifonos/fondos/retroauriculares.webp",
       letras: { texto: "BTE", tamano: 497, top: 306.2, right: 354, espaciado: 0.026, degradado: ["#2b2a2a", "#7d7c7c"] },
       subtitulo: { texto: "Tecnología", tamano: 29, top: 775.4, right: 385, espaciado: 0.75, color: "#333333" },
       dispositivos: [
@@ -211,6 +219,7 @@ export const tipos: TipoAudifono[] = [
       { nombre: "XP", negrita: "XP", imagen: foto("xp"), foto: { left: 53, top: 69, ancho: 209 } },
     ],
     plantilla: {
+      acordeonLeft: 221,
       tema: "beige",
       letras: { texto: "INTRACANAL", tamano: 151, top: 453.1, right: 290 },
       subtitulo: { tamano: 28, top: 622.6, right: 290 },
@@ -264,6 +273,8 @@ export const tipos: TipoAudifono[] = [
       { nombre: "SMARTRIC", negrita: "SMARTRIC", imagen: foto("smartric"), foto: { left: 22, top: -61, ancho: 351 } },
     ],
     plantilla: {
+      acordeonLeft: 211,
+      fondo: "/img/audifonos/fondos/recargables.webp",
       tema: "azul",
       // en Figma dice "RECAR / GABLE" (singular, en dos líneas)
       letras: {

@@ -109,7 +109,14 @@ export default function PanelAudifono({ tipo }: { tipo: TipoAudifono }) {
     <section
       ref={panel}
       className={`${styles.panel} ${p.tema === "beige" ? styles.beige : p.tema === "azul" ? styles.azul : ""}`}
-      style={{ "--alto": p.panelAlto ?? 2916, "--acordeon": p.acordeonTop ?? 2293 } as React.CSSProperties}
+      style={
+        {
+          "--alto": p.panelAlto ?? 2916,
+          "--acordeon": p.acordeonTop ?? 2293,
+          "--acordeon-x": p.acordeonLeft ?? 222,
+          ...(p.fondo ? { backgroundImage: `url("${p.fondo}")`, backgroundSize: "100% 100%" } : {}),
+        } as React.CSSProperties
+      }
       aria-labelledby="audifono-titulo"
     >
       <div className={styles.riel} aria-hidden="true">
