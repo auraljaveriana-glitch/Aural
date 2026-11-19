@@ -29,13 +29,38 @@ export const site = {
   },
 };
 
-export type NavItem = { label: string; href: string };
+export type NavEnlace = { label: string; href: string; etiqueta?: string };
+export type NavItem = { label: string; href: string; grupos?: { titulo: string; enlaces: NavEnlace[] }[] };
 
-// Menú del diseño "INICIO PAG"
+// Menú del diseño "INICIO PAG". Audífonos abre un desplegable (pedido de Jean, 19-nov-2026)
 export const navegacion: NavItem[] = [
   { label: "Nosotros", href: "/nosotros" },
   { label: "Servicios", href: "/#servicios" },
-  { label: "Audífonos", href: "/audifonos" },
+  {
+    label: "Audífonos",
+    href: "/audifonos",
+    grupos: [
+      {
+        titulo: "Audífonos",
+        enlaces: [
+          { label: "Receptor en el Canal", etiqueta: "RIC", href: "/audifonos/receptor-en-el-canal" },
+          { label: "Retroauriculares", etiqueta: "BTE", href: "/audifonos/retroauriculares" },
+          { label: "Intracanal", etiqueta: "ITC/CIC", href: "/audifonos/intracanal" },
+          { label: "Recargables", href: "/audifonos/recargables" },
+        ],
+      },
+      {
+        titulo: "Plataformas",
+        enlaces: [
+          { label: "Allure", href: "/plataformas/allure" },
+          { label: "SmartRIC", href: "/plataformas/smartric" },
+          { label: "Moment", href: "/plataformas/moment" },
+          { label: "Magnify", href: "/plataformas/magnify" },
+          { label: "Ver todas", href: "/plataformas" },
+        ],
+      },
+    ],
+  },
 ];
 
 export const footer = {
