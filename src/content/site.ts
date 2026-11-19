@@ -11,8 +11,8 @@ export const site = {
     "Especialistas en salud auditiva con más de 60 años de experiencia. Exámenes audiológicos, prueba y adaptación de audífonos Widex en Colombia.",
 
   // Sistema de agendamiento de Aural (confirmado por Jean, 1-nov-2026)
-  agendarUrl: "https://agendaaural.netlify.app/",
-  valoracionUrl: "https://agendaaural.netlify.app/",
+  agendarUrl: "https://auralagenda.netlify.app/",
+  valoracionUrl: "https://auralagenda.netlify.app/",
 
   contacto: {
     // Confirmado por Jean (30-oct-2026)
