@@ -44,15 +44,22 @@ export default function PorQue() {
           })}
         </ul>
 
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/img/porque/foto.png"
-          alt="Una especialista de Aural conversa con una paciente sonriente"
-          className={styles.foto}
-          width={986}
-          height={627}
-          loading="lazy"
-        />
+        {/* la foto cambia según la opción abierta (con todas cerradas, la de la primera) */}
+        <div className={styles.fotos}>
+          {razones.map((r, i) => (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              key={r.foto}
+              src={r.foto}
+              alt={r.alt}
+              className={`${styles.foto} ${i === (abierta ?? 0) ? styles.fotoVisible : ""}`}
+              aria-hidden={i !== (abierta ?? 0)}
+              width={986}
+              height={627}
+              loading="lazy"
+            />
+          ))}
+        </div>
       </div>
     </section>
   );
