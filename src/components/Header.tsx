@@ -37,9 +37,11 @@ export default function Header() {
   const delgado = ruta.startsWith("/nosotros");
   // páginas de cada plataforma Widex: logo blanco y botón blanco (Figma ALLURE RIC, MOMENT RIC…)
   const claro = ruta.startsWith("/plataformas/");
+  // inicio v3 (20-nov-2026): el menú va sobre la foto oscura del hero, con letras blancas
+  const oscuro = ruta === "/";
 
   return (
-    <header className={`${styles.header} ${flotante ? styles.flotante : ""} ${delgado ? styles.delgado : ""} ${claro ? styles.claro : ""}`}>
+    <header className={`${styles.header} ${flotante ? styles.flotante : ""} ${delgado ? styles.delgado : ""} ${claro ? styles.claro : ""} ${oscuro ? styles.oscuro : ""}`}>
       <Link href="/" className={styles.logo} aria-label="Aural Centros Auditivos, inicio">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         {delgado ? (

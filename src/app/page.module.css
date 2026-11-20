@@ -1,45 +1,9 @@
-/* Fondo del hero (INICIO PAG v2): foto de fondo de Figma, con un brillo azul más intenso abajo a la derecha. Sube detrás del menú (133 px) y llega
-   hasta debajo de las esquinas redondeadas de "Tu camino…" (y973). */
+/* Inicio v3 (20-nov-2026): el hero trae su propia foto de fondo; este contenedor solo agrupa hero y camino. */
 .arriba {
   position: relative;
   overflow-x: clip;
-  margin-top: calc(-133 * var(--px));
-  padding-top: calc(133 * var(--px));
-  background:
-    radial-gradient(ellipse 34% 30% at 100% 100%, rgba(70, 100, 140, 0.55), rgba(70, 100, 140, 0) 100%) 0 0 /
-      100% calc(973 * var(--px)) no-repeat,
-    /* "Rectangle 201" de Figma (al 43 % sobre blanco, ya mezclado en la imagen): 1920 × 1044 */
-    url("/img/fondo-hero.jpg") 0 0 / 100% calc(1044 * var(--px)) no-repeat;
-}
-
-/* ondas muy tenues detrás del texto del hero */
-.arriba::before {
-  content: "";
-  position: absolute;
-  left: calc(-11 * var(--px));
-  top: calc(150 * var(--px));
-  width: calc(2383 * var(--px));
-  aspect-ratio: 2636 / 1143;
-  background: url("/img/ondas.png") 0 0 / 100% 100% no-repeat;
-  opacity: 0.3;
-  -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 40%, transparent 45%);
-  mask-image: linear-gradient(90deg, #000 0%, #000 40%, transparent 45%);
-  pointer-events: none;
 }
 
 .arriba > * {
   position: relative;
-}
-
-@media (max-width: 1023px) {
-  .arriba {
-    margin-top: -72px;
-    padding-top: 72px;
-    background:
-      linear-gradient(160deg, #fbfbfb 0%, #eceaea 45%, #c2cfe0 85%, #a9bfdb 100%) 0 0 / 100% 100% no-repeat;
-  }
-
-  .arriba::before {
-    display: none;
-  }
 }

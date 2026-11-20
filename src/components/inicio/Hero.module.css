@@ -1,44 +1,93 @@
-/* Medidas de "INICIO PAG" @1920 (desde el borde superior de la página):
-   título x146, mayúsculas 50 px, interlínea 84 px, primera línea en y250
-   botones y646 (alto 67): dorado x140 249 px, contorno x420 287 px
-   cifras: números y783 (alto de mayúscula 28 px), etiquetas y826
-   carrusel: x1002 → borde derecho, y189, 918×688, radio 30 a la izquierda */
+/* Inicio v3 — "INICIO PAG" @1920 (20-nov-2026), medidas desde el borde superior de la página:
+   foto a todo lo ancho de y0 a y973, velo negro al 50 %
+   título: mayúsculas de 45 px cada 77 px, primera en y336, x138 (3 líneas)
+   cifras: rayas x130 / x450 (y622–694), números (mayúscula 28.5) en y630, etiquetas en y684, texto en x170 / x493
+   botones y791 (alto 67): dorado x130 285 px, contorno x450 314 px
+   tarjetas: grande 387 × 245 en x893 y623; pequeñas 264 × 166 en y692 */
 
 .hero {
   position: relative;
-  display: grid;
-  grid-template-columns: calc(1002 * var(--px)) 1fr;
-  min-height: calc(744 * var(--px));
-  padding-top: calc(56 * var(--px));
+  height: calc(973 * var(--px));
+  /* sube detrás del menú */
+  margin-top: calc(-133 * var(--px));
+  color: var(--blanco);
+  overflow: hidden;
 }
 
-/* v2 (nov-2026): el título baja 17 px; los botones quedan donde estaban */
+.fondo {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    image-set(url("/img/hero2/fondo-1920.webp") 1x, url("/img/hero2/fondo.webp") 2x) center / cover no-repeat;
+}
+
 .texto {
-  padding-left: calc(140 * var(--px));
-  padding-top: calc(60 * var(--px));
+  position: absolute;
+  left: calc(130 * var(--px));
+  top: calc(320 * var(--px));
 }
 
 .titulo {
   font-family: var(--font-titulos);
   font-weight: 700;
-  font-size: calc(72 * var(--px));
-  line-height: calc(84 * var(--px));
+  font-size: calc(64 * var(--px));
+  line-height: calc(77 * var(--px));
   text-transform: uppercase;
-  padding-left: calc(4 * var(--px));
-  max-width: calc(560 * var(--px));
-  /* Montserrat Bold es más ancha que Gotham Bold: se compensa el espaciado */
-  letter-spacing: -0.035em;
+  padding-left: calc(8 * var(--px));
+  letter-spacing: -0.01em;
 }
 
 .ligero {
   font-weight: 300;
-  letter-spacing: 0;
+  letter-spacing: 0.012em;
+}
+
+.cifras {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  margin-top: calc(65 * var(--px));
+}
+
+.cifras li {
+  display: flex;
+  flex-direction: column;
+  gap: calc(16 * var(--px));
+  height: calc(72 * var(--px));
+  padding-left: calc(38 * var(--px));
+  padding-top: calc(5 * var(--px));
+  border-left: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.cifras li:first-child {
+  width: calc(320 * var(--px));
+}
+
+.cifras li:nth-child(2) {
+  padding-left: calc(41 * var(--px));
+}
+
+.cifras strong {
+  font-family: var(--font-titulos);
+  font-size: calc(41 * var(--px));
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: 0.03em;
+}
+
+.cifras span {
+  font-family: var(--font-titulos);
+  font-size: calc(15 * var(--px));
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
 }
 
 .botones {
   display: flex;
-  gap: calc(32 * var(--px));
-  margin-top: calc(61 * var(--px));
+  gap: calc(36 * var(--px));
+  margin-top: calc(97 * var(--px));
 }
 
 .boton {
@@ -47,23 +96,28 @@
   justify-content: space-between;
   height: calc(67 * var(--px));
   border-radius: 999px;
-  font-family: var(--font-titulos);
+  font-family: var(--font-ui);
   font-size: calc(21 * var(--px));
-  color: var(--navy);
-  letter-spacing: -0.025em;
   white-space: nowrap;
 }
 
 .botonDorado {
-  width: calc(249 * var(--px));
-  padding-inline: calc(34 * var(--px)) calc(26 * var(--px));
+  width: calc(285 * var(--px));
+  padding-inline: calc(34 * var(--px)) calc(28 * var(--px));
   background: var(--dorado);
+  color: var(--navy);
 }
 
 .botonContorno {
-  width: calc(287 * var(--px));
-  padding-inline: calc(31 * var(--px)) calc(26 * var(--px));
-  border: 1px solid var(--navy);
+  width: calc(314 * var(--px));
+  padding-inline: calc(57 * var(--px)) calc(26 * var(--px));
+  border: 1px solid var(--blanco);
+  color: var(--blanco);
+}
+
+/* en el diseño la flecha del botón con contorno es oscura */
+.botonContorno .chevron {
+  color: #2a1d16;
 }
 
 .chevron {
@@ -72,82 +126,116 @@
   flex-shrink: 0;
 }
 
-.cifras {
+/* ---- tarjetas ---- */
+.tarjetas {
+  position: absolute;
+  left: calc(893 * var(--px));
+  right: 0;
+  top: calc(623 * var(--px));
+  height: calc(245 * var(--px));
+  overflow: hidden;
+}
+
+.pista {
+  --chica: 264;
   list-style: none;
   padding: 0;
+  margin: 0;
   display: flex;
-  margin-top: calc(64 * var(--px));
-  margin-left: calc(2 * var(--px));
+  align-items: flex-end;
+  height: 100%;
+  padding-bottom: calc(10 * var(--px));
+  transform: translateX(calc(var(--corrimiento) * var(--chica) * -1 * var(--px)));
+  transition: transform 0.8s cubic-bezier(0.65, 0, 0.35, 1);
 }
 
-.cifras li {
-  display: flex;
-  flex-direction: column;
-  gap: calc(3 * var(--px));
-  padding-left: calc(18 * var(--px));
-  border-left: 2px solid var(--gris-linea);
+.tarjeta {
+  flex: none;
+  width: calc(var(--chica) * var(--px));
+  height: calc(166 * var(--px));
+  opacity: 0.79;
+  transition:
+    width 0.8s cubic-bezier(0.65, 0, 0.35, 1),
+    height 0.8s cubic-bezier(0.65, 0, 0.35, 1),
+    margin 0.8s cubic-bezier(0.65, 0, 0.35, 1),
+    opacity 0.5s ease;
 }
 
-.cifras li:first-child {
-  width: calc(273 * var(--px));
-}
-
-.cifras li:nth-child(2) {
-  width: calc(243 * var(--px));
-  padding-left: calc(26 * var(--px));
-}
-
-.cifras strong {
-  font-size: calc(40 * var(--px));
-  font-weight: 700;
-  line-height: 1;
-}
-
-.cifras span {
-  font-size: calc(15 * var(--px));
-  color: var(--gris-texto);
-  text-transform: uppercase;
-  letter-spacing: 0.015em;
-}
-
-.carrusel {
-  align-self: start;
-  height: calc(688 * var(--px));
-  border-radius: calc(30 * var(--px)) 0 0 calc(30 * var(--px));
-  overflow: hidden;
-  background: #d8d6d3;
-}
-
-.slide {
+.tarjeta img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
 }
 
-/* ===== Tablet y celular: el carrusel pasa debajo del texto ===== */
+.tarjetaGrande {
+  width: calc(387 * var(--px));
+  height: calc(245 * var(--px));
+  margin-bottom: calc(-10 * var(--px));
+  margin-right: calc(24 * var(--px));
+  opacity: 1;
+  box-shadow: 0 calc(10 * var(--px)) calc(30 * var(--px)) rgba(0, 0, 0, 0.35);
+}
+
+.quieta,
+.quieta .tarjeta {
+  transition: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pista,
+  .tarjeta {
+    transition: none;
+  }
+}
+
+/* ===== Tablet y celular: todo apilado ===== */
 @media (max-width: 1023px) {
   .hero {
-    grid-template-columns: 1fr;
-    min-height: 0;
-    padding-top: 24px;
-    gap: 40px;
+    height: auto;
+    margin-top: -72px;
+    padding: 120px max(20px, env(safe-area-inset-left, 0px)) 48px;
+  }
+
+  .fondo {
+    background-position: 70% center;
   }
 
   .texto {
-    padding-inline: max(20px, env(safe-area-inset-left, 0px)) max(20px, env(safe-area-inset-right, 0px));
-    padding-top: 0;
+    position: relative;
+    left: 0;
+    top: 0;
   }
 
-  /* misma proporción que en escritorio: interlínea = 84/72 del tamaño */
   .titulo {
-    font-size: clamp(34px, 7.4vw, 56px);
-    line-height: 1.167;
-    max-width: 11em;
+    font-size: clamp(32px, 8vw, 54px);
+    line-height: 1.2;
     padding-left: 0;
   }
 
+  .cifras {
+    margin-top: 32px;
+  }
+
+  .cifras li,
+  .cifras li:first-child,
+  .cifras li:nth-child(2) {
+    width: auto;
+    height: auto;
+    gap: 8px;
+    padding: 2px 28px 2px 16px;
+  }
+
+  .cifras strong {
+    font-size: 30px;
+  }
+
+  .cifras span {
+    font-size: 12px;
+  }
+
   .botones {
-    margin-top: 28px;
+    margin-top: 32px;
     gap: 12px;
     flex-wrap: wrap;
   }
@@ -169,34 +257,31 @@
     height: 14px;
   }
 
-  .cifras {
-    margin-top: 32px;
-    margin-left: 0;
+  .tarjetas {
+    position: relative;
+    left: auto;
+    top: auto;
+    margin-top: 40px;
+    margin-right: calc(-1 * max(20px, env(safe-area-inset-right, 0px)));
+    height: 190px;
   }
 
-  .cifras li,
-  .cifras li:first-child,
-  .cifras li:nth-child(2) {
-    width: auto;
-    gap: 4px;
-    padding-left: 14px;
-    padding-right: 28px;
+  .pista {
+    --chica: 180;
+    padding-bottom: 0;
+    transform: translateX(calc(var(--corrimiento) * var(--chica) * -1px));
   }
 
-  .cifras strong {
-    font-size: 30px;
+  .tarjeta {
+    width: 180px;
+    height: 114px;
   }
 
-  .cifras span {
-    font-size: 12px;
-  }
-
-  /* la tarjeta sigue pegada al borde derecho, como en escritorio */
-  .carrusel {
-    margin-left: max(20px, env(safe-area-inset-left, 0px));
-    height: auto;
-    aspect-ratio: 918 / 688;
-    border-radius: 20px 0 0 20px;
+  .tarjetaGrande {
+    width: 300px;
+    height: 190px;
+    margin-bottom: 0;
+    margin-right: 12px;
   }
 }
 
@@ -206,40 +291,4 @@
     justify-content: center;
     gap: 14px;
   }
-}
-
-/* Puntos del carrusel @1920: x1461–1525, y831 (10 px, separados 27 px) */
-.carrusel {
-  position: relative;
-}
-
-.puntos {
-  position: absolute;
-  left: calc(459 * var(--px));
-  top: calc(642 * var(--px));
-  display: flex;
-  gap: calc(17 * var(--px));
-}
-
-.punto {
-  /* área táctil de 24 px alrededor de un punto de 10 px */
-  position: relative;
-  width: max(6px, calc(10 * var(--px)));
-  height: max(6px, calc(10 * var(--px)));
-  padding: 0;
-  border: 0;
-  border-radius: 999px;
-  background: var(--blanco);
-  cursor: pointer;
-}
-
-.punto::after {
-  content: "";
-  position: absolute;
-  inset: -8px;
-}
-
-/* En el diseño los 3 puntos son iguales; el actual se distingue solo por opacidad */
-.punto[aria-current="false"] {
-  opacity: 0.55;
 }

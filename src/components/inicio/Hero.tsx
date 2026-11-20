@@ -1,8 +1,11 @@
 import Link from "next/link";
 import { site } from "@/content/site";
-import CarruselHero from "./CarruselHero";
+import TarjetasHero from "./TarjetasHero";
 import ContadorPacientes from "./ContadorPacientes";
 import styles from "./Hero.module.css";
+
+/* Inicio v3 (Figma "INICIO PAG", 20-nov-2026): foto a todo lo ancho con un velo negro al 50 %,
+   textos en blanco y tarjetas que rotan abajo a la derecha. */
 
 const cifras = [
   { valor: <ContadorPacientes />, etiqueta: "Pacientes satisfechos" }, // sube cada día hábil
@@ -20,10 +23,25 @@ function Chevron() {
 export default function Hero() {
   return (
     <section className={styles.hero}>
+      <div className={styles.fondo} aria-hidden="true" />
+
       <div className={styles.texto}>
         <h1 className={styles.titulo}>
-          <span className={styles.ligero}>Vuelve a escuchar</span> lo que más te importa
+          <span className={styles.ligero}>Vuelve a</span>
+          <br />
+          <span className={styles.ligero}>escuchar</span> lo que
+          <br />
+          más te importa
         </h1>
+
+        <ul className={styles.cifras}>
+          {cifras.map((c) => (
+            <li key={c.etiqueta}>
+              <strong>{c.valor}</strong>
+              <span>{c.etiqueta}</span>
+            </li>
+          ))}
+        </ul>
 
         <div className={styles.botones}>
           <Link href={site.agendarUrl} className={`${styles.boton} ${styles.botonDorado}`}>
@@ -35,18 +53,9 @@ export default function Hero() {
             <Chevron />
           </Link>
         </div>
-
-        <ul className={styles.cifras}>
-          {cifras.map((c) => (
-            <li key={c.etiqueta}>
-              <strong>{c.valor}</strong>
-              <span>{c.etiqueta}</span>
-            </li>
-          ))}
-        </ul>
       </div>
 
-      <CarruselHero />
+      <TarjetasHero />
     </section>
   );
 }

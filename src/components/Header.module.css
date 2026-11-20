@@ -373,3 +373,22 @@
     font-size: 17px;
   }
 }
+
+/* inicio v3: menú en blanco sobre la foto */
+.oscuro .nav > li > a,
+.oscuro .disparador {
+  color: var(--blanco);
+}
+
+@media (max-width: 1023px) {
+  .oscuro .nav > li > a,
+  .oscuro .disparador {
+    color: inherit;
+  }
+}
+
+@media (max-width: 1023px) {
+  .oscuro .hamburguesa span {
+    background: var(--blanco);
+  }
+}
