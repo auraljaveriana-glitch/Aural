@@ -69,129 +69,173 @@
   width: 100%;
 }
 
-/* ---------- diagrama ---------- */
-.diagrama {
+/* ---------- círculo de servicios (inicio v3) ----------
+   Medidas del diseño (marco de 1160 × 1130 que recorta las ondas; px de Figma):
+   centro del círculo (578.5, 537.75); cuartos de círculo de 352 px separados 9–10 px;
+   círculo blanco del centro de 228 px de radio; nombre: mayúsculas de 16.5 px cada 28 px.
+   Todo el gráfico va a escala --k para que las ondas quepan entre las dos líneas de la sección. */
+.grafico {
+  --k: 0.88;
+  --g: calc(var(--k) * var(--px));
   position: absolute;
-  left: calc(812 * var(--px));
-  top: calc(136 * var(--px));
-  width: calc(784 * var(--u));
-  height: calc(728 * var(--u));
+  /* centro del círculo en x1362 de la página (donde estaba el diagrama anterior) y a media altura */
+  left: calc(1204 * var(--px) - 578.5 * var(--g));
+  top: calc(502 * var(--px) - 537.75 * var(--g));
+  width: calc(1160 * var(--g));
+  height: calc(1130 * var(--g));
 }
 
-/* círculo de color del servicio activo: 465 px, centrado en su nodo */
-.color {
+.ondas {
   position: absolute;
-  left: calc(var(--x) * var(--u));
-  top: calc(var(--y) * var(--u));
-  width: calc(465 * var(--u));
-  height: calc(465 * var(--u));
-  border-radius: 50%;
+  inset: 0;
   background: center / 100% 100% no-repeat;
-  transform: translate(-50%, -50%);
+  mix-blend-mode: multiply;
   opacity: 0;
-  transition: opacity 0.25s ease;
+  transition: opacity 0.5s ease;
   pointer-events: none;
 }
 
-.colorVisible {
+.ondasVisible {
   opacity: 1;
 }
 
-.nodos {
+.cuadrantes {
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-.nodo {
+.cuadrante {
   position: absolute;
-  left: calc(var(--x) * var(--u));
-  top: calc(var(--y) * var(--u));
-  width: 0;
-  height: 0;
+  width: calc(352 * var(--g));
+  height: calc(352 * var(--g));
+  z-index: 1;
+  transition: transform 0.45s cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 
-.nodo button {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: calc(238 * var(--u));
-  height: calc(238 * var(--u));
+.cuadrante button {
+  display: block;
+  width: 100%;
+  height: 100%;
   padding: 0;
   border: 0;
-  border-radius: 50%;
-  background: none;
-  transform: translate(-50%, -50%);
+  overflow: hidden;
+  background: #222;
   cursor: pointer;
-  font-family: var(--font-titulos);
+  transition: box-shadow 0.45s ease;
 }
 
-.circulo {
+.cuadrante img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* sin activar, la foto se ve más de cerca */
+  transform: scale(1.3);
+  transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.ai {
+  left: calc(222 * var(--g));
+  top: calc(180.5 * var(--g));
+  transform-origin: 100% 100%;
+}
+
+.ai button {
+  border-top-left-radius: 100%;
+}
+
+.ad {
+  left: calc(583 * var(--g));
+  top: calc(180.5 * var(--g));
+  transform-origin: 0 100%;
+}
+
+.ad button {
+  border-top-right-radius: 100%;
+}
+
+.bi {
+  left: calc(222 * var(--g));
+  top: calc(543 * var(--g));
+  transform-origin: 100% 0;
+}
+
+.bi button {
+  border-bottom-left-radius: 100%;
+}
+
+.bd {
+  left: calc(582 * var(--g));
+  top: calc(543 * var(--g));
+  transform-origin: 0 0;
+}
+
+.bd button {
+  border-bottom-right-radius: 100%;
+}
+
+/* activo: encima del círculo blanco, un poco más grande y con sombra */
+.activo {
+  z-index: 3;
+  transform: scale(1.02);
+}
+
+.activo button {
+  box-shadow: calc(6 * var(--g)) calc(10 * var(--g)) calc(26 * var(--g)) rgba(0, 0, 0, 0.3);
+}
+
+.activo img {
+  transform: none;
+}
+
+.centro {
   position: absolute;
-  inset: 0;
   z-index: 2;
+  left: calc((578.5 - 228) * var(--g));
+  top: calc((537.75 - 228) * var(--g));
+  width: calc(456 * var(--g));
+  height: calc(456 * var(--g));
   border-radius: 50%;
-  color: var(--navy);
-}
-
-/* círculo blanco con anillo dorado */
-.blanco .circulo {
-  background: #f8f8f8;
-  box-shadow: 0 calc(6 * var(--u)) calc(24 * var(--u)) rgba(4, 30, 66, 0.08);
-}
-
-.blanco .circulo::before {
-  content: "";
-  position: absolute;
-  inset: calc(-19.25 * var(--u));
-  border: calc(1.5 * var(--u)) solid #edc152;
-  border-radius: 50%;
+  background: var(--blanco);
   pointer-events: none;
 }
 
-.blanco {
-  z-index: 2;
-}
-
-.icono {
+.nombreCentro {
   position: absolute;
-  left: calc(50% + var(--il) * var(--u));
-  top: calc(50% + var(--it) * var(--u));
-  width: calc(var(--iw) * var(--u));
-  height: calc(var(--ih) * var(--u));
-  background: #3f72b0;
-  -webkit-mask-size: 100% 100%;
-  mask-size: 100% 100%;
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-}
-
-.nombre {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: calc(50% + 40.5 * var(--u));
-  font-size: max(10px, calc(18 * var(--u)));
-  line-height: max(10px, calc(17 * var(--u)));
-  font-weight: 400;
+  z-index: 4;
+  left: calc(578.5 * var(--g));
+  translate: -50% 0;
+  margin: 0;
+  font-family: var(--font-titulos);
+  font-weight: 700;
+  font-size: calc(23.5 * var(--g));
+  line-height: calc(28 * var(--g));
+  letter-spacing: 0.02em;
   text-align: center;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--navy);
+  pointer-events: none;
 }
 
-/* servicio activo: círculo interior de color con ícono y nombre */
-.activo {
-  z-index: 1;
+/* con un servicio de arriba activo el nombre va en la mitad de abajo, y al revés */
+.abajo {
+  top: calc((611 - 6) * var(--g));
 }
 
-.activo .circulo {
-  background: var(--fondo);
-  color: var(--contenido);
+.arriba {
+  top: calc((417 - 6) * var(--g));
 }
 
-.activo .icono {
-  background: var(--contenido);
+@media (prefers-reduced-motion: reduce) {
+  .cuadrante,
+  .cuadrante img,
+  .ondas {
+    transition: none;
+  }
 }
 
-/* ===== Tablet y celular ===== */
 @media (max-width: 1023px) {
   .seccion {
     --u: min(calc((100vw - 64px) / 784), 0.6px);
@@ -226,10 +270,11 @@
     display: none;
   }
 
-  .diagrama {
+  .grafico {
+    --g: min(calc((100vw - 40px) / 1160), 0.6px);
     position: relative;
     left: auto;
     top: auto;
-    margin: 30px auto 50px;
+    margin: 0 auto;
   }
 }

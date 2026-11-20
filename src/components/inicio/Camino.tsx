@@ -1,77 +1,71 @@
 "use client";
 
 import { useState } from "react";
-import Img from "@/components/Img";
 import styles from "./Camino.module.css";
 
-type Paso = { titulo: string; imagen: string; textoEnImagen?: boolean };
+/* "Tu camino hacia una mejor audición" — inicio v3 (Figma, 20-nov-2026).
+   Cinco columnas; la etapa activa se abre como tarjeta con foto. Se activa al pasar el mouse
+   (en celular, al tocar). Por defecto está abierta la primera.
+   x: raya de la columna (px de Figma @1920); texto: corrimiento del texto respecto a la raya;
+   tarjeta: borde izquierdo de la tarjeta abierta. */
+type Etapa = { etiqueta: string; titulo: [string, string]; foto: string; x: number; texto: number; tarjeta: number };
 
-// Las 5 etapas del camino (Figma "INICIO PAG" + segunda página del carrusel enviada por Jean)
-const pasos: Paso[] = [
-  { titulo: "Escucha y evaluación", imagen: "/img/camino/escucha.png" },
-  { titulo: "Diagnóstico profesional", imagen: "/img/camino/diagnostico.png" },
-  { titulo: "Soluciones personalizadas", imagen: "/img/camino/soluciones.png" },
-  { titulo: "Adaptación y acompañamiento", imagen: "/img/camino/adaptacion.png" },
-  { titulo: "Seguimiento continuo", imagen: "/img/camino/seguimiento.png" },
+const etapas: Etapa[] = [
+  { etiqueta: "Te escuchamos", titulo: ["Escucha y", "evaluación"], foto: "escucha", x: 101, texto: 14, tarjeta: 61.5 },
+  { etiqueta: "Analizamos", titulo: ["Diagnóstico", "profesional"], foto: "diagnostico", x: 440, texto: 20, tarjeta: 375 },
+  { etiqueta: "A tu medida", titulo: ["Soluciones", "personalizadas"], foto: "soluciones", x: 792, texto: 20, tarjeta: 748 },
+  { etiqueta: "Te acompañamos", titulo: ["Adaptación y", "acompañamiento"], foto: "adaptacion", x: 1159, texto: 24, tarjeta: 1119 },
+  { etiqueta: "Seguimos contigo", titulo: ["Seguimiento", "continuo"], foto: "seguimiento", x: 1541, texto: 20, tarjeta: 1527 },
 ];
 
-// En escritorio se ven 3 tarjetas; la segunda página muestra las 3 últimas
-const paginas = [0, 2];
-
 export default function Camino() {
-  const [pagina, setPagina] = useState(0);
-  const inicio = paginas[pagina];
+  const [activa, setActiva] = useState(0);
 
   return (
     <section className={styles.seccion} aria-labelledby="camino-titulo">
       <div className={styles.ondas} aria-hidden="true" />
       <h2 id="camino-titulo" className={styles.titulo}>
-        Tu camino hacia una <b>mejor audición</b> empieza aquí
+        Tu camino hacia una <b>mejor</b>
+        <br className={styles.corte} /> <b>audición</b> empieza aquí
       </h2>
       <p className={styles.texto}>
         Te acompañamos en cada etapa, desde la evaluación
-        <br className={styles.corte} /> auditiva hasta la adaptación de soluciones diseñadas para
-        <br className={styles.corte} /> tu estilo de vida y necesidades reales.
+        <br className={styles.corte} /> auditiva hasta la adaptación de soluciones diseñadas para tu
+        <br className={styles.corte} /> estilo de vida y necesidades reales.
       </p>
 
-      <div className={styles.carrusel}>
-        <ol className={styles.tarjetas}>
-          {pasos.map((p, i) => (
+      <ol className={styles.etapas}>
+        {etapas.map((e, i) => {
+          const abierta = i === activa;
+          return (
             <li
-              key={p.titulo}
-              className={styles.tarjeta}
-              data-visible={i >= inicio && i < inicio + 3 ? "" : undefined}
+              key={e.foto}
+              className={`${styles.etapa} ${abierta ? styles.abierta : ""}`}
+              style={{ "--x": e.x, "--tx": e.texto, "--card": e.tarjeta } as React.CSSProperties}
+              onMouseEnter={() => setActiva(i)}
             >
-              <Img src={p.imagen} alt="" />
-              <span className={p.textoEnImagen ? "sr-only" : styles.nombre}>{p.titulo}</span>
+              <button type="button" className={styles.boton} aria-expanded={abierta} onClick={() => setActiva(i)} onFocus={() => setActiva(i)}>
+                <span className={styles.etiqueta}>{e.etiqueta}</span>
+                <span className={styles.nombre}>
+                  {e.titulo[0]}
+                  <br />
+                  {e.titulo[1]}
+                </span>
+              </button>
+              <div className={styles.tarjeta} aria-hidden={!abierta}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={`/img/camino2/${e.foto}.webp`} alt="" loading="lazy" />
+                <span className={styles.etiqueta}>{e.etiqueta}</span>
+                <span className={styles.nombre}>
+                  {e.titulo[0]}
+                  <br />
+                  {e.titulo[1]}
+                </span>
+              </div>
             </li>
-          ))}
-        </ol>
-
-        <button
-          type="button"
-          className={styles.flecha}
-          aria-label={pagina === 0 ? "Ver más etapas" : "Volver a las primeras etapas"}
-          onClick={() => setPagina((v) => (v + 1) % paginas.length)}
-        >
-          <svg viewBox="0 0 8 16" aria-hidden="true">
-            <path d="M1 1l6 7-6 7" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        </button>
-
-        <div className={styles.puntos}>
-          {paginas.map((_, i) => (
-            <button
-              key={i}
-              type="button"
-              className={i === pagina ? styles.puntoActivo : styles.punto}
-              aria-label={`Página ${i + 1} de ${paginas.length}`}
-              aria-current={i === pagina}
-              onClick={() => setPagina(i)}
-            />
-          ))}
-        </div>
-      </div>
+          );
+        })}
+      </ol>
     </section>
   );
 }
