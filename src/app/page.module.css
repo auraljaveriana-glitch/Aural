@@ -7,3 +7,18 @@
 .arriba > * {
   position: relative;
 }
+
+/* espacio entre una sección y la siguiente (también entre "Tu camino…" y la primera de aquí) */
+.secciones {
+  display: flow-root;
+}
+
+.secciones > * {
+  margin-top: calc(120 * var(--px));
+}
+
+@media (max-width: 1023px) {
+  .secciones > * {
+    margin-top: 48px;
+  }
+}

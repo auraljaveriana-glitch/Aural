@@ -18,12 +18,15 @@ export default function Inicio() {
         <Hero />
         <Camino />
       </div>
-      <Soluciones />
-      <Servicios />
-      <PorQue />
-      <Widex />
-      <Sedes />
-      <Momento />
+      {/* espacio entre secciones (Jean, 20-nov-2026) */}
+      <div className={styles.secciones}>
+        <Soluciones />
+        <Servicios />
+        <PorQue />
+        <Widex />
+        <Sedes />
+        <Momento />
+      </div>
     </>
   );
 }

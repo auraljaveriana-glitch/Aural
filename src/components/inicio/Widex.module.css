@@ -10,8 +10,7 @@
 .seccion {
   position: relative;
   height: calc(1003 * var(--px));
-  /* la sombra inferior del bloque cae sobre el fondo de "Nuestras sedes" */
-  background: linear-gradient(transparent calc(937 * var(--px)), #ececec 0);
+  /* ya no se pega a "Nuestras sedes": queda espacio blanco entre secciones (20-nov-2026) */
 }
 
 .seccion::before {
