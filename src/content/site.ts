@@ -83,60 +83,70 @@ export const footer = {
   ],
 };
 
-export type Centro = { nombre: string; direccion: string };
+export type Centro = { direccion: string; local?: string; barrio?: string };
 export type Sede = {
   ciudad: string;
   sigla: string;
   centros: Centro[];
-  /** punta del pin, en px de Figma sobre el mapa (731 × 1024) */
-  pin: { x: number; y: number; escala?: number };
-  /** etiqueta amarilla, en px de Figma desde la esquina de la sección.
-   *  lado "izq": la etiqueta queda a la izquierda del pin y x es su borde derecho
-   *  (en Figma, Cartagena: 72 → 417); lado "der": x es su borde izquierdo. */
-  etiqueta: { lado: "izq" | "der"; x: number; top: number };
+  /** pin sobre el mapa (centro del círculo, px de Figma desde la esquina de la sección); "chico" en la costa */
+  pin: { x: number; y: number; chico?: boolean; soloActivo?: boolean };
+  /** tarjeta amarilla: "caja" (título + filas) o "pildora" (dirección + sigla), px de Figma */
+  tarjeta: { tipo: "caja" | "pildora"; x: number; y: number; ancho: number; alto?: number; titulo?: string };
 };
 
-// Direcciones entregadas por Jean (29-oct-2026). Sin teléfonos, por indicación suya.
-// TODO: confirmar las siglas de cada ciudad.
+// Sedes — inicio v3 (Figma, 20-nov-2026). Textos tal como vienen en el diseño. Sin teléfonos.
+// Cartagena no venía en el diseño: se arma como Medellín con la dirección que ya teníamos.
 export const sedes: Sede[] = [
   {
     ciudad: "Bogotá",
     sigla: "BOG",
-    pin: { x: 320.5, y: 529 }, etiqueta: { lado: "der", x: 610, top: 572 },
+    pin: { x: 551.5, y: 775 },
+    tarjeta: { tipo: "caja", x: 616, y: 757, ancho: 374, titulo: "BOG" },
     centros: [
-      { nombre: "Usaquén", direccion: "Carrera 7 # 119-50, local 3" },
-      { nombre: "Javeriana", direccion: "Carrera 7 # 45-10, local 2" },
-      { nombre: "Plaza Central", direccion: "Carrera 65 # 11-50, local 2-50" },
-      { nombre: "C.C. Paseo Villa del Río", direccion: "Diagonal 57C Sur # 62-60, local 202" },
-      { nombre: "C.C. Nuestro Bogotá", direccion: "Av. Carrera 86 # 55A-75, local 2-282" },
+      { direccion: "Cr 7 # 119-50", barrio: "Usaquen" },
+      { direccion: "Cr 7 # 45-10", local: "(L 2)", barrio: "Javeriana" },
+      { direccion: "Cr 65# 11-50", local: "(L 2-50)", barrio: "Plaza Central" },
+      { direccion: "Dig 57 Sur # 62-60", local: "(L 202)", barrio: "Paseo Villa del Rio" },
+      { direccion: "Av. Cra 86 # 55-75", local: "(L 2 - 282)", barrio: "Nuestro Bogotá" },
     ],
   },
   {
     ciudad: "Medellín",
     sigla: "MDE",
-    pin: { x: 253, y: 444 }, etiqueta: { lado: "izq", x: 427, top: 575 },
-    centros: [{ nombre: "El Poblado", direccion: "Calle 10 # 43D-76" }],
+    pin: { x: 483.5, y: 705 },
+    tarjeta: { tipo: "pildora", x: 74, y: 593, ancho: 345, alto: 67 },
+    centros: [{ direccion: "Calle 10 #43D-76", barrio: "Barrio el Poblado" }],
   },
   {
     ciudad: "Cali",
     sigla: "CLO",
-    pin: { x: 202.5, y: 608 }, etiqueta: { lado: "der", x: 488, top: 717 },
+    pin: { x: 432.5, y: 870 },
+    tarjeta: { tipo: "caja", x: 133, y: 946, ancho: 478, titulo: "CALI" },
     centros: [
-      { nombre: "Tequendama", direccion: "Carrera 50 con Av. Roosevelt # 5D-37" },
-      { nombre: "C.C. Centenario", direccion: "Avenida 4 Norte # 7-46, local 214" },
+      { direccion: "Av 4 Norte #7-46", local: "(L 214)", barrio: "C.C. Centenario" },
+      { direccion: "Av Roosevelt, Cr 50 #5d-37", local: "(L 23, Torre Cosmoplaza)", barrio: "Tequendama" },
     ],
   },
   {
     ciudad: "Barranquilla",
     sigla: "BAQ",
-    pin: { x: 288.5, y: 213, escala: 0.69 }, etiqueta: { lado: "izq", x: 466, top: 350 },
-    centros: [{ nombre: "Parque Washington", direccion: "Carrera 53 # 80-198" }],
+    pin: { x: 518.5, y: 481.5, chico: true },
+    tarjeta: { tipo: "pildora", x: 68, y: 355, ancho: 396, alto: 107 },
+    centros: [{ direccion: "Cr 53 #80-198", local: "(L 102, Torre Atlánta)", barrio: "Parque Washington" }],
   },
   {
     ciudad: "Cartagena",
     sigla: "CTG",
-    pin: { x: 250.5, y: 290 }, etiqueta: { lado: "izq", x: 417, top: 410 },
-    centros: [{ nombre: "Bocagrande", direccion: "Calle 6 # 4-20, local 2-07, C.C. La Estación" }],
+    pin: { x: 481.5, y: 548.5, chico: true },
+    tarjeta: { tipo: "pildora", x: 40, y: 470, ancho: 396, alto: 107 },
+    centros: [{ direccion: "Calle 6 # 4-20", local: "(L 2-07, C.C. La Estación)", barrio: "Bocagrande" }],
+  },
+  {
+    ciudad: "Panamá",
+    sigla: "PTY",
+    pin: { x: 352, y: 462, soloActivo: true },
+    tarjeta: { tipo: "pildora", x: 78, y: 560, ancho: 345, alto: 67 },
+    centros: [{ direccion: "Hospital Pacifica Salud", barrio: "Planta baja, Local 5" }],
   },
 ];
 
