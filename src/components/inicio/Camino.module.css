@@ -10,6 +10,8 @@
 .seccion {
   position: relative;
   height: calc(967 * var(--px));
+  /* más aire debajo del hero (Jean, 20-nov-2026) */
+  margin-top: calc(100 * var(--px));
   text-align: center;
   color: var(--navy);
   overflow: hidden;
