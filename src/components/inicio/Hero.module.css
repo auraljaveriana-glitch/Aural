@@ -115,9 +115,9 @@
   color: var(--blanco);
 }
 
-/* en el diseño la flecha del botón con contorno es oscura */
+/* flecha blanca (Jean, 25-nov-2026) */
 .botonContorno .chevron {
-  color: #2a1d16;
+  color: var(--blanco);
 }
 
 .chevron {
