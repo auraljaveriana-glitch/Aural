@@ -184,7 +184,7 @@ export default function Nosotros() {
                   <span>Ciudades</span>
                 </li>
                 <li>
-                  <b>12</b>
+                  <b>11</b>
                   <span>
                     Centros
                     <br />

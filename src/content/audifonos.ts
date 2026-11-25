@@ -78,6 +78,9 @@ export type TipoAudifono = {
     acordeonLeft?: number;
     /** fondo del panel tomado del diseño (degradado suave sin audífonos ni textos) */
     fondo?: string;
+    /** el fondo es la exportación completa de Jean (ya trae ondas y letras grandes de fondo):
+     *  no se dibujan aparte. Usa también la versión @2x. */
+    fondoCompleto?: boolean;
     /** corrimiento vertical de la sección de modelos y de su fila de óvalos (px de Figma) */
     modelosExtra?: number;
     modelosFilaExtra?: number;
@@ -172,7 +175,8 @@ export const tipos: TipoAudifono[] = [
     ],
     plantilla: {
       acordeonLeft: 174,
-      fondo: "/img/audifonos/fondos/retroauriculares.webp",
+      fondo: "/img/audifonos/fondos/retroauriculares.webp", // colores nuevos de Jean, 25-nov-2026
+      fondoCompleto: true,
       letras: { texto: "BTE", tamano: 497, top: 306.2, right: 354, espaciado: 0.026, degradado: ["#2b2a2a", "#7d7c7c"] },
       subtitulo: { texto: "Tecnología", tamano: 29, top: 775.4, right: 385, espaciado: 0.75, color: "#333333" },
       dispositivos: [
@@ -220,6 +224,8 @@ export const tipos: TipoAudifono[] = [
     ],
     plantilla: {
       acordeonLeft: 221,
+      fondo: "/img/audifonos/fondos/intracanal.webp", // colores nuevos de Jean, 25-nov-2026
+      fondoCompleto: true,
       tema: "beige",
       letras: { texto: "INTRACANAL", tamano: 151, top: 453.1, right: 290 },
       subtitulo: { tamano: 28, top: 622.6, right: 290 },

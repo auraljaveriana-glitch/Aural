@@ -114,7 +114,14 @@ export default function PanelAudifono({ tipo }: { tipo: TipoAudifono }) {
           "--alto": p.panelAlto ?? 2916,
           "--acordeon": p.acordeonTop ?? 2293,
           "--acordeon-x": p.acordeonLeft ?? 222,
-          ...(p.fondo ? { backgroundImage: `url("${p.fondo}")`, backgroundSize: "100% 100%" } : {}),
+          ...(p.fondo
+            ? {
+                backgroundImage: p.fondoCompleto
+                  ? `image-set(url("${p.fondo}") 1x, url("${p.fondo.replace(".webp", "@2x.webp")}") 2x)`
+                  : `url("${p.fondo}")`,
+                backgroundSize: "100% 100%",
+              }
+            : {}),
         } as React.CSSProperties
       }
       aria-labelledby="audifono-titulo"
@@ -127,12 +134,12 @@ export default function PanelAudifono({ tipo }: { tipo: TipoAudifono }) {
       </div>
 
       {/* ondas de fondo: una franja por cada bloque */}
-      {[282, 1117.5, 2101].map((t) => (
+      {!p.fondoCompleto && [282, 1117.5, 2101].map((t) => (
         <div key={t} className={styles.ondas} style={{ "--t": t } as React.CSSProperties} aria-hidden="true" />
       ))}
 
       {/* letras enormes y casi transparentes detrás de los audífonos 2 y 3 */}
-      {p.marcas?.map((m, i) => (
+      {!p.fondoCompleto && p.marcas?.map((m, i) => (
         <span
           key={i}
           className={styles.marca}
