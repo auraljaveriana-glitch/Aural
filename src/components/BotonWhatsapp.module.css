@@ -1,0 +1,34 @@
+.boton {
+  position: fixed;
+  z-index: 50;
+  right: max(20px, calc(32 * var(--px)));
+  bottom: max(20px, calc(32 * var(--px)));
+  display: grid;
+  place-items: center;
+  width: max(56px, calc(68 * var(--px)));
+  height: max(56px, calc(68 * var(--px)));
+  border-radius: 50%;
+  background: #25d366;
+  color: #fff;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.boton:hover {
+  transform: scale(1.08);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.boton svg {
+  width: 56%;
+  height: 56%;
+}
+
+@media (max-width: 1023px) {
+  .boton {
+    right: 16px;
+    bottom: 16px;
+    width: 52px;
+    height: 52px;
+  }
+}
