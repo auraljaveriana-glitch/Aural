@@ -134,7 +134,7 @@
   top: calc(623 * var(--px));
   height: calc(245 * var(--px));
   /* recorta solo a los lados: la tarjeta con el mouse encima puede crecer hacia arriba */
-  clip-path: inset(calc(-400 * var(--px)) 0 calc(-60 * var(--px)) 0);
+  clip-path: inset(calc(-700 * var(--px)) 0 calc(-60 * var(--px)) 0);
 }
 
 .pista {
@@ -178,25 +178,48 @@
   box-shadow: 0 calc(10 * var(--px)) calc(30 * var(--px)) rgba(0, 0, 0, 0.35);
 }
 
-/* con el mouse encima la tarjeta se amplía más (Jean, 25-nov-2026) */
-.tarjeta {
-  position: relative;
-  transform-origin: 0 100%;
+/* con el mouse encima la tarjeta se ve en grande: ~ la mitad de la página (948 × 600),
+   anclada abajo a la izquierda del carrusel (Jean, 25-nov-2026) */
+.ampliada {
+  display: none;
 }
 
-.tarjeta img {
-  transition: transform 0.45s cubic-bezier(0.2, 0.7, 0.2, 1);
-}
-
-@media (hover: hover) {
-  .tarjetaEncima {
-    z-index: 2;
+@media (hover: hover) and (min-width: 1024px) {
+  .ampliada {
+    display: block;
+    position: absolute;
+    z-index: 3;
+    left: 0;
+    bottom: 0;
+    width: calc(948 * var(--px));
+    height: calc(600 * var(--px));
+    pointer-events: none;
+    opacity: 0;
+    transform: scale(0.42);
+    transform-origin: 0 100%;
+    transition:
+      opacity 0.3s ease,
+      transform 0.45s cubic-bezier(0.2, 0.7, 0.2, 1);
   }
 
-  .tarjetaEncima img {
-    transform: scale(1.45);
-    transform-origin: 0 100%;
-    box-shadow: 0 calc(16 * var(--px)) calc(40 * var(--px)) rgba(0, 0, 0, 0.45);
+  .ampliadaVisible {
+    opacity: 1;
+    transform: none;
+  }
+
+  .ampliada img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    box-shadow: 0 calc(20 * var(--px)) calc(50 * var(--px)) rgba(0, 0, 0, 0.5);
+    transition: opacity 0.25s ease;
+  }
+
+  .ampliada img.ampliadaActual {
+    opacity: 1;
   }
 }
 

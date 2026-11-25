@@ -52,7 +52,7 @@ export default function TarjetasHero() {
         {lista.map((t, i) => (
           <li
             key={i}
-            className={`${styles.tarjeta} ${i === grande ? styles.tarjetaGrande : ""} ${i === encima ? styles.tarjetaEncima : ""}`}
+            className={`${styles.tarjeta} ${i === grande ? styles.tarjetaGrande : ""} `}
             aria-hidden={i < activa || i >= activa + n ? true : undefined}
             onMouseEnter={() => i >= activa && setEncima(i)}
           >
@@ -61,6 +61,13 @@ export default function TarjetasHero() {
           </li>
         ))}
       </ul>
+      {/* con el mouse encima, la tarjeta se ve en grande (la mitad de la página) siempre en el mismo lugar */}
+      <div className={`${styles.ampliada} ${encima !== null ? styles.ampliadaVisible : ""}`} aria-hidden="true">
+        {tarjetas.map((t, i) => (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img key={t.src} src={t.src} alt="" className={encima !== null && lista[encima] === tarjetas[i] ? styles.ampliadaActual : ""} />
+        ))}
+      </div>
     </div>
   );
 }
