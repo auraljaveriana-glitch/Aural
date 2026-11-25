@@ -360,9 +360,10 @@
   text-transform: uppercase;
 }
 
-/* la flecha sigue blanca como en el diseño */
-.item button svg {
-  color: var(--blanco);
+/* flecha y lista del mismo color que el título (Jean, 25-nov-2026: #383838 en vez de blanco) */
+.item button svg,
+.item ul {
+  color: var(--acordeon-color, #383838);
 }
 
 .item svg {
