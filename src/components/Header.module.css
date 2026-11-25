@@ -500,3 +500,36 @@
     padding: 0 calc(16 * var(--m)) 0 calc(13 * var(--m));
   }
 }
+
+/* ===== Barra más pequeña en todas las páginas (Jean, 25-nov-2026) =====
+   alto 133 → 96 (flotante 128 → 84), logo 160 → 128, menú 24 → 19 px, botón 206×61 → 164×46 */
+@media (min-width: 1024px) {
+  .header:not(.delgado) {
+    height: calc(96 * var(--px));
+    min-height: 64px;
+    padding-top: calc(8 * var(--px));
+  }
+
+  .header:not(.delgado) .logo {
+    width: calc(128 * var(--px));
+    min-width: 100px;
+    transform: none;
+  }
+
+  .header:not(.delgado) .nav {
+    gap: calc(60 * var(--px));
+    font-size: max(15px, calc(19 * var(--px)));
+  }
+
+  .header:not(.delgado) .ctaHeader {
+    width: max(140px, calc(164 * var(--px)));
+    height: max(38px, calc(46 * var(--px)));
+    font-size: max(14px, calc(17.5 * var(--px)));
+  }
+
+  .flotante:not(.delgado) {
+    top: calc(12 * var(--px));
+    height: calc(84 * var(--px));
+    padding-top: 0;
+  }
+}

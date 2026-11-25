@@ -9,7 +9,7 @@
   position: relative;
   height: calc(973 * var(--px));
   /* sube detrás del menú */
-  margin-top: calc(-133 * var(--px));
+  margin-top: calc(-96 * var(--px));
   color: var(--blanco);
   overflow: hidden;
 }

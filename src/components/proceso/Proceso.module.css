@@ -6,7 +6,7 @@
   --amarillo: #f4c247;
   --linea: rgba(239, 211, 133, 0.75);
   position: relative;
-  margin-top: calc(-133 * var(--px));
+  margin-top: calc(-96 * var(--px));
   padding-bottom: calc(38 * var(--px));
   overflow-x: clip; /* clip (no hidden) para que las tarjetas puedan quedar pegadas */
   background:
