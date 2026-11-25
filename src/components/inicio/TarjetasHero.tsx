@@ -8,7 +8,7 @@ import styles from "./Hero.module.css";
    tarjeta, esa se agranda y el carrusel se detiene. */
 const tarjetas = [
   { src: "/img/hero2/experiencia.webp", alt: "La mejor experiencia auditiva. Con la experiencia Widex." },
-  { src: "/img/hero2/calendario.webp", alt: "Calendario 2027." },
+  { src: "/img/hero2/allure.webp", alt: "La diferencia es clara con Widex Allure: conectividad, experiencia personalizada, adaptación inteligente y sonido natural." },
   { src: "/img/hero2/black-week.webp", alt: "Black Week: 2x1 en audífonos Magnify de pila." },
 ];
 
