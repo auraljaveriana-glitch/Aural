@@ -7,9 +7,10 @@ import styles from "./Hero.module.css";
    (387 × 245) y las demás pequeñas (264 × 166, al 79 % de opacidad). Al pasar el mouse por una
    tarjeta, esa se agranda y el carrusel se detiene. */
 const tarjetas = [
-  { src: "/img/hero2/experiencia.webp", alt: "La mejor experiencia auditiva. Con la experiencia Widex." },
   { src: "/img/hero2/allure.webp", alt: "La diferencia es clara con Widex Allure: conectividad, experiencia personalizada, adaptación inteligente y sonido natural." },
   { src: "/img/hero2/black-week.webp", alt: "Black Week: 2x1 en audífonos Magnify de pila." },
+  { src: "/img/hero2/recorrido.webp", alt: "El recorrido del sonido: ondas sonoras, canal auditivo, tímpano, huesecillos del oído medio, cóclea y nervio auditivo." },
+  { src: "/img/hero2/sabias-que.webp", alt: "¿Sabías que…? La pérdida auditiva puede desarrollarse gradualmente y pasar desapercibida durante años." },
 ];
 
 const INTERVALO = 4500;
