@@ -1,15 +1,18 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 /* Contador de "Pacientes satisfechos" (pedido de Jean, 13-nov-2026):
    arranca en 5.000 el viernes 13-nov-2026 y cada día hábil (lunes a viernes, hora de Colombia)
    suma una cantidad aleatoria entre 1 y 11. Sábados y domingos no cambia.
    El "aleatorio" sale de la fecha (semilla), así todos los visitantes ven el mismo número el
-   mismo día, nunca baja y no hace falta servidor ni actualizarlo a mano. */
+   mismo día, nunca baja y no hace falta servidor ni actualizarlo a mano.
+   25-nov-2026 (Jean): son más de 15.000; desde hoy arranca en 15.000 y sigue subiendo igual.
+   Al cargar, el número cuenta desde 0 hasta el de hoy. */
 
-const BASE = 5000;
-const INICIO = Date.UTC(2026, 10, 13); // 13-nov-2026
+const BASE = 15000;
+const INICIO = Date.UTC(2026, 10, 25); // 25-nov-2026
+const DURACION = 2200; // ms del conteo
 const DIA = 86_400_000;
 
 // número pseudoaleatorio estable a partir de un entero (mulberry32)
@@ -36,7 +39,47 @@ export function pacientesHoy(ahora = new Date()) {
 const formato = (n: number) => n.toLocaleString("es-CO").replace(/,/g, ".");
 
 export default function ContadorPacientes() {
-  const [valor, setValor] = useState(BASE);
-  useEffect(() => setValor(pacientesHoy()), []);
-  return <>{formato(valor)} +</>;
+  const [valor, setValor] = useState(0);
+  const ref = useRef<HTMLSpanElement>(null);
+
+  useEffect(() => {
+    const meta = pacientesHoy();
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setValor(meta);
+      return;
+    }
+    let cuadro = 0;
+    let inicio = 0;
+    const paso = (t: number) => {
+      if (!inicio) inicio = t;
+      const p = Math.min(1, (t - inicio) / DURACION);
+      const suave = 1 - Math.pow(1 - p, 4); // rápido al principio, despacio al llegar
+      setValor(Math.round(meta * suave));
+      if (p < 1) cuadro = requestAnimationFrame(paso);
+    };
+    // espera a que termine la animación de entrada de la página (si está) y a que el número se vea
+    let espera = 0;
+    const io = new IntersectionObserver(([e]) => {
+      if (!e.isIntersecting) return;
+      io.disconnect();
+      espera = window.setTimeout(() => (cuadro = requestAnimationFrame(paso)), 250);
+    });
+    const observar = () => ref.current && io.observe(ref.current);
+    const introActiva =
+      document.querySelector("[data-intro]") && !(window as Window & { auralIntroFin?: boolean }).auralIntroFin;
+    if (introActiva) window.addEventListener("aural-intro-fin", observar, { once: true });
+    else observar();
+    return () => {
+      window.removeEventListener("aural-intro-fin", observar);
+      io.disconnect();
+      clearTimeout(espera);
+      cancelAnimationFrame(cuadro);
+    };
+  }, []);
+
+  return (
+    <span ref={ref} style={{ fontVariantNumeric: "tabular-nums" }} aria-label={`Más de ${formato(pacientesHoy())} pacientes`}>
+      {formato(valor)} +
+    </span>
+  );
 }

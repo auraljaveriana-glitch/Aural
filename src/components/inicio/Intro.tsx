@@ -44,6 +44,9 @@ export default function Intro() {
   useEffect(() => {
     if (estado === "visible") return;
     document.documentElement.style.overflow = "";
+    // avisa que ya se ve la página (el contador de pacientes empieza a contar)
+    (window as Window & { auralIntroFin?: boolean }).auralIntroFin = true;
+    window.dispatchEvent(new Event("aural-intro-fin"));
     if (estado === "saliendo") {
       const t = window.setTimeout(() => setEstado("fuera"), 450);
       return () => window.clearTimeout(t);
@@ -54,6 +57,7 @@ export default function Intro() {
 
   return (
     <div
+      data-intro=""
       className={`${styles.intro} ${estado === "saliendo" ? styles.saliendo : ""}`}
       onClick={() => setEstado("saliendo")}
       aria-hidden="true"
