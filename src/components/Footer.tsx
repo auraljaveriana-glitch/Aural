@@ -88,7 +88,11 @@ export default function Footer() {
               </span>
               <span>
                 <span className={styles.etiqueta}>Línea Compensar</span>
-                <a href={`tel:${site.contacto.lineaCompensarTel}`}>{site.contacto.lineaCompensar}</a>
+                {site.contacto.lineaCompensar.map((n) => (
+                  <a key={n.tel} href={`tel:${n.tel}`} className={styles.numero}>
+                    {n.texto}
+                  </a>
+                ))}
               </span>
             </li>
             <li>

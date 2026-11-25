@@ -18,8 +18,12 @@ export const site = {
     // Jean, 25-nov-2026
     lineaNacional: "316 115 4783",
     lineaNacionalTel: "+573161154783",
-    lineaCompensar: "315 575 4281",
-    lineaCompensarTel: "+573155754281",
+    // Línea Compensar: varios números (Jean, 25-nov-2026)
+    lineaCompensar: [
+      { texto: "316 575 4281", tel: "+573165754281" },
+      { texto: "333 602 5132", tel: "+573336025132" },
+      { texto: "601 794 4497", tel: "+576017944497" },
+    ],
     email: "info@auralcolombia.com",
   },
 

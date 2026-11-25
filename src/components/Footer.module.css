@@ -236,3 +236,8 @@
     margin-right: 0;
   }
 }
+
+/* Línea Compensar: un número debajo del otro */
+.numero {
+  display: block;
+}
