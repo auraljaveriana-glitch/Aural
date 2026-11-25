@@ -1,0 +1,349 @@
+/* Páginas legales @1920 (diseños "TERMINOS Y CONDICIONES" / "politica de privacidad", 25-nov-2026),
+   medidas desde el borde superior de la página:
+   "Aural Colombia S.A.S": azul #3669a9, espaciado, mayúscula de 17 px en y246
+   título: navy ligero, mayúsculas de 50 px cada 67 px desde y407, centrado
+   introducción: #373737, 21 px cada 31 px, justificada, x308–1582, desde y594
+   secciones: título navy en negrita x160 (desde y847); texto x937–1711, 20 px cada 31 px, justificado;
+     número dorado (#f5c853, 31 px) abajo a la izquierda, alineado con la última línea del texto;
+     raya navy de 1 px (x158–1711) 62 px debajo del texto; el siguiente título 85 px más abajo
+   listas: viñeta en x958, texto en x979, 22 px entre líneas, 18 px entre puntos */
+
+.pagina {
+  padding-top: calc(113 * var(--px));
+  padding-bottom: calc(200 * var(--px));
+  color: #373737;
+}
+
+.etiqueta {
+  margin: 0;
+  font-size: calc(23 * var(--px));
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.3em;
+  text-align: center;
+  text-transform: uppercase;
+  color: #3669a9;
+}
+
+.titulo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: calc(132 * var(--px)) 0 0;
+  font-size: calc(72 * var(--px));
+  font-weight: 300;
+  line-height: calc(67 * var(--px));
+  text-align: center;
+  text-transform: uppercase;
+  color: var(--navy);
+}
+
+.intro {
+  width: calc(1274 * var(--px));
+  margin: calc(58 * var(--px)) 0 0 calc(308 * var(--px));
+}
+
+.intro p,
+.parrafo {
+  margin: 0;
+  font-size: calc(23 * var(--px));
+  line-height: calc(31 * var(--px));
+  text-align: justify;
+}
+
+.intro p + p {
+  margin-top: calc(31 * var(--px));
+}
+
+.intro b,
+.parrafo b {
+  font-weight: 700;
+  color: #1f1f1f;
+}
+
+.enlace {
+  color: inherit;
+  text-decoration: none;
+}
+
+.enlace:hover {
+  text-decoration: underline;
+}
+
+.secciones {
+  list-style: none;
+  margin: calc(150 * var(--px)) 0 0;
+  padding: 0;
+}
+
+.seccion {
+  display: grid;
+  grid-template-columns: calc(779 * var(--px)) calc(774 * var(--px));
+  width: calc(1553 * var(--px));
+  margin-left: calc(158 * var(--px));
+  padding: calc(85 * var(--px)) 0 calc(62 * var(--px));
+  border-bottom: 1px solid var(--navy);
+}
+
+.seccion:first-child {
+  padding-top: 0;
+}
+
+.izquierda {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-left: calc(2 * var(--px));
+}
+
+.izquierda h2 {
+  max-width: calc(420 * var(--px));
+  margin: 0;
+  font-size: calc(21 * var(--px));
+  font-weight: 700;
+  line-height: calc(38 * var(--px));
+  margin-top: calc(-8 * var(--px));
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  color: var(--navy);
+}
+
+.numero {
+  font-size: calc(31 * var(--px));
+  line-height: 1;
+  color: #f5c853;
+}
+
+.derecha > *:not(:first-child) {
+  margin-top: calc(31 * var(--px));
+}
+
+.lista {
+  margin: 0;
+  padding: 0 0 0 calc(42 * var(--px));
+  font-size: calc(23 * var(--px));
+  line-height: calc(29 * var(--px));
+  text-align: justify;
+}
+
+.lista li + li {
+  margin-top: calc(3 * var(--px));
+}
+
+.lista li::marker {
+  font-size: 0.8em;
+}
+
+.tabla {
+  margin: 0;
+}
+
+.tabla div {
+  display: flex;
+  justify-content: space-between;
+  font-size: calc(23 * var(--px));
+  line-height: calc(28 * var(--px));
+}
+
+.tabla div + div {
+  margin-top: calc(33 * var(--px));
+}
+
+.tabla dt {
+  font-weight: 600;
+  color: var(--navy);
+}
+
+.tabla dd {
+  margin: 0;
+  font-weight: 600;
+}
+
+.subtitulo {
+  margin-bottom: 0;
+  font-size: calc(23 * var(--px));
+  font-weight: 700;
+  line-height: calc(25 * var(--px));
+  color: var(--navy);
+}
+
+.subtitulo + .parrafo {
+  margin-top: calc(18 * var(--px));
+}
+
+/* datos recolectados: tipo a la izquierda (con viñeta) y lista a la derecha */
+.grupos {
+  margin: 0;
+}
+
+.grupos > div {
+  display: grid;
+  grid-template-columns: calc(394 * var(--px)) 1fr;
+}
+
+.grupos > div + div {
+  margin-top: calc(32 * var(--px));
+}
+
+.grupos dt {
+  display: list-item;
+  margin-left: calc(42 * var(--px));
+  max-width: calc(300 * var(--px));
+  font-size: calc(23 * var(--px));
+  font-weight: 700;
+  line-height: calc(29 * var(--px));
+  color: var(--navy);
+}
+
+.grupos dd {
+  margin: 0;
+}
+
+.grupos .lista {
+  padding-left: calc(20 * var(--px));
+}
+
+/* política de cookies: tipos de cookies con su descripción */
+.tipo + .tipo {
+  margin-top: calc(48 * var(--px));
+}
+
+.tipo h3 {
+  display: list-item;
+  margin: 0 0 calc(18 * var(--px)) calc(18 * var(--px));
+  font-size: calc(23 * var(--px));
+  font-weight: 700;
+  line-height: calc(25 * var(--px));
+  color: var(--navy);
+}
+
+.tipo > .parrafo,
+.tipo > .lista {
+  margin-left: calc(36 * var(--px));
+}
+
+.derecha .tipo > *:not(:first-child) {
+  margin-top: calc(18 * var(--px));
+}
+
+.tipo > .lista {
+  padding-left: calc(260 * var(--px));
+  text-align: left;
+}
+
+/* ===== Tablet y celular ===== */
+@media (max-width: 1023px) {
+  .pagina {
+    padding: 48px 20px 64px;
+  }
+
+  .etiqueta {
+    font-size: 12px;
+  }
+
+  .titulo {
+    margin-top: 18px;
+    font-size: clamp(26px, 7vw, 40px);
+    line-height: 1.15;
+  }
+
+  .intro {
+    width: auto;
+    margin: 24px 0 0;
+  }
+
+  .intro p,
+  .parrafo,
+  .lista,
+  .tabla div,
+  .subtitulo,
+  .grupos dt,
+  .tipo h3 {
+    font-size: 15.5px;
+    line-height: 1.55;
+  }
+
+  .secciones {
+    margin-top: 40px;
+  }
+
+  .seccion {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    width: auto;
+    margin-left: 0;
+    padding: 32px 0 28px;
+  }
+
+  .izquierda {
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    align-items: baseline;
+    gap: 12px;
+  }
+
+  .izquierda h2 {
+    max-width: none;
+    margin-top: 0;
+    font-size: 16px;
+    line-height: 1.35;
+  }
+
+  .numero {
+    font-size: 20px;
+  }
+
+  .derecha > *:not(:first-child),
+  .derecha .tipo > *:not(:first-child),
+  .intro p + p {
+    margin-top: 14px;
+  }
+
+  .lista {
+    padding-left: 22px;
+  }
+
+  .lista li + li {
+    margin-top: 6px;
+  }
+
+  .tabla div + div {
+    margin-top: 8px;
+  }
+
+  .grupos > div {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+
+  .grupos dt {
+    margin-left: 20px;
+    max-width: none;
+  }
+
+  .grupos .lista {
+    padding-left: 40px;
+  }
+
+  .tipo > .parrafo,
+  .tipo > .lista {
+    margin-left: 0;
+  }
+
+  .tipo > .lista {
+    padding-left: 22px;
+  }
+
+  .tipo h3 {
+    margin-left: 18px;
+  }
+}
+
+/* en celular el texto justificado deja huecos grandes */
+@media (max-width: 1023px) {
+  .intro p,
+  .parrafo,
+  .lista {
+    text-align: left;
+  }
+}

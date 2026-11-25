@@ -79,7 +79,8 @@ export const footer = {
   legales: [
     { label: "Política de Privacidad", href: "/politica-de-privacidad" },
     { label: "Términos y Condiciones", href: "/terminos-y-condiciones" },
-    { label: "Tratamiento de Datos", href: "/tratamiento-de-datos" },
+    // la Política de Privacidad incluye el Tratamiento de Datos Personales (diseño de Jean, 25-nov-2026)
+    { label: "Tratamiento de Datos", href: "/politica-de-privacidad" },
   ],
 };
 
