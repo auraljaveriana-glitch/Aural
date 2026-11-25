@@ -1,15 +1,15 @@
 import Link from "next/link";
 import { site } from "@/content/site";
 import TarjetasHero from "./TarjetasHero";
-import ContadorPacientes from "./ContadorPacientes";
+import NumeroCalendario from "./ContadorPacientes";
 import styles from "./Hero.module.css";
 
 /* Inicio v3 (Figma "INICIO PAG", 20-nov-2026): foto a todo lo ancho con un velo negro al 50 %,
    textos en blanco y tarjetas que rotan abajo a la derecha. */
 
 const cifras = [
-  { valor: <ContadorPacientes />, etiqueta: "Pacientes satisfechos" }, // sube cada día hábil
-  { valor: "92%", etiqueta: "Nos recomiendan" },
+  { valor: <NumeroCalendario meta="pacientes" sufijo="+" />, etiqueta: "Pacientes satisfechos" }, // sube cada día hábil
+  { valor: <NumeroCalendario meta={92} sufijo="%" />, etiqueta: "Nos recomiendan" },
 ];
 
 function Chevron() {
@@ -39,7 +39,7 @@ export default function Hero() {
           {cifras.map((c) => (
             <li key={c.etiqueta}>
               <strong>{c.valor}</strong>
-              <span>{c.etiqueta}</span>
+              <span className={styles.etiquetaCifra}>{c.etiqueta}</span>
             </li>
           ))}
         </ul>

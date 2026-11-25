@@ -53,15 +53,15 @@
 .cifras li {
   display: flex;
   flex-direction: column;
-  gap: calc(16 * var(--px));
-  height: calc(72 * var(--px));
+  gap: calc(14 * var(--px));
+  height: calc(100 * var(--px));
   padding-left: calc(38 * var(--px));
   padding-top: calc(5 * var(--px));
   border-left: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .cifras li:first-child {
-  width: calc(320 * var(--px));
+  width: calc(360 * var(--px));
 }
 
 .cifras li:nth-child(2) {
@@ -76,7 +76,7 @@
   letter-spacing: 0.03em;
 }
 
-.cifras span {
+.etiquetaCifra {
   font-family: var(--font-titulos);
   font-size: calc(15 * var(--px));
   line-height: 1;
@@ -87,7 +87,7 @@
 .botones {
   display: flex;
   gap: calc(36 * var(--px));
-  margin-top: calc(97 * var(--px));
+  margin-top: calc(70 * var(--px));
 }
 
 .boton {
@@ -189,6 +189,87 @@
   }
 }
 
+/* ---- números "en forma de calendario" (Jean, 25-nov-2026) ----
+   cada dígito en una ficha oscura translúcida partida a la mitad; al cambiar, la hoja se voltea */
+.cifras strong {
+  --f: calc(48 * var(--px)); /* tamaño del dígito */
+  display: block;
+}
+
+.cifras :global(.calendario) {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: calc(var(--f) * 0.09);
+  font-family: var(--font-titulos);
+  font-size: var(--f);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+.cifras :global(.calendario-ficha) {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  width: calc(var(--f) * 0.86);
+  height: calc(var(--f) * 1.32);
+  border-radius: calc(var(--f) * 0.12);
+  background: linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.06) 50%, rgba(255, 255, 255, 0.14));
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.18), 0 calc(var(--f) * 0.08) calc(var(--f) * 0.2) rgba(0, 0, 0, 0.25);
+  perspective: calc(var(--f) * 4);
+  overflow: hidden;
+}
+
+/* raya del medio, como el doblez de la hoja */
+.cifras :global(.calendario-ficha)::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 1px;
+  background: rgba(0, 0, 0, 0.45);
+}
+
+.cifras :global(.calendario-vacia) {
+  color: transparent;
+}
+
+.cifras :global(.calendario-hoja) {
+  display: block;
+  transform-origin: 50% 50%;
+  animation: voltear 0.22s ease-out;
+  backface-visibility: hidden;
+}
+
+@keyframes voltear {
+  from {
+    transform: rotateX(-90deg);
+    opacity: 0.3;
+  }
+  to {
+    transform: rotateX(0);
+    opacity: 1;
+  }
+}
+
+.cifras :global(.calendario-punto) {
+  margin: 0 calc(var(--f) * -0.02);
+  font-weight: 300;
+}
+
+.cifras :global(.calendario-sufijo) {
+  align-self: center;
+  margin-left: calc(var(--f) * 0.12);
+  font-weight: 300;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cifras :global(.calendario-hoja) {
+    animation: none;
+  }
+}
+
 .soloMovil {
   display: none;
 }
@@ -244,7 +325,7 @@
   .cifras {
     position: absolute;
     left: calc(30 * var(--m));
-    top: calc(525 * var(--m));
+    top: calc(510 * var(--m));
     margin: 0;
   }
 
@@ -252,13 +333,13 @@
   .cifras li:first-child,
   .cifras li:nth-child(2) {
     width: auto;
-    height: calc(32 * var(--m));
-    gap: calc(5 * var(--m));
+    height: calc(44 * var(--m));
+    gap: calc(6 * var(--m));
     padding: 0 0 0 calc(7 * var(--m));
   }
 
   .cifras li:first-child {
-    width: calc(139 * var(--m));
+    width: calc(152 * var(--m));
   }
 
   .cifras li:nth-child(2) {
@@ -266,11 +347,10 @@
   }
 
   .cifras strong {
-    font-size: calc(19 * var(--m));
-    letter-spacing: 0.02em;
+    --f: calc(20 * var(--m));
   }
 
-  .cifras span {
+  .etiquetaCifra {
     font-size: calc(7.2 * var(--m));
   }
 
