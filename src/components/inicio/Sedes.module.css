@@ -294,98 +294,151 @@
 }
 
 /* ===== Tablet y celular: título, mapa (a escala), tarjeta debajo y lista ===== */
+.guia,
+.tarjetaMovil {
+  display: none;
+}
+
+/* ===== Celular (diseño "MOVIL", 25-nov-2026): sección de 758 px (y3322–4080), fondo #ececec.
+   "Nuestras sedes" 7 px centrado en +80; título de 13 px en una línea (+95)
+   mapa: el mismo de escritorio al 34.58 % (x-72.7, +99), con los pines en sus ciudades;
+   línea punteada dorada del pin elegido hasta la tarjeta
+   ciudades a la derecha: x272–335, rayas cada 33 px desde +223, nombre de 8.5 px; la elegida en franja navy
+   tarjeta amarilla 306 px (x29) desde +458, esquinas de 10 px: sigla y número de centros, filas de 8.5 px ===== */
 @media (max-width: 1023px) {
   .seccion {
-    height: auto;
-    padding: 56px 0 48px;
+    height: calc(758 * var(--m));
+    background: #ececec;
   }
 
   .etiqueta,
   .titulo {
-    position: static;
-    transform: none;
-    padding: 0 20px;
+    z-index: 1;
   }
 
   .etiqueta {
-    font-size: 13px;
+    top: calc(77 * var(--m));
+    font-size: calc(7.2 * var(--m));
+    transform: none;
   }
 
   .titulo {
-    margin-top: 14px;
-    font-size: clamp(26px, 6.4vw, 36px);
+    top: calc(90 * var(--m));
+    font-size: calc(13.3 * var(--m));
+    transform: none;
   }
 
   .lienzo {
-    --px: calc(min(100vw, 620px) / 1000);
-    position: relative;
-    top: auto;
-    width: calc(1000 * var(--px));
-    height: auto;
-    margin: 0 auto;
-    overflow: hidden;
-  }
-
-  .mapa {
-    width: calc(1100 * var(--px));
-    height: calc(1130 * var(--px));
-    margin-left: calc(-40 * var(--px));
-  }
-
-  .pin {
-    margin-left: calc(-40 * var(--px));
+    --px: calc(0.3458 * var(--m));
+    left: calc(-72.7 * var(--m));
+    top: calc(99 * var(--m));
   }
 
   .tarjeta {
-    position: relative;
-    left: auto;
-    top: auto;
-    width: auto;
-    height: auto;
-    margin: -24px 20px 0;
-    --px: 0.8px;
+    display: none;
   }
 
-  .pildora {
-    padding: 16px 24px;
-    border-radius: 24px;
+  .guia {
+    display: block;
+    position: absolute;
+    left: calc(var(--x) * var(--px));
+    top: calc((var(--y) - 260) * var(--px));
+    height: calc((1038 - (var(--y) - 260)) * var(--px));
+    border-left: 1px dashed #e7c25d;
+    pointer-events: none;
   }
 
-  .lista {
-    margin-top: 28px;
-    padding: 0 20px;
+  .tarjetaMovil {
+    display: block;
+    position: absolute;
+    left: calc(29 * var(--m));
+    top: calc(458 * var(--m));
+    width: calc(306 * var(--m));
+    padding: calc(21 * var(--m)) calc(22 * var(--m)) calc(14 * var(--m)) calc(23 * var(--m));
+    border-radius: calc(10 * var(--m));
+    background: #f3d283;
+    color: #111;
+    font-family: var(--font-titulos);
+    animation: aparece 0.35s ease both;
+  }
+
+  .movilTitulo {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin: 0 0 calc(12 * var(--m));
+    font-size: calc(8.6 * var(--m));
+  }
+
+  .movilTitulo b:last-child {
+    font-size: calc(6.6 * var(--m));
+    text-transform: uppercase;
+  }
+
+  .tarjetaMovil ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .tarjetaMovil li {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: calc(12 * var(--m));
+    padding: calc(7 * var(--m)) 0 calc(5 * var(--m));
+    font-size: calc(9.8 * var(--m));
+    line-height: calc(11 * var(--m));
+  }
+
+  .tarjetaMovil li + li {
+    border-top: 1px solid #111;
+  }
+
+  .tarjetaMovil small {
+    display: block;
+    padding-left: calc(2 * var(--m));
+    font-size: calc(9.4 * var(--m));
+    color: #3a3a3a;
+  }
+
+  .tarjetaMovil .barrio {
+    max-width: calc(80 * var(--m));
+    font-size: calc(9.6 * var(--m));
+    line-height: calc(11.5 * var(--m));
+    color: #3a3a3a;
   }
 
   .lista li {
-    position: relative;
-    left: auto;
-    top: auto;
-    width: auto;
-    margin-bottom: 18px;
-  }
-
-  .ciudad {
-    width: calc(100% - 8px);
-    height: 40px;
-    margin-top: 8px;
-    padding: 0 10px 0 14px;
-  }
-
-  .activa {
-    padding-right: 10px;
-  }
-
-  .nombre {
-    font-size: 16px;
-  }
-
-  .cantidad {
-    font-size: 12.5px;
+    left: calc(272 * var(--m));
+    top: calc((223 + var(--i) * 33) * var(--m));
+    width: calc(63 * var(--m));
+    border-top-color: #6a7890;
   }
 
   .lista li::before {
-    top: -4px;
-    width: 7px;
-    height: 7px;
+    display: none;
+  }
+
+  .ciudad {
+    width: calc(63 * var(--m));
+    height: calc(15 * var(--m));
+    margin: calc(1.5 * var(--m)) 0 0;
+    padding: 0 0 0 calc(4 * var(--m));
+  }
+
+  .activa {
+    padding-right: 0;
+  }
+
+  .nombre,
+  .activa .nombre {
+    font-size: calc(8.6 * var(--m));
+    font-weight: 400;
+    text-transform: none;
+  }
+
+  .cantidad {
+    display: none;
   }
 }

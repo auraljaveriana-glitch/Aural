@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from "./Camino.module.css";
 
 /* "Tu camino hacia una mejor audición" — inicio v3 (Figma, 20-nov-2026).
@@ -20,6 +20,38 @@ const etapas: Etapa[] = [
 
 export default function Camino() {
   const [activa, setActiva] = useState(0);
+  const lista = useRef<HTMLOListElement>(null);
+
+  // en celular las tarjetas se pasan de lado: la que queda en el centro es la activa
+  useEffect(() => {
+    const el = lista.current;
+    if (!el) return;
+    const movil = window.matchMedia("(max-width: 1023px)");
+    let cuadro = 0;
+    const alMover = () => {
+      if (!movil.matches) return;
+      cancelAnimationFrame(cuadro);
+      cuadro = requestAnimationFrame(() => {
+        const centro = el.scrollLeft + el.clientWidth / 2;
+        let mejor = 0;
+        let distancia = Infinity;
+        Array.from(el.children).forEach((c, i) => {
+          const h = c as HTMLElement;
+          const d = Math.abs(h.offsetLeft + h.offsetWidth / 2 - centro);
+          if (d < distancia) {
+            distancia = d;
+            mejor = i;
+          }
+        });
+        setActiva(mejor);
+      });
+    };
+    el.addEventListener("scroll", alMover, { passive: true });
+    return () => {
+      el.removeEventListener("scroll", alMover);
+      cancelAnimationFrame(cuadro);
+    };
+  }, []);
 
   return (
     <section className={styles.seccion} aria-labelledby="camino-titulo">
@@ -34,7 +66,7 @@ export default function Camino() {
         <br className={styles.corte} /> estilo de vida y necesidades reales.
       </p>
 
-      <ol className={styles.etapas}>
+      <ol className={styles.etapas} ref={lista}>
         {etapas.map((e, i) => {
           const abierta = i === activa;
           return (

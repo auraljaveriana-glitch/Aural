@@ -121,61 +121,66 @@
   margin-right: calc(98 * var(--px));
 }
 
-/* ===== Tablet y celular ===== */
+/* ===== Celular (diseño "MOVIL", 25-nov-2026): tarjeta de 360 × 320 con esquinas de 18 px arriba,
+   sobre el gris de Sedes; título 2 líneas de 13.5 px cada 17 px desde +34; texto de 10 px cada 11 px (+85);
+   botón 153 × 39 en +188; garantías de 8 px en +274 con separadores de 15 px ===== */
 @media (max-width: 1023px) {
   .seccion {
-    padding: 0 12px;
+    padding: 0;
+    background: linear-gradient(#ececec 50%, var(--navy) 50%);
   }
 
   .tarjeta {
-    min-height: 0;
-    padding: 56px 24px 40px;
-    border-radius: 24px;
-    background-position: 30% center, 30% center;
+    min-height: calc(320 * var(--m));
+    padding: calc(31 * var(--m)) 0 0;
+    border-radius: calc(18 * var(--m)) calc(18 * var(--m)) 0 0;
+    background-position: center, 40% center;
   }
 
   .titulo {
-    font-size: clamp(26px, 6.6vw, 40px);
-    line-height: 1.15;
-    text-wrap: balance;
+    font-size: calc(14.4 * var(--m));
+    line-height: calc(17 * var(--m));
     transform: none;
   }
 
+  .linea1,
+  .linea2 {
+    letter-spacing: 0.01em;
+  }
+
   .texto {
-    max-width: 30em;
-    margin-top: clamp(120px, 38vw, 220px);
-    font-size: 16px;
-    line-height: 1.5;
+    max-width: none;
+    margin-top: calc(18 * var(--m));
+    font-size: calc(10.6 * var(--m));
+    line-height: calc(11.5 * var(--m));
+    letter-spacing: 0;
     transform: none;
   }
 
   .corte {
-    display: none;
+    display: inline;
   }
 
   .boton {
-    width: auto;
-    min-width: 220px;
-    height: 52px;
-    margin-top: 28px;
-    padding: 0 28px;
-    border-width: 1.5px;
-    font-size: 16px;
+    width: calc(153 * var(--m));
+    height: calc(39 * var(--m));
+    margin-top: calc(70 * var(--m));
+    border-width: 1px;
+    font-size: calc(11 * var(--m));
     transform: none;
   }
 
   .garantias {
-    margin-top: 32px;
-    flex-direction: column;
-    gap: 10px;
-    font-size: 12px;
-    letter-spacing: 0.04em;
+    justify-content: center;
+    margin-top: calc(40 * var(--m));
+    font-size: calc(8 * var(--m));
+    letter-spacing: 0.02em;
     transform: none;
   }
 
-  /* en celular van una debajo de otra, sin separadores */
   .garantias li + li::before,
   .garantias li:nth-child(2)::before {
-    display: none;
+    height: calc(15 * var(--m));
+    margin: 0 calc(23 * var(--m));
   }
 }

@@ -27,11 +27,12 @@ export default function Hero() {
 
       <div className={styles.texto}>
         <h1 className={styles.titulo}>
+          {/* en celular los cortes cambian: "Vuelve a escuchar / lo que más te / importa." */}
           <span className={styles.ligero}>Vuelve a</span>
-          <br />
-          <span className={styles.ligero}>escuchar</span> lo que
-          <br />
-          más te importa
+          <br className={styles.soloEscritorio} /> <span className={styles.ligero}>escuchar</span>
+          <br className={styles.soloMovil} /> lo que
+          <br className={styles.soloEscritorio} /> más te importa
+          <span className={styles.soloMovil}>.</span>
         </h1>
 
         <ul className={styles.cifras}>

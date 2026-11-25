@@ -11,14 +11,17 @@
 /* espacio entre una sección y la siguiente (también entre "Tu camino…" y la primera de aquí) */
 .secciones {
   display: flow-root;
+  /* el círculo de servicios y sus ondas son más anchos que el celular */
+  overflow-x: clip;
 }
 
 .secciones > * {
   margin-top: calc(220 * var(--px));
 }
 
+/* en celular cada sección trae su propio espacio, medido del diseño "MOVIL" */
 @media (max-width: 1023px) {
   .secciones > * {
-    margin-top: 80px;
+    margin-top: 0;
   }
 }

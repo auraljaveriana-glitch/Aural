@@ -47,7 +47,12 @@ export default function Header() {
         {delgado ? (
           <img src="/img/logo-aural-sin-subtitulo.svg" alt="Aural Centros Auditivos" width={160} height={38} />
         ) : (
-          <img src="/img/logo-aural.svg" alt="Aural Centros Auditivos" width={160} height={54} />
+          // en celular va sin "Centros auditivos" (diseño "MOVIL")
+          <picture>
+            <source media="(max-width: 1023px)" srcSet="/img/logo-aural-sin-subtitulo.svg" />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/img/logo-aural.svg" alt="Aural Centros Auditivos" width={160} height={54} />
+          </picture>
         )}
       </Link>
 

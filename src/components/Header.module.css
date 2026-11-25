@@ -392,3 +392,111 @@
     background: var(--blanco);
   }
 }
+
+
+/* ===== Celular v2 (diseño "MOVIL", 25-nov-2026) =====
+   logo x21 (73 px de ancho) centrado en y33; menú en línea a la derecha (termina en x334), letra de 10 px,
+   18 px entre opciones; sin hamburguesa ni botón (el botón "Agenda tu cita" va en el contenido).
+   Audífonos abre su desplegable como un panel blanco debajo de la barra. */
+@media (max-width: 1023px) {
+  .header {
+    grid-template-columns: auto 1fr;
+    height: calc(66 * var(--m));
+    min-height: 0;
+    padding: 0 calc(26 * var(--m)) 0 calc(21 * var(--m));
+  }
+
+  .logo {
+    width: calc(73 * var(--m));
+  }
+
+  .hamburguesa,
+  .ctaMenu {
+    display: none;
+  }
+
+  .menu,
+  .menu.abierto {
+    display: block;
+    position: static;
+    justify-self: end;
+    padding: 0;
+    background: none;
+    box-shadow: none;
+  }
+
+  .nav {
+    flex-direction: row;
+    align-items: center;
+    gap: calc(18 * var(--m));
+    font-size: calc(10.2 * var(--m));
+  }
+
+  .nav a,
+  .disparador {
+    display: block;
+    width: auto;
+    padding: calc(10 * var(--m)) 0;
+    border-bottom: 0;
+  }
+
+  .disparador .chevron {
+    display: none;
+  }
+
+  .conSubmenu {
+    position: static;
+  }
+
+  .submenu {
+    position: absolute;
+    top: 100%;
+    left: calc(10 * var(--m));
+    right: calc(10 * var(--m));
+    z-index: 30;
+    flex-direction: row;
+    gap: calc(24 * var(--m));
+    padding: calc(18 * var(--m)) calc(20 * var(--m));
+    border-radius: calc(10 * var(--m));
+    background: var(--blanco);
+    box-shadow: 0 12px 30px rgba(4, 30, 66, 0.16);
+    color: var(--navy);
+  }
+
+  .grupo {
+    flex: 1;
+  }
+
+  .grupoTitulo {
+    margin-bottom: calc(6 * var(--m));
+    padding-bottom: calc(6 * var(--m));
+    font-size: calc(8 * var(--m));
+  }
+
+  .grupo a {
+    padding: calc(6 * var(--m)) 0;
+    font-size: calc(11 * var(--m));
+    color: var(--navy);
+  }
+
+  .sigla {
+    font-size: calc(7.5 * var(--m));
+  }
+
+  .oscuro .nav > li > a,
+  .oscuro .disparador {
+    color: var(--blanco);
+  }
+
+  .oscuro .logo img {
+    filter: brightness(0) invert(1);
+  }
+
+  .flotante {
+    top: calc(8 * var(--m));
+    left: calc(8 * var(--m));
+    right: calc(8 * var(--m));
+    height: calc(50 * var(--m));
+    padding: 0 calc(16 * var(--m)) 0 calc(13 * var(--m));
+  }
+}

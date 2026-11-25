@@ -42,6 +42,9 @@ export default function Sedes() {
         ),
       )}
 
+      {/* celular: línea punteada del pin elegido hasta la tarjeta */}
+      <span className={styles.guia} style={{ "--x": sede.pin.x, "--y": sede.pin.y } as Vars} aria-hidden="true" />
+
       <div
         key={sede.ciudad}
         className={`${styles.tarjeta} ${t.tipo === "caja" ? styles.caja : styles.pildora}`}
@@ -76,11 +79,32 @@ export default function Sedes() {
       </div>
       </div>
 
+      {/* celular (diseño "MOVIL"): tarjeta amarilla debajo del mapa, con todas las direcciones */}
+      <div key={`movil-${sede.ciudad}`} className={styles.tarjetaMovil} aria-hidden="true">
+        <p className={styles.movilTitulo}>
+          <b>{t.titulo ?? sede.sigla}</b>
+          <b>
+            {sede.centros.length} {sede.centros.length === 1 ? "centro" : "centros"}
+          </b>
+        </p>
+        <ul>
+          {sede.centros.map((c) => (
+            <li key={c.direccion}>
+              <span>
+                {c.direccion}
+                {c.local && <small>{c.local}</small>}
+              </span>
+              {c.barrio && <span className={styles.barrio}>{c.barrio}</span>}
+            </li>
+          ))}
+        </ul>
+      </div>
+
       <ul className={styles.lista}>
         {sedes.map((s, i) => {
           const n = s.centros.length;
           return (
-            <li key={s.ciudad} style={{ "--y": filas[i] } as Vars}>
+            <li key={s.ciudad} style={{ "--y": filas[i], "--i": i } as Vars}>
               <button
                 type="button"
                 className={`${styles.ciudad} ${i === actual ? styles.activa : ""}`}

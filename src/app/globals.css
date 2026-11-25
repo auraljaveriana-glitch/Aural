@@ -29,6 +29,14 @@
   --px: min(1px, 100vw / 1920);
 }
 
+/* --m: 1 px del diseño de celular "MOVIL" (360 px de ancho). Crece con la pantalla hasta 1.6 px
+   (tablets), para que el celular se vea igual al diseño en cualquier teléfono. */
+@media (max-width: 1023px) {
+  :root {
+    --m: min(calc(100vw / 360), 1.6px);
+  }
+}
+
 *,
 *::before,
 *::after {

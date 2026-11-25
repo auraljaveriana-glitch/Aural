@@ -206,11 +206,21 @@
   }
 }
 
-/* ===== Tablet y celular: tarjetas en fila con desplazamiento lateral ===== */
+/* ===== Celular (diseño "MOVIL", 25-nov-2026), medidas desde el borde superior de la sección (y640):
+   título centrado: mayúsculas de 13 px cada 16 px desde +64 (3 líneas)
+   texto navy de 11 px cada 12 px desde +138, centrado (3 líneas)
+   tarjetas en carrusel: la del centro 225 × 336 desde +233, las de los lados más pequeñas (84 %),
+   30 px entre tarjetas; se pasan de lado y la que queda en el centro es la activa ===== */
 @media (max-width: 1023px) {
   .seccion {
     height: auto;
-    padding: 56px 0 48px;
+    margin-top: 0;
+    padding: calc(58 * var(--m)) 0 calc(31 * var(--m));
+    overflow: visible;
+  }
+
+  .ondas {
+    display: none;
   }
 
   .titulo,
@@ -219,16 +229,20 @@
   }
 
   .titulo {
-    padding: 0 20px;
-    font-size: clamp(22px, 5.4vw, 32px);
-    line-height: 1.25;
+    max-width: calc(170 * var(--m));
+    margin: 0 auto;
+    padding: 0;
+    font-size: calc(13.2 * var(--m));
+    line-height: calc(16 * var(--m));
   }
 
   .texto {
-    margin-top: 20px;
-    padding: 0 20px;
-    font-size: 16px;
-    line-height: 1.55;
+    max-width: calc(300 * var(--m));
+    margin: calc(26 * var(--m)) auto 0;
+    padding: 0;
+    font-size: calc(10.9 * var(--m));
+    line-height: calc(12.2 * var(--m));
+    color: #2c3a58;
   }
 
   .corte {
@@ -239,13 +253,18 @@
     position: relative;
     inset: auto;
     display: flex;
-    gap: 14px;
-    margin-top: 32px;
-    padding: 0 20px 12px;
+    align-items: center;
+    gap: calc(30 * var(--m));
+    margin-top: calc(57 * var(--m));
+    padding: 0 calc(67.5 * var(--m)) calc(30 * var(--m));
     overflow-x: auto;
     scroll-snap-type: x mandatory;
-    scroll-padding-inline: 20px;
+    scrollbar-width: none;
     pointer-events: auto;
+  }
+
+  .etapas::-webkit-scrollbar {
+    display: none;
   }
 
   .etapas::before {
@@ -257,9 +276,15 @@
     left: auto;
     top: auto;
     flex: none;
-    width: 260px;
-    height: 385px;
-    scroll-snap-align: start;
+    width: calc(225 * var(--m));
+    height: calc(336 * var(--m));
+    scroll-snap-align: center;
+    transform: scale(0.845);
+    transition: transform 0.4s ease;
+  }
+
+  .abierta {
+    transform: none;
   }
 
   .boton {
@@ -275,25 +300,31 @@
     opacity: 1;
     visibility: visible;
     transform: none;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+    box-shadow: calc(4 * var(--m)) calc(8 * var(--m)) calc(16 * var(--m)) rgba(0, 0, 0, 0.25);
+  }
+
+  .tarjeta::after {
+    background: rgba(5, 12, 66, 0.3);
   }
 
   .tarjeta .etiqueta {
-    left: 20px;
-    top: 22px;
-    font-size: 11px;
+    left: calc(17 * var(--m));
+    top: calc(24 * var(--m));
+    font-size: calc(9 * var(--m));
+    font-weight: 300;
   }
 
   .tarjeta .nombre {
-    left: 20px;
+    left: calc(24 * var(--m));
     top: auto;
-    bottom: 22px;
-    font-size: 22px;
-    line-height: 27px;
+    bottom: calc(29 * var(--m));
+    padding-top: 0;
+    font-size: calc(15.5 * var(--m));
+    line-height: calc(16 * var(--m));
   }
 
   .tarjeta .nombre::before {
-    top: -2px;
-    width: 18px;
+    top: calc(-14 * var(--m));
+    width: calc(24 * var(--m));
   }
 }

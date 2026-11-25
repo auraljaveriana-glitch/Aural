@@ -189,106 +189,150 @@
   }
 }
 
-/* ===== Tablet y celular: todo apilado ===== */
+.soloMovil {
+  display: none;
+}
+
+/* ===== Celular (diseño "MOVIL" de 360 px, 25-nov-2026) — medidas desde el borde de la página:
+   foto de y0 a y640 (sube detrás del menú)
+   título x46: mayúsculas de 15 px cada 24 px desde y106 (3 líneas)
+   tarjetas: grande 232 × 149 en x33 y345; pequeñas 108 × 68, abajo alineadas (y494), 10 px de separación
+   cifras: rayas en x30 / x169 (y525–557), número ligero de 19 px, etiqueta de 7 px
+   botones en y586, 31 px de alto: dorado x27 (113), contorno x155 (129) ===== */
 @media (max-width: 1023px) {
+  .soloMovil {
+    display: inline;
+  }
+
+  br.soloMovil {
+    display: block;
+  }
+
+  .soloEscritorio {
+    display: none;
+  }
+
   .hero {
-    height: auto;
-    margin-top: -72px;
-    padding: 120px max(20px, env(safe-area-inset-left, 0px)) 48px;
+    height: calc(640 * var(--m));
+    margin-top: calc(-66 * var(--m));
+    padding: 0;
   }
 
   .fondo {
-    background-position: 70% center;
+    background-position: 62% center;
   }
 
   .texto {
-    position: relative;
-    left: 0;
-    top: 0;
+    position: static;
   }
 
   .titulo {
-    font-size: clamp(32px, 8vw, 54px);
-    line-height: 1.2;
-    padding-left: 0;
+    position: absolute;
+    left: calc(46 * var(--m));
+    top: calc(101 * var(--m));
+    width: calc(240 * var(--m));
+    padding: 0;
+    font-size: calc(21.5 * var(--m));
+    line-height: calc(24 * var(--m));
+    letter-spacing: 0;
+  }
+
+  .ligero {
+    letter-spacing: 0.01em;
   }
 
   .cifras {
-    margin-top: 32px;
+    position: absolute;
+    left: calc(30 * var(--m));
+    top: calc(525 * var(--m));
+    margin: 0;
   }
 
   .cifras li,
   .cifras li:first-child,
   .cifras li:nth-child(2) {
     width: auto;
-    height: auto;
-    gap: 8px;
-    padding: 2px 28px 2px 16px;
+    height: calc(32 * var(--m));
+    gap: calc(5 * var(--m));
+    padding: 0 0 0 calc(7 * var(--m));
+  }
+
+  .cifras li:first-child {
+    width: calc(139 * var(--m));
+  }
+
+  .cifras li:nth-child(2) {
+    padding-left: calc(9 * var(--m));
   }
 
   .cifras strong {
-    font-size: 30px;
+    font-size: calc(19 * var(--m));
+    letter-spacing: 0.02em;
   }
 
   .cifras span {
-    font-size: 12px;
+    font-size: calc(7.2 * var(--m));
   }
 
   .botones {
-    margin-top: 32px;
-    gap: 12px;
-    flex-wrap: wrap;
+    position: absolute;
+    left: calc(27 * var(--m));
+    top: calc(586 * var(--m));
+    margin: 0;
+    gap: calc(15 * var(--m));
+    flex-wrap: nowrap;
   }
 
   .boton {
-    height: 52px;
-    font-size: 17px;
-    gap: 16px;
-    padding-inline: 26px 22px;
+    height: calc(31 * var(--m));
+    font-size: calc(9.6 * var(--m));
+    gap: 0;
   }
 
-  .botonDorado,
+  .botonDorado {
+    width: calc(113 * var(--m));
+    padding-inline: calc(15 * var(--m)) calc(13 * var(--m));
+  }
+
   .botonContorno {
-    width: auto;
+    width: calc(129 * var(--m));
+    padding-inline: calc(12 * var(--m)) calc(13 * var(--m));
+  }
+
+  .botonContorno .chevron {
+    color: var(--blanco);
   }
 
   .chevron {
-    width: 7px;
-    height: 14px;
+    width: calc(4 * var(--m));
+    height: calc(8 * var(--m));
   }
 
   .tarjetas {
-    position: relative;
-    left: auto;
-    top: auto;
-    margin-top: 40px;
-    margin-right: calc(-1 * max(20px, env(safe-area-inset-right, 0px)));
-    height: 190px;
+    position: absolute;
+    left: calc(33 * var(--m));
+    right: 0;
+    top: calc(345 * var(--m));
+    height: calc(149 * var(--m));
+    margin: 0;
   }
 
   .pista {
-    --chica: 180;
+    --chica: 118;
     padding-bottom: 0;
-    transform: translateX(calc(var(--corrimiento) * var(--chica) * -1px));
+    transform: translateX(calc(var(--corrimiento) * var(--chica) * -1 * var(--m)));
   }
 
   .tarjeta {
-    width: 180px;
-    height: 114px;
+    width: calc(108 * var(--m));
+    height: calc(68 * var(--m));
+    margin-right: calc(10 * var(--m));
   }
 
   .tarjetaGrande {
-    width: 300px;
-    height: 190px;
+    width: calc(232 * var(--m));
+    height: calc(149 * var(--m));
     margin-bottom: 0;
-    margin-right: 12px;
-  }
-}
-
-@media (max-width: 420px) {
-  .boton {
-    flex: 1 1 100%;
-    justify-content: center;
-    gap: 14px;
+    margin-right: calc(10 * var(--m));
   }
 }

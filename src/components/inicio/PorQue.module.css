@@ -158,66 +158,89 @@
   }
 }
 
-/* ===== Tablet y celular ===== */
+/* ===== Celular (diseño "MOVIL", 25-nov-2026), desde el borde superior de la sección (y2083):
+   etiqueta 7 px centrada en +46; título centrado de 15 px, 2 líneas cada 16 px
+   lista: carril en x37, barra navy de 3 px; títulos de 10.5 px en x49, separados 42 px;
+     texto gris de 11 px cada 14.5 px (ancho 230); flechas en x316
+   foto: x20–342 (322 × 205) en +346, esquinas de 5 px; la sección termina 41 px debajo ===== */
 @media (max-width: 1023px) {
   .seccion {
-    padding: 64px max(20px, env(safe-area-inset-right, 0px)) 64px max(20px, env(safe-area-inset-left, 0px));
+    padding: calc(43 * var(--m)) 0 calc(41 * var(--m));
   }
 
   .etiqueta {
-    font-size: 14px;
+    font-size: calc(7.2 * var(--m));
   }
 
   .titulo {
-    margin-top: 14px;
-    max-width: 18em;
-    font-size: clamp(24px, 5.2vw, 34px);
-    line-height: 1.2;
+    max-width: calc(240 * var(--m));
+    margin-top: calc(8 * var(--m));
+    font-size: calc(15.4 * var(--m));
+    line-height: calc(16 * var(--m));
+    letter-spacing: 0.01em;
   }
 
   .cuerpo {
     grid-template-columns: 1fr;
-    gap: 36px;
-    margin-top: 36px;
-    padding-left: 0;
+    gap: calc(30 * var(--m));
+    margin-top: calc(52 * var(--m));
+    padding: 0;
   }
 
   .lista {
-    width: auto;
+    width: calc(289 * var(--m));
     min-height: 0;
-    margin-top: 0;
-    background-position: 2px 0;
-    background-size: 4px 100%;
+    margin: 0 0 0 calc(36 * var(--m));
+    background-position: calc(1 * var(--m)) 0;
+    background-size: 1px 100%;
   }
 
   .item {
-    padding-left: 28px;
+    padding: 0 0 0 calc(13 * var(--m));
   }
 
-  .item + .item,
+  .item + .item {
+    margin-top: calc(21 * var(--m));
+  }
+
   .activa + .item {
-    margin-top: 14px;
+    margin-top: calc(26 * var(--m));
   }
 
   .activa::before {
-    width: 8px;
-    bottom: -6px;
+    top: calc(-6 * var(--m));
+    bottom: calc(-6 * var(--m));
+    width: calc(3 * var(--m));
   }
 
   .boton {
-    font-size: 17px;
-    gap: 16px;
+    min-height: calc(20 * var(--m));
+    font-size: calc(11.6 * var(--m));
+    gap: calc(10 * var(--m));
   }
 
   .chevron {
-    width: 9px;
-    height: 16px;
+    width: calc(5 * var(--m));
+    height: calc(9 * var(--m));
+    margin-right: 0;
   }
 
   .texto {
-    margin-top: 8px;
-    max-width: none;
-    font-size: 16px;
-    line-height: 1.4;
+    margin-top: calc(10 * var(--m));
+    max-width: calc(230 * var(--m));
+    font-size: calc(12.2 * var(--m));
+    line-height: calc(14.5 * var(--m));
+    letter-spacing: 0;
+    text-align: left;
+  }
+
+  .fotos {
+    width: calc(322 * var(--m));
+    margin-left: calc(20 * var(--m));
+  }
+
+  .foto {
+    aspect-ratio: 322 / 205;
+    border-radius: calc(5 * var(--m));
   }
 }

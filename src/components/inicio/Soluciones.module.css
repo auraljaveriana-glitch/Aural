@@ -138,70 +138,93 @@
   width: 52%;
 }
 
-/* ===== Tablet y celular ===== */
-@media (max-width: 1023px) {
-  .seccion {
-    padding: 72px max(20px, env(safe-area-inset-right, 0px)) 72px max(20px, env(safe-area-inset-left, 0px));
-  }
-
-  .titulo {
-    max-width: 22em;
-    font-size: clamp(22px, 4.6vw, 34px);
-    line-height: 1.23;
-    transform: none;
-  }
-
-  .grilla {
-    width: auto;
-    margin: 40px 0 0;
-    grid-template-columns: 1fr;
-    gap: 16px;
-    max-width: 784px;
-    margin-inline: auto;
-  }
-}
-
-@media (max-width: 560px) {
-  /* en celular la tarjeta es un poco más alta para que el texto no toque la foto */
-  .tarjeta {
-    aspect-ratio: 784 / 430;
-  }
-
-  .etiqueta {
-    font-size: max(11px, calc(18 / 784 * 100cqi));
-  }
-
-  .nombre {
-    font-size: max(21px, calc(48 / 784 * 100cqi));
-    line-height: 1.08;
-    margin-top: 8px;
-  }
-
-  .raya {
-    margin-top: 18px;
-  }
-
-  .sigla {
-    margin-top: 10px;
-    font-size: max(12px, calc(25 / 784 * 100cqi));
-  }
-
-  .flecha {
-    width: 40px;
-  }
-}
-
 /* con título de dos líneas la raya y la sigla quedan a la misma altura que en las demás */
 .dosLineas .raya {
   margin-top: calc(66 / 784 * 100cqi);
 }
 
-@media (max-width: 560px) {
-  .dosLineas {
-    --arriba: 82;
+/* ===== Celular (diseño "MOVIL", 25-nov-2026), desde el borde superior de la sección (y1240):
+   título navy centrado: mayúsculas de 12 px cada 16 px desde +53 (2 líneas)
+   tarjetas 159 × 77 en dos columnas (x13 / x188), filas en +125 / +217
+   dentro de la tarjeta: "AUDÍFONOS" 7.5 px en x14, nombre en negrita 9.5 px, raya, sigla de 5.5 px;
+   flecha en un círculo blanco de 17 px abajo a la derecha ===== */
+@media (max-width: 1023px) {
+  .seccion {
+    padding: calc(48 * var(--m)) 0 calc(49 * var(--m));
   }
 
+  .ondas {
+    display: none;
+  }
+
+  .titulo {
+    max-width: calc(270 * var(--m));
+    font-size: calc(12.2 * var(--m));
+    line-height: calc(16 * var(--m));
+    transform: none;
+  }
+
+  .ligero {
+    letter-spacing: 0.01em;
+  }
+
+  .grilla {
+    width: calc(334 * var(--m));
+    margin: calc(52 * var(--m)) 0 0 calc(13 * var(--m));
+    grid-template-columns: repeat(2, calc(159 * var(--m)));
+    gap: calc(15 * var(--m)) calc(16 * var(--m));
+  }
+
+  .tarjeta {
+    border-radius: calc(2 * var(--m));
+  }
+
+  .texto,
+  .dosLineas {
+    left: calc(14 * var(--m));
+    top: calc(26 * var(--m));
+  }
+
+  .dosLineas {
+    top: calc(26 * var(--m));
+  }
+
+  .etiqueta {
+    font-size: calc(7.4 * var(--m));
+  }
+
+  .nombre {
+    margin: calc(2 * var(--m)) 0 0;
+    font-size: calc(9.6 * var(--m));
+    line-height: calc(11 * var(--m));
+    white-space: nowrap;
+  }
+
+  /* en celular el nombre va en una sola línea */
+  .nombre {
+    white-space: normal;
+  }
+
+  .raya,
   .dosLineas .raya {
-    margin-top: 18px;
+    width: calc(7 * var(--m));
+    height: 1px;
+    margin-top: calc(3 * var(--m));
+    margin-left: calc(13 * var(--m));
+  }
+
+  .sigla {
+    margin: calc(10 * var(--m)) 0 0;
+    font-size: calc(5.6 * var(--m));
+  }
+
+  .flecha {
+    right: calc(6 * var(--m));
+    bottom: calc(6 * var(--m));
+    width: calc(17 * var(--m));
+  }
+
+  .flecha svg {
+    width: 50%;
   }
 }

@@ -236,22 +236,29 @@
   }
 }
 
+/* ===== Celular (diseño "MOVIL", 25-nov-2026): líneas de x47 a x315, la sección mide 500 (y1583–2083)
+   "Nuestros servicios": 7 px centrado en +40; título centrado de 15 px, 2 líneas cada 14 px desde +54
+   círculo: cuartos de 125 px (escala 0.355 del de escritorio), centro en x182, +294 ===== */
 @media (max-width: 1023px) {
   .seccion {
-    --u: min(calc((100vw - 64px) / 784), 0.6px);
-    height: auto;
-    gap: 36px;
-    margin-inline: max(20px, env(safe-area-inset-left, 0px)) max(20px, env(safe-area-inset-right, 0px));
-    padding-block: 56px;
+    display: block;
+    height: calc(500 * var(--m));
+    margin-inline: calc(47 * var(--m)) calc(45 * var(--m));
+    padding: 0;
+    gap: 0;
+    border-width: 1px;
+    overflow: visible;
   }
 
   .izquierda {
     width: auto;
-    padding: 0;
+    align-items: center;
+    padding: calc(37 * var(--m)) 0 0;
+    text-align: center;
   }
 
   .etiqueta {
-    font-size: 14px;
+    font-size: calc(7.2 * var(--m));
   }
 
   .linea {
@@ -259,11 +266,13 @@
   }
 
   .titulo {
-    margin-top: 20px;
+    max-width: calc(230 * var(--m));
     min-height: 0;
-    max-width: 15em;
-    font-size: clamp(26px, 5.6vw, 36px);
-    line-height: 1.27;
+    margin-top: calc(8 * var(--m));
+    padding: 0;
+    font-size: calc(15.4 * var(--m));
+    line-height: calc(14.5 * var(--m));
+    letter-spacing: 0.02em;
   }
 
   .flecha {
@@ -271,10 +280,23 @@
   }
 
   .grafico {
-    --g: min(calc((100vw - 40px) / 1160), 0.6px);
-    position: relative;
-    left: auto;
-    top: auto;
-    margin: 0 auto;
+    --g: calc(0.355 * var(--m));
+    position: absolute;
+    left: calc((182 - 47) * var(--m) - 578.5 * var(--g));
+    top: calc(294 * var(--m) - 537.75 * var(--g));
+    margin: 0;
+  }
+
+  .nombreCentro {
+    font-size: calc(13.2 * var(--m));
+    line-height: calc(14 * var(--m));
+  }
+
+  .abajo {
+    top: calc((611 - 6) * var(--g));
+  }
+
+  .arriba {
+    top: calc(417 * var(--g) - 12 * var(--m));
   }
 }
