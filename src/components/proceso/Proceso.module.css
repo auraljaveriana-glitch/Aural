@@ -941,3 +941,63 @@
     visibility: visible;
   }
 }
+
+
+/* ===== Tarjetas azules (diseño "PROCESO pasos", Jean 25-nov-2026): sin video; fondo azul con
+   degradado, textos y número en blanco, línea blanca y foto con esquinas redondeadas ===== */
+.cine .paso {
+  --linea: rgba(255, 255, 255, 0.75);
+  background: #0a2559;
+  color: var(--blanco);
+  box-shadow: 0 calc(18 * var(--px)) calc(48 * var(--px)) calc(-20 * var(--px)) rgba(4, 30, 66, 0.35);
+}
+
+.cine .pasoFondo {
+  background:
+    radial-gradient(ellipse at 30% 70%, rgba(4, 24, 70, 0.55), transparent 60%),
+    linear-gradient(100deg, #071f51 0%, #0a2b66 45%, #0f3d82 100%);
+}
+
+.cine .pasoFondo::after {
+  display: none;
+}
+
+.cine .paso :global(.scroll-stack-card__shade) {
+  background: #000;
+}
+
+.cine .numero,
+.cine .pasoTitulo,
+.cine .subtitulo,
+.cine .subtituloNavy,
+.cine .texto,
+.cine .textoFuerte,
+.cine .lista li > span:last-child {
+  color: var(--blanco);
+}
+
+.cine .texto {
+  opacity: 0.92;
+}
+
+.cine .foto {
+  border-radius: calc(18 * var(--px));
+}
+
+.cine .lista .icono {
+  filter: brightness(0) invert(1);
+}
+
+.cine .prueba {
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.18);
+}
+
+.cine .puntoDifuso {
+  opacity: 0.5;
+}
+
+/* sin video, el fondo de la página queda blanco */
+.pagina {
+  background: var(--blanco);
+}
