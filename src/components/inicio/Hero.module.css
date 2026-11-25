@@ -133,7 +133,8 @@
   right: 0;
   top: calc(623 * var(--px));
   height: calc(245 * var(--px));
-  overflow: hidden;
+  /* recorta solo a los lados: la tarjeta con el mouse encima puede crecer hacia arriba */
+  clip-path: inset(calc(-400 * var(--px)) 0 calc(-60 * var(--px)) 0);
 }
 
 .pista {
@@ -175,6 +176,28 @@
   margin-right: calc(24 * var(--px));
   opacity: 1;
   box-shadow: 0 calc(10 * var(--px)) calc(30 * var(--px)) rgba(0, 0, 0, 0.35);
+}
+
+/* con el mouse encima la tarjeta se amplía más (Jean, 25-nov-2026) */
+.tarjeta {
+  position: relative;
+  transform-origin: 0 100%;
+}
+
+.tarjeta img {
+  transition: transform 0.45s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+@media (hover: hover) {
+  .tarjetaEncima {
+    z-index: 2;
+  }
+
+  .tarjetaEncima img {
+    transform: scale(1.45);
+    transform-origin: 0 100%;
+    box-shadow: 0 calc(16 * var(--px)) calc(40 * var(--px)) rgba(0, 0, 0, 0.45);
+  }
 }
 
 .quieta,

@@ -52,7 +52,7 @@ export default function TarjetasHero() {
         {lista.map((t, i) => (
           <li
             key={i}
-            className={`${styles.tarjeta} ${i === grande ? styles.tarjetaGrande : ""}`}
+            className={`${styles.tarjeta} ${i === grande ? styles.tarjetaGrande : ""} ${i === encima ? styles.tarjetaEncima : ""}`}
             aria-hidden={i < activa || i >= activa + n ? true : undefined}
             onMouseEnter={() => i >= activa && setEncima(i)}
           >
