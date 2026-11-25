@@ -44,7 +44,10 @@ export default function Header() {
     <header className={`${styles.header} ${flotante ? styles.flotante : ""} ${delgado ? styles.delgado : ""} ${claro ? styles.claro : ""} ${oscuro ? styles.oscuro : ""}`}>
       <Link href="/" className={styles.logo} aria-label="Aural Centros Auditivos, inicio">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        {delgado ? (
+        {oscuro ? (
+          // inicio (Jean, 25-nov-2026): logo blanco sobre la foto oscura
+          <img src="/img/logo-aural-blanco.svg" alt="Aural Centros Auditivos" width={160} height={38} />
+        ) : delgado ? (
           <img src="/img/logo-aural-sin-subtitulo.svg" alt="Aural Centros Auditivos" width={160} height={38} />
         ) : (
           // en celular va sin "Centros auditivos" (diseño "MOVIL")

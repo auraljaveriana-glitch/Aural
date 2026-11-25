@@ -488,9 +488,7 @@
     color: var(--blanco);
   }
 
-  .oscuro .logo img {
-    filter: brightness(0) invert(1);
-  }
+
 
   .flotante {
     top: calc(8 * var(--m));
