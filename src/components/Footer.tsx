@@ -84,6 +84,15 @@ export default function Footer() {
             </li>
             <li>
               <span className={styles.icono}>
+                <IconoTelefono />
+              </span>
+              <span>
+                <span className={styles.etiqueta}>Línea Compensar</span>
+                <a href={`tel:${site.contacto.lineaCompensarTel}`}>{site.contacto.lineaCompensar}</a>
+              </span>
+            </li>
+            <li>
+              <span className={styles.icono}>
                 <IconoCorreo />
               </span>
               <span>

@@ -15,9 +15,11 @@ export const site = {
   valoracionUrl: "https://auralagenda.netlify.app/",
 
   contacto: {
-    // Confirmado por Jean (30-oct-2026)
-    lineaNacional: "601 794 4497",
-    lineaNacionalTel: "+576017944497",
+    // Jean, 25-nov-2026
+    lineaNacional: "316 115 4783",
+    lineaNacionalTel: "+573161154783",
+    lineaCompensar: "315 575 4281",
+    lineaCompensarTel: "+573155754281",
     email: "info@auralcolombia.com",
   },
 
