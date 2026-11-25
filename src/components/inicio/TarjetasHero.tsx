@@ -9,7 +9,7 @@ import styles from "./Hero.module.css";
 const tarjetas = [
   { src: "/img/hero2/experiencia.webp", alt: "La mejor experiencia auditiva. Con la experiencia Widex." },
   { src: "/img/hero2/calendario.webp", alt: "Calendario 2027." },
-  { src: "/img/hero2/descuento.webp", alt: "Escuchar mejor, ayuda más: 12% de descuento en Magnify, Moment y Smart RIC." },
+  { src: "/img/hero2/black-week.webp", alt: "Black Week: 2x1 en audífonos Magnify de pila." },
 ];
 
 const INTERVALO = 4500;
