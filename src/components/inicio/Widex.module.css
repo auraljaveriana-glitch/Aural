@@ -105,11 +105,11 @@
 }
 
 .fotoCargador {
-  /* arranca en el borde superior del bloque gris y termina 7 px antes de la foto pequeña */
+  /* sube hasta la altura de la foto grande (Jean, 25-nov-2026) y termina 7 px antes de la foto pequeña */
   left: calc(1410 * var(--px));
-  top: calc(55 * var(--px));
+  top: calc(3 * var(--px));
   width: calc(479 * var(--px));
-  height: calc(502 * var(--px));
+  height: calc(554 * var(--px));
 }
 
 .fotoPequena {
