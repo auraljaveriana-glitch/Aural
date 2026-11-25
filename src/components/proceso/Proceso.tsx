@@ -215,9 +215,9 @@ export default function Proceso() {
         <ScrollStack
           className={styles.pila}
           useWindowScroll
-          stackPosition="7%"
+          stackPosition="3%"
           itemDistance={120}
-          itemStackDistance={28}
+          itemStackDistance={14}
           itemScale={0.035}
           baseScale={0.88}
           dimAmount={0.06}

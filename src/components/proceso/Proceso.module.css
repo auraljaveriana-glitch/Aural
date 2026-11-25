@@ -1004,10 +1004,10 @@
 
 /* Las tarjetas deben caber completas en la pantalla al quedar fijas (Jean, 25-nov-2026: en pantallas
    bajas se cortaban). La escala de la pila se limita por el alto de la ventana: la tarjeta más alta
-   (850 px de diseño) + su margen de arriba (7 % + 4 tarjetas apiladas de 28 px) + un respiro. */
+   (850 px de diseño) + su margen de arriba (3 % + 4 tarjetas apiladas de 14 px) + un respiro. */
 @media (min-width: 1024px) {
   .cine .pila {
-    --px: min(1px, 100vw / 1920, (93vh - 150px) / 850);
+    --px: min(1px, 100vw / 1920, (97vh - 76px) / 850);
   }
 
   .cine .pila :global(.scroll-stack__inner) {
