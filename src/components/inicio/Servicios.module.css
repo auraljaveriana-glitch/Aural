@@ -141,8 +141,9 @@
   transform-origin: 100% 100%;
 }
 
+/* cuartos de círculo con clip-path (Safari en iPhone no recorta bien con border-radius + overflow) */
 .ai button {
-  border-top-left-radius: 100%;
+  clip-path: circle(100% at 100% 100%);
 }
 
 .ad {
@@ -152,7 +153,7 @@
 }
 
 .ad button {
-  border-top-right-radius: 100%;
+  clip-path: circle(100% at 0 100%);
 }
 
 .bi {
@@ -162,7 +163,7 @@
 }
 
 .bi button {
-  border-bottom-left-radius: 100%;
+  clip-path: circle(100% at 100% 0);
 }
 
 .bd {
@@ -172,7 +173,7 @@
 }
 
 .bd button {
-  border-bottom-right-radius: 100%;
+  clip-path: circle(100% at 0 0);
 }
 
 /* activo: encima del círculo blanco, un poco más grande y con sombra */
@@ -181,8 +182,8 @@
   transform: scale(1.02);
 }
 
-.activo button {
-  box-shadow: calc(6 * var(--g)) calc(10 * var(--g)) calc(26 * var(--g)) rgba(0, 0, 0, 0.3);
+.activo {
+  filter: drop-shadow(calc(6 * var(--g)) calc(10 * var(--g)) calc(14 * var(--g)) rgba(0, 0, 0, 0.3));
 }
 
 .activo img {

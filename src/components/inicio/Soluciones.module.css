@@ -227,4 +227,15 @@
   .flecha svg {
     width: 50%;
   }
+
+  /* en celular las fotos van más pequeñas, a la derecha, para no tapar el nombre (diseño "MOVIL") */
+  .foto {
+    transform: scale(0.7);
+    transform-origin: 85% 50%;
+  }
+
+  .texto,
+  .dosLineas {
+    z-index: 1;
+  }
 }
